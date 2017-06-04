@@ -1,0 +1,13 @@
+/JQ/obj
+/JQ/bin
+/JQ.DataAccess/obj
+/JQ.DataAccess/bin
+/JQ.MongoDb/obj
+/JQ.MongoDb/bin
+/JQ.RabbitMq/obj
+/JQ.RabbitMq/bin
+/JQ.Redis/obj
+/JQ.Redis/bin
+/Monitor.WebManage/obj
+/Monitor.WebManage/bin
+/packages
