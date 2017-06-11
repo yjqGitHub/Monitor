@@ -33,6 +33,7 @@ namespace JQ.Container.Autofac
         public static JQConfiguration UseAutofac(this JQConfiguration configuration, ContainerBuilder containerBuilder)
         {
             ContainerManager.SetContainer(new AutofacObjectContainer(containerBuilder));
+            configuration.AddUnstallAction(() => ContainerManager.SetContainer(null));
             return configuration;
         }
 

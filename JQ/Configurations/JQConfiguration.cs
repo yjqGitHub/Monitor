@@ -16,6 +16,7 @@ namespace JQ.Configurations
     public sealed class JQConfiguration
     {
         private Dictionary<RuntimeTypeHandle, string> _serviceNameDic = new Dictionary<RuntimeTypeHandle, string>();
+        private Queue<Action> _unstallActionList = new Queue<Action>();
 
         private JQConfiguration()
         {
@@ -65,6 +66,27 @@ namespace JQ.Configurations
             return string.Empty;
         }
 
+        /// <summary>
+        /// 添加停止运行时要运行的方法
+        /// </summary>
+        /// <param name="action"></param>
+        public void AddUnstallAction(Action action)
+        {
+            if (action != null)
+            {
+                _unstallActionList.Enqueue(action);
+            }
+        }
+
+        public void Unstall()
+        {
+            while (_unstallActionList.Count > 0)
+            {
+                var action = _unstallActionList.Dequeue();
+                action?.Invoke();
+            }
+        }
+
         #region Register
 
         public JQConfiguration SetDefault<TService, TImplementer>(string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
@@ -106,6 +128,11 @@ namespace JQ.Configurations
             validateCookieKey.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.ValidateCodeCookieKey = validateCookieKey);
 
             return Instance;
+        }
+
+        public static void UnInstall()
+        {
+            Instance.Unstall();
         }
 
         #region 解析获取
