@@ -26,11 +26,10 @@
     <meta name="description" content="系统监控">
 </head>
 <body>
-    <input type="hidden" id="TenantId" name="TenantId" value="" />
     <div class="header"></div>
     <div class="loginWraper">
         <div id="loginform" class="loginBox">
-            <form class="form form-horizontal" action="index.html" method="post">
+            <form class="form form-horizontal" method="post">
                 <div class="row cl">
                     <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
                     <div class="formControls col-xs-8">
@@ -45,8 +44,8 @@
                 </div>
                 <div class="row cl">
                     <div class="formControls col-xs-8 col-xs-offset-3">
-                        <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-                        <img src=""> <a id="kanbuq" href="javascript:;">看不清，换一张</a>
+                        <input class="input-text size-L" type="text" placeholder="验证码" id="FCode" name="FCode" style="width:150px;">
+                        <img src="/Account/ValidateCode" alt="点击切换验证码" title="点击切换验证码" style="margin-top: 0px; vertical-align: top; cursor: pointer;" onclick="ToggleCode(this, '/Account/ValidateCode'); return false;">
                     </div>
                 </div>
                 <div class="row cl">
@@ -58,8 +57,13 @@
             </form>
         </div>
     </div>
+    <div id="loading" onclick="LoadingFunc(false);">
+        正在处理，请稍等。。。
+    </div>
     <div class="footer">Copyright Open Source by yjq</div>
     <script type="text/javascript" src="/Content/lib/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="/Content/static/h-ui/js/H-ui.min.js"></script>
+    <script src="/Content/DomainJs/Account.js"></script>
+    <script src="/Content/CommonJs/DialogJs.js"></script>
 </body>
 </html>

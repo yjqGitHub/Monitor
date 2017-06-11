@@ -39,3 +39,15 @@ body{font-size:14px}
 
 #ie6-warning{background:#fff url(/jscss/demoimg/201006/warning.gif) no-repeat 3px center;position:absolute;top:0;left:0;font-size:12px;color:#333;width:97%;padding: 2px 15px 2px 23px;text-align:left}
 #ie6-warning a {text-decoration:none}
+#loading {
+    position: absolute;
+    z-index: 3000;
+    left: 45%;
+    top: 45%;
+    border: 1px solid #ccc;
+    width: auto;
+    padding: 6px 5px 6px 40px;
+    background: #fff url("../../h-ui/images/loading/loading-b.gif") no-repeat scroll 7px 2px;
+    display: none;
+    cursor: pointer;
+}

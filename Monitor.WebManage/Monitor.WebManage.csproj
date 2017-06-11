@@ -93,7 +93,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\CommonJs\DialogJs.js" />
+    <Content Include="Content\CommonJs\ToolJs.js" />
     <Content Include="Content\DD_belatedPNG_0.0.8a-min.js" />
+    <Content Include="Content\DomainJs\Account.js" />
     <Content Include="Content\expressInstall.swf" />
     <Content Include="Content\html5shiv.js" />
     <Content Include="Content\jselect-1.0.js" />
@@ -327,6 +330,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +351,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -357,7 +362,24 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\lib\layer\3.0.3\skin\" />
-    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JQ.DataAccess\JQ.DataAccess.csproj">
+      <Project>{2756b9ee-e783-42c6-9793-6731e5726e05}</Project>
+      <Name>JQ.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">
+      <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
+      <Name>JQ.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.Redis\JQ.Redis.csproj">
+      <Project>{02ebe948-6720-4126-81b6-d8b6fa962dd0}</Project>
+      <Name>JQ.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ\JQ.csproj">
+      <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
+      <Name>JQ</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

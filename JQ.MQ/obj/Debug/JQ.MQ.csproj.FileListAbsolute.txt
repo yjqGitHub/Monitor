@@ -1,0 +1,17 @@
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\JQ.MQ.dll
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\JQ.MQ.pdb
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\JQ.dll
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\RabbitMQ.Client.dll
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\Newtonsoft.Json.dll
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\NLog.dll
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\Autofac.dll
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\protobuf-net.dll
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\JQ.pdb
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\RabbitMQ.Client.xml
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\Newtonsoft.Json.xml
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\NLog.xml
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\Autofac.xml
+F:\Code\SharedCode\Monitor\JQ.MQ\bin\Debug\protobuf-net.xml
+F:\Code\SharedCode\Monitor\JQ.MQ\obj\Debug\JQ.MQ.csprojResolveAssemblyReference.cache
+F:\Code\SharedCode\Monitor\JQ.MQ\obj\Debug\JQ.MQ.dll
+F:\Code\SharedCode\Monitor\JQ.MQ\obj\Debug\JQ.MQ.pdb

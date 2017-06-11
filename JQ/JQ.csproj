@@ -30,24 +30,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\Monitor\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\Monitor\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\Monitor\packages\NLog.4.4.10\lib\net45\NLog.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.4.4.10\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="protobuf-net, Version=2.2.1.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\Monitor\packages\protobuf-net.2.2.1\lib\net40\protobuf-net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.2.1\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,11 +55,61 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\JQConfiguration.cs" />
+    <Compile Include="Configurations\JQConfigurationExtension.cs" />
+    <Compile Include="Container\Autofac\AutofacConfigurationExtension.cs" />
+    <Compile Include="Container\Autofac\AutofacExtension.cs" />
+    <Compile Include="Container\Autofac\AutofacObjectContainer.cs" />
+    <Compile Include="Container\ContainerManager.cs" />
+    <Compile Include="Container\IObjectContainer.cs" />
+    <Compile Include="Container\LifeStyle.cs" />
+    <Compile Include="Extensions\ActionExtension.cs" />
+    <Compile Include="Extensions\BytesExtension.cs" />
+    <Compile Include="Extensions\ConcurrentDicExtension.cs" />
+    <Compile Include="Extensions\EncryptExtension.cs" />
+    <Compile Include="Extensions\ExceptionExtension.cs" />
+    <Compile Include="Extensions\FilePathExtension.cs" />
+    <Compile Include="Extensions\IEnumerableExtension.cs" />
+    <Compile Include="Extensions\JsonSerializeExtention.cs" />
+    <Compile Include="Extensions\ObjectConvertExtension.cs" />
+    <Compile Include="Extensions\ObjectJudgeExtension.cs" />
+    <Compile Include="JQDisposable.cs" />
+    <Compile Include="JQException.cs" />
+    <Compile Include="Logger\ILogger.cs" />
+    <Compile Include="Logger\ILoggerFactory.cs" />
+    <Compile Include="Logger\NLogger\NLoggerFactory.cs" />
+    <Compile Include="Logger\NLogger\NLogLogger.cs" />
+    <Compile Include="Logger\NLogger\NLogLoggerConfigExtension.cs" />
+    <Compile Include="ParamterValidate\ParameterCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result\AjaxResultInfo.cs" />
+    <Compile Include="Result\AjaxState.cs" />
+    <Compile Include="Result\OperateResult.cs" />
+    <Compile Include="Result\OperateState.cs" />
+    <Compile Include="Serialization\DefaultBinary\DefaultBinarySerializer.cs" />
+    <Compile Include="Serialization\DefaultBinary\DefaultBinarySerializerConfigExtension.cs" />
+    <Compile Include="Serialization\IBinarySerializer.cs" />
+    <Compile Include="Serialization\IJsonSerializer.cs" />
+    <Compile Include="Serialization\NewtonsoftJson\NewtonsoftJsonBinarySerializer.cs" />
+    <Compile Include="Serialization\NewtonsoftJson\NewtonsoftJsonConfigExtension.cs" />
+    <Compile Include="Serialization\NewtonsoftJson\NewtonsoftJsonSerializer.cs" />
+    <Compile Include="Serialization\Protobuf\ProtobufBinarySerializer.cs" />
+    <Compile Include="Serialization\Protobuf\ProtobufBinarySerializerConfigExtension.cs" />
+    <Compile Include="SysConstants\ContentTypeConstant.cs" />
+    <Compile Include="Utils\ExceptionUtil.cs" />
+    <Compile Include="Utils\LogUtil.cs" />
+    <Compile Include="Utils\StringUtil.cs" />
+    <Compile Include="Utils\TypeUtil.cs" />
+    <Compile Include="ValidateCode\ValidateCoder.cs" />
+    <Compile Include="ValidateCode\ValidateCodeType.cs" />
+    <Compile Include="ValidateCode\VerificationCodeHelper.cs" />
+    <Compile Include="Web\CookieHelper.cs" />
+    <Compile Include="Web\WebUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
