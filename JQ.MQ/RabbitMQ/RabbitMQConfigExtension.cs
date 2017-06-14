@@ -11,7 +11,7 @@ namespace JQ.MQ.RabbitMQ
     /// </summary>
     public static class RabbitMQConfigExtension
     {
-        public static JQConfiguration UseRabbitMq(this JQConfiguration configuration)
+        public static JQConfiguration UseRabbitMQ(this JQConfiguration configuration)
         {
             configuration.SetDefault<IMQFactory, RabbitMQFactory>();
             configuration.AddUnstallAction(() => RabbitMQConnectionFactory.DisposeConn());
