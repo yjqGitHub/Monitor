@@ -12,3 +12,7 @@
 /Monitor.WebManage/bin
 /packages
 /.vs
+/JQ.Web.Tool/obj
+/JQ.Web.Tool/bin
+/JQ.MQ/obj
+/JQ.MQ/bin

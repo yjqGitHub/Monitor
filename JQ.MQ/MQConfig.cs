@@ -9,7 +9,7 @@ namespace JQ.MQ
     /// 类功能描述：MQConfig
     /// 创建标识：yjq 2017/6/11 19:05:06
     /// </summary>
-    public sealed class MQConfig
+    public class MQConfig
     {
         public MQConfig(string hostName, string userName, string password)
         {
