@@ -1,5 +1,6 @@
 ﻿//Ajax封装
 function Ajax(config, successCallBack, failedCallBack) {
+    ShowLoading();
     $.ajax(config).done(function (result) {
         if (result.State == 10000) {
             successCallBack && successCallBack(result);
@@ -10,7 +11,9 @@ function Ajax(config, successCallBack, failedCallBack) {
             ShowWarningMsg(result.Message);
             failedCallBack && failedCallBack(result);
         }
+        HideLoading();
     }).fail(function (err) {
+        HideLoading();
         ShowWarningMsg("请求服务失败");
     });
 }

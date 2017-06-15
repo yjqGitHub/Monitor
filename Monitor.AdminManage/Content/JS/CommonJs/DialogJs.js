@@ -1,14 +1,17 @@
-﻿/**
+﻿var loadIndex = -9999;
+
+/**
  * 显示出加载中图片
 */
 function ShowLoading() {
-    $("#loading").show();
+    loadIndex=layer.load();
 }
 /**
  * 隐藏加载中图片
 */
 function HideLoading() {
-    $("#loading").hide();
+    layer.close(loadIndex);
+    //$("#loading").hide();
 }
 /**
  * 隐藏或显示加载中图片

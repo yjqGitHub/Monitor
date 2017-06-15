@@ -25,7 +25,7 @@ namespace JQ.Web.Tool.Filters
             {
                 return;
             }
-            var modelState = ((Controller)(filterContext.Controller)).ModelState;
+            var modelState = filterContext.Controller.ViewData.ModelState;
             if (modelState.IsValid)
             {
                 return;
