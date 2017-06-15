@@ -115,7 +115,7 @@ namespace JQ.Configurations
 
         public static JQConfiguration Instance { get; set; }
 
-        public static JQConfiguration Install(string domainName = null, string defaultLoggerName = null, string validateCode = null, string validateCookieKey = null)
+        public static JQConfiguration Install(string domainName = null, string defaultLoggerName = null, string validateCodeSalt = null, string validateCookieKey = null)
         {
             Instance = new Configurations.JQConfiguration();
             //项目名字
@@ -123,7 +123,7 @@ namespace JQ.Configurations
             //默认的日志记录器名字
             defaultLoggerName.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.DefaultLoggerName = defaultLoggerName);
             //验证码加密盐值
-            validateCode.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.ValidateCodeSalt = validateCode);
+            validateCodeSalt.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.ValidateCodeSalt = validateCodeSalt);
             //设置验证码的cookieKey
             validateCookieKey.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.ValidateCodeCookieKey = validateCookieKey);
 

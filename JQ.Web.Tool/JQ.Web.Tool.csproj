@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="ExcuteHelper.cs" />
     <Compile Include="Filters\CheckLoginAttribute.cs" />
+    <Compile Include="FilterContextExtension.cs" />
     <Compile Include="Filters\JQErrorAttribute.cs" />
+    <Compile Include="Filters\ValidateAttribute.cs" />
     <Compile Include="JQHandleErrorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewResults\JQJsonResult.cs" />

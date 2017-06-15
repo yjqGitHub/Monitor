@@ -23,8 +23,18 @@ namespace JQ.Web.Tool
             IsHavingBack = isHavingBack;
         }
 
-        public JQHandleErrorModel(Exception ex, bool isHaveClose = false, bool isHavingBack = true) : this(ex.Message, isHaveClose: isHaveClose, isHavingBack: isHavingBack)
+        public JQHandleErrorModel(Exception ex, bool isHaveClose = false, bool isHavingBack = true) : this()
         {
+            if (ex is JQException)
+            {
+                ErrorMsg = ex.Message;
+            }
+            else
+            {
+                ErrorMsg = "发生系统错误,请与管理员联系";
+            }
+            IsHaveClose = isHaveClose;
+            IsHavingBack = isHavingBack;
         }
 
         /// <summary>

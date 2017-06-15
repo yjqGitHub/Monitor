@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Monitor.WebManage.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,18 @@ namespace Monitor.WebManage
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BootStrapper.Install();
+        }
+
+        protected void Application_End(object sender, EventArgs e)
+        {
+            BootStrapper.UnInstall();
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            //Exception ex = Server.GetLastError();
+            //LogUtil.Error(ex, memberName: "Application_Error");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using JQ.Extensions;
 using JQ.Result;
 using JQ.SysConstants;
+using System;
 using System.Text;
 using System.Web.Mvc;
 
@@ -39,6 +40,17 @@ namespace JQ.Web.Tool.ViewResults
             context.HttpContext.Response.ContentType = SysConstant.CONTENTTYPE_JSON;
             context.HttpContext.Response.ContentEncoding = ContentEncoding ?? Encoding.UTF8;
             context.HttpContext.Response.Output.Write(Data.ToJson());
+        }
+
+        /// <summary>
+        /// 异常
+        /// </summary>
+        /// <param name="ex">异常信息</param>
+        /// <param name="memberName">调用名字</param>
+        /// <returns></returns>
+        public static JQJsonResult Exception(Exception ex, string memberName = null)
+        {
+            return new JQJsonResult { Data = AjaxResultInfo.Exception(ex, memberName: memberName) };
         }
 
         /// <summary>

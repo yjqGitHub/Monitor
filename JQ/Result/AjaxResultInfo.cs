@@ -84,6 +84,15 @@ namespace JQ.Result
             };
         }
 
+        public static AjaxResultInfo Exception(Exception ex, string memberName = null)
+        {
+            if (ex is JQException)
+            {
+                return new AjaxResultInfo(AjaxState.Failed, ex.Message);
+            }
+            return new AjaxResultInfo(AjaxState.Failed, "发生系统错误,请与管理员联系");
+        }
+
         public static AjaxResultInfo ParamError(string msg)
         {
             return new AjaxResultInfo(AjaxState.Failed, msg);
