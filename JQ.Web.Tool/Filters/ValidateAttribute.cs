@@ -25,7 +25,7 @@ namespace JQ.Web.Tool.Filters
             {
                 return;
             }
-            var modelState = filterContext.Controller.ViewData.ModelState;
+            var modelState = ((Controller)(filterContext.Controller)).ModelState;
             if (modelState.IsValid)
             {
                 return;
@@ -33,19 +33,17 @@ namespace JQ.Web.Tool.Filters
             else
             {
                 StringBuilder sbBuilder = new StringBuilder();
-                //获取所有错误的Key
-                List<string> Keys = modelState.Keys.ToList();
+
                 //获取每一个key对应的ModelStateDictionary
-                foreach (var key in Keys)
+                foreach (var value in modelState.Values)
                 {
-                    var errors = modelState[key].Errors.ToList();
                     //将错误描述添加到sb中
-                    foreach (var error in errors)
+                    foreach (var error in value.Errors)
                     {
                         sbBuilder.Append(error.ErrorMessage).Append(",");
                     }
-                    sbBuilder.Remove(sbBuilder.Length - 1, 1);
                 }
+                sbBuilder.Remove(sbBuilder.Length - 1, 1);
                 filterContext.Result = filterContext.GetParamErrorActionResult(sbBuilder.ToString());
             }
         }
