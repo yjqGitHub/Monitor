@@ -23,5 +23,18 @@ namespace JQ.Extensions
                 action();
             }
         }
+
+        /// <summary>
+        /// 当对象为空或者空白字符串组成时执行
+        /// </summary>
+        /// <param name="obj">要判断的对象</param>
+        /// <param name="action">要执行的方法</param>
+        public static void IsNullOrWhiteSpaceThenExcute(this object obj, Action action)
+        {
+            if (obj.IsNullOrWhiteSpace())
+            {
+                action();
+            }
+        }
     }
 }

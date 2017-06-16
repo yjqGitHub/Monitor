@@ -6,7 +6,7 @@ namespace JQ.ParamterValidate
     /// Copyright (C) 2017 yjq 版权所有。
     /// 类名：ParameterCheck.cs
     /// 类属性：公共类（非静态）
-    /// 类功能描述：ParameterCheck
+    /// 类功能描述：主要用于业务的校验
     /// 创建标识：yjq 2017/6/10 11:33:02
     /// </summary>
     public static class ParameterCheck

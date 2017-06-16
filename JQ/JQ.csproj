@@ -63,6 +63,9 @@
     <Compile Include="Container\ContainerManager.cs" />
     <Compile Include="Container\IObjectContainer.cs" />
     <Compile Include="Container\LifeStyle.cs" />
+    <Compile Include="Domain\Entities\IEntity.cs" />
+    <Compile Include="Domain\Reopsitories\IRepository.cs" />
+    <Compile Include="Domain\Reopsitories\JQBaseRepository.cs" />
     <Compile Include="Extensions\ActionExtension.cs" />
     <Compile Include="Extensions\BytesExtension.cs" />
     <Compile Include="Extensions\ConcurrentDicExtension.cs" />
@@ -96,6 +99,7 @@
     <Compile Include="Serialization\Protobuf\ProtobufBinarySerializer.cs" />
     <Compile Include="Serialization\Protobuf\ProtobufBinarySerializerConfigExtension.cs" />
     <Compile Include="SysConstants\ContentTypeConstant.cs" />
+    <Compile Include="Utils\EnsureUtil.cs" />
     <Compile Include="Utils\ExceptionUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="Utils\StringUtil.cs" />
@@ -109,9 +113,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domain\Reopsitories\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
