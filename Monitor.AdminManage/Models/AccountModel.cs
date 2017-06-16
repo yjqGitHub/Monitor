@@ -1,33 +1,33 @@
-using System.ComponentModel.DataAnnotations;
+ï»¿using System.ComponentModel.DataAnnotations;
 
 namespace Monitor.AdminManage.Models
 {
     /// <summary>
-    /// Copyright (C) 2017 yjq °æÈ¨ËùÓĞ¡£
-    /// ÀàÃû£ºAccountModel.cs
-    /// ÀàÊôĞÔ£º¹«¹²Àà£¨·Ç¾²Ì¬£©
-    /// Àà¹¦ÄÜÃèÊö£ºAccountModel
-    /// ´´½¨±êÊ¶£ºyjq 2017/6/15 23:13:38
+    /// Copyright (C) 2017 yjq ç‰ˆæƒæ‰€æœ‰ã€‚
+    /// ç±»åï¼šAccountModel.cs
+    /// ç±»å±æ€§ï¼šå…¬å…±ç±»ï¼ˆéé™æ€ï¼‰
+    /// ç±»åŠŸèƒ½æè¿°ï¼šAccountModel
+    /// åˆ›å»ºæ ‡è¯†ï¼šyjq 2017/6/15 23:13:38
     /// </summary>
     public sealed class AccountModel
     {
         /// <summary>
-        /// ÓÃ»§Ãû
+        /// ç”¨æˆ·å
         /// </summary>
-        [Required(ErrorMessage = "ÓÃ»§Ãû²»ÄÜÎª¿Õ")]
+        [Required(ErrorMessage = "ç”¨æˆ·åä¸èƒ½ä¸ºç©º")]
         public string UserName { get; set; }
 
         /// <summary>
-        /// ÃÜÂë
+        /// å¯†ç 
         /// </summary>
-        [Required(ErrorMessage = "ÃÜÂë²»ÄÜÎª¿Õ")]
+        [Required(ErrorMessage = "å¯†ç ä¸èƒ½ä¸ºç©º")]
         public string Pwd { get; set; }
 
         /// <summary>
-        /// ÑéÖ¤Âë
+        /// éªŒè¯ç 
         /// </summary>
-        [Required(ErrorMessage = "ÇëÊäÈëÑéÖ¤Âë")]
-        [StringLength(6, ErrorMessage = "ÇëÊäÈëÕıÈ·µÄÑéÖ¤Âë")]
+        [Required(ErrorMessage = "è¯·è¾“å…¥éªŒè¯ç ")]
+        [StringLength(6, ErrorMessage = "è¯·è¾“å…¥æ­£ç¡®çš„éªŒè¯ç ")]
         public string Code { get; set; }
     }
 }
