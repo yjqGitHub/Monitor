@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65B32FEF-76BB-4281-B881-05C36C4AFF53}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Monitor.Domain.DomainServer</RootNamespace>
+    <AssemblyName>Monitor.Domain.DomainServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminDomainServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">
+      <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
+      <Name>JQ.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ\JQ.csproj">
+      <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
+      <Name>JQ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.IDomainServer\Monitor.Domain.IDomainServer.csproj">
+      <Project>{52e416ba-3325-44cd-b1fd-bd7472565b65}</Project>
+      <Name>Monitor.Domain.IDomainServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.IRepository\Monitor.Domain.IRepository.csproj">
+      <Project>{31e20cb0-218c-4cb2-b6a0-4ec335bd3a28}</Project>
+      <Name>Monitor.Domain.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.Repository\Monitor.Domain.Repository.csproj">
+      <Project>{17a659f2-f050-4549-ae46-c6d2848525d1}</Project>
+      <Name>Monitor.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain\Monitor.Domain.csproj">
+      <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
+      <Name>Monitor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
+      <Project>{60b04982-cf40-4d1f-aada-2cb6c11c9896}</Project>
+      <Name>Monitor.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

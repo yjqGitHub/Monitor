@@ -1,0 +1,5 @@
+F:\Code\SharedCode\Monitor\Monitor.Infrastructure\bin\Debug\Monitor.Infrastructure.dll
+F:\Code\SharedCode\Monitor\Monitor.Infrastructure\bin\Debug\Monitor.Infrastructure.pdb
+F:\Code\SharedCode\Monitor\Monitor.Infrastructure\obj\Debug\Monitor.Infrastructure.csprojResolveAssemblyReference.cache
+F:\Code\SharedCode\Monitor\Monitor.Infrastructure\obj\Debug\Monitor.Infrastructure.dll
+F:\Code\SharedCode\Monitor\Monitor.Infrastructure\obj\Debug\Monitor.Infrastructure.pdb

@@ -17,15 +17,32 @@ namespace JQ.ParamterValidate
         /// <typeparam name="T"></typeparam>
         /// <param name="value">要判断的值</param>
         /// <param name="argument">错误后要提示的信息</param>
-        public static void NotNull<T>(this T value, string argument)
+        public static T NotNull<T>(this T value, string argument)
         {
             if (value == null)
             {
                 throw new JQException(argument);
             }
+            return value;
         }
 
         #region 比较是否大于、小于、等于
+
+        /// <summary>
+        /// 比较是否相等
+        /// </summary>
+        /// <typeparam name="T">比较的类型</typeparam>
+        /// <param name="compareValue">要判断的值</param>
+        /// <param name="targetValue">被比较的值</param>
+        /// <param name="msg">错误内容</param>
+        public static T Equal<T>(this T @compareValue, T targetValue, string msg) where T : IComparable<T>
+        {
+            if (!(@compareValue.CompareTo(targetValue) == 0))
+            {
+                throw new JQException(msg);
+            }
+            return @compareValue;
+        }
 
         /// <summary>
         /// 比较是否大于等于
@@ -34,12 +51,13 @@ namespace JQ.ParamterValidate
         /// <param name="compareValue">要判断的值</param>
         /// <param name="targetValue">被比较的值</param>
         /// <param name="msg">错误内容</param>
-        public static void GreaterThanOrEqual<T>(this T @compareValue, T targetValue, string msg) where T : IComparable<T>
+        public static T GreaterThanOrEqual<T>(this T @compareValue, T targetValue, string msg) where T : IComparable<T>
         {
             if (@compareValue.CompareTo(targetValue) < 0)
             {
                 throw new JQException(msg);
             }
+            return @compareValue;
         }
 
         /// <summary>
@@ -49,12 +67,13 @@ namespace JQ.ParamterValidate
         /// <param name="compareValue">要判断的值</param>
         /// <param name="targetValue">被比较的值</param>
         /// <param name="msg">错误内容</param>
-        public static void GreaterThan<T>(this T @compareValue, T targetValue, string msg) where T : IComparable<T>
+        public static T GreaterThan<T>(this T @compareValue, T targetValue, string msg) where T : IComparable<T>
         {
             if (@compareValue.CompareTo(targetValue) <= 0)
             {
                 throw new JQException(msg);
             }
+            return @compareValue;
         }
 
         #endregion 比较是否大于、小于、等于
@@ -66,7 +85,7 @@ namespace JQ.ParamterValidate
         /// </summary>
         /// <param name="input">要判断的字符</param>
         /// <param name="msg">错误信息</param>
-        public static void NotNullAndNotEmptyWhiteSpace(this object input, string msg)
+        public static object NotNullAndNotEmptyWhiteSpace(this object input, string msg)
         {
             if (input == null)
             {
@@ -76,6 +95,7 @@ namespace JQ.ParamterValidate
             {
                 throw new JQException(msg);
             }
+            return input;
         }
 
         #endregion 字符串判断

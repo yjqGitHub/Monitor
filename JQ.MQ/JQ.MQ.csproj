@@ -49,7 +49,7 @@
     <Compile Include="Logger\ILoggerMessage.cs" />
     <Compile Include="Logger\MQLoggerConfig.cs" />
     <Compile Include="Logger\MQLoggerFactory.cs" />
-    <Compile Include="Logger\MQLoggerMessageConfigExtension.cs" />
+    <Compile Include="Logger\MQLoggerMessageConfigurationExtension.cs" />
     <Compile Include="MQAttribute.cs" />
     <Compile Include="MQConfig.cs" />
     <Compile Include="MQExchangeType.cs" />
@@ -58,7 +58,7 @@
     <Compile Include="Logger\MessageType.cs" />
     <Compile Include="Logger\MQLogger.cs" />
     <Compile Include="RabbitMQ\RabbitMQClient.cs" />
-    <Compile Include="RabbitMQ\RabbitMQConfigExtension.cs" />
+    <Compile Include="RabbitMQ\RabbitMQConfigurationExtension.cs" />
     <Compile Include="RabbitMQ\RabbitMQConnectionFactory.cs" />
     <Compile Include="RabbitMQ\RabbitMQFactory.cs" />
   </ItemGroup>
