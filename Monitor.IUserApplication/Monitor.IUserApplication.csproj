@@ -61,9 +61,10 @@
       <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
       <Name>Monitor.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\Monitor.TransDto\Monitor.TransDto.csproj">
+      <Project>{CCDAB82D-E670-4C09-A3DE-E578F5A7B720}</Project>
+      <Name>Monitor.TransDto</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

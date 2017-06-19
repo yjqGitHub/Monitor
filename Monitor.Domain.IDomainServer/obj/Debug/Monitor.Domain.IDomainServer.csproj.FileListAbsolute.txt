@@ -40,3 +40,7 @@ E:\Project\SelfCode\CodeShare\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Emi
 E:\Project\SelfCode\CodeShare\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Monitor.Domain.IDomainServer.dll.config
 E:\Project\SelfCode\CodeShare\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Castle.Core.dll
 E:\Project\SelfCode\CodeShare\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Castle.Core.xml
+F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Monitor.Domain.IDomainServer.dll.config
+F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Castle.Core.dll
+F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\EmitMapper.dll
+F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Castle.Core.xml

@@ -1,11 +1,8 @@
 ﻿using Autofac;
+using JQ.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using JQ.Extensions;
 
 namespace JQ.Container.Autofac
 {
@@ -18,36 +15,19 @@ namespace JQ.Container.Autofac
     /// </summary>
     public sealed class AutofacObjectContainer : IObjectContainer
     {
-        private IContainer _container;
-        private ContainerBuilder _containerBuilder;
+        private readonly IContainer _container;
 
         public AutofacObjectContainer()
         {
-            _containerBuilder = new ContainerBuilder();
+            _container = new ContainerBuilder().Build();
         }
 
         public AutofacObjectContainer(ContainerBuilder builder)
         {
-            _containerBuilder = builder ?? new ContainerBuilder();
+            _container = builder.Build();
         }
-        private static object _ContainerLock = new object();
-        public IContainer Container
-        {
-            get
-            {
-                if (_container == null)
-                {
-                    lock (_ContainerLock)
-                    {
-                        if (_container == null)
-                        {
-                            _container = _containerBuilder.Build();
-                        }
-                    }
-                }
-                return _container;
-            }
-        }
+
+        public IContainer Container { get { return _container; } }
 
         #region 注册
 
@@ -59,12 +39,14 @@ namespace JQ.Container.Autofac
         /// <param name="lifeStyle">生命周期</param>
         public void RegisterType(Type implementationType, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
         {
-            var registrationBuilder = _containerBuilder.RegisterType(implementationType);
+            var builder = new ContainerBuilder();
+            var registrationBuilder = builder.RegisterType(implementationType);
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named(serviceName, implementationType);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
+            builder.Update(_container);
         }
 
         /// <summary>
@@ -76,12 +58,14 @@ namespace JQ.Container.Autofac
         /// <param name="life">生命周期</param>
         public void RegisterType(Type serviceType, Type implementationType, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
         {
-            var registrationBuilder = _containerBuilder.RegisterType(implementationType).As(serviceType);
+            var builder = new ContainerBuilder();
+            var registrationBuilder = builder.RegisterType(implementationType).As(serviceType);
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named(serviceName, implementationType);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
+            builder.Update(_container);
         }
 
         /// <summary>
@@ -95,12 +79,14 @@ namespace JQ.Container.Autofac
             where TService : class
             where TImplementer : class, TService
         {
-            var registrationBuilder = _containerBuilder.RegisterType<TImplementer>().As<TService>();
+            var builder = new ContainerBuilder();
+            var registrationBuilder = builder.RegisterType<TImplementer>().As<TService>();
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named<TService>(serviceName);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
+            builder.Update(_container);
         }
 
         /// <summary>
@@ -115,12 +101,14 @@ namespace JQ.Container.Autofac
             where TService : class
             where TImplementer : class, TService
         {
-            var registrationBuilder = _containerBuilder.RegisterInstance(instance).As<TService>();
+            var builder = new ContainerBuilder();
+            var registrationBuilder = builder.RegisterInstance(instance).As<TService>();
             if (serviceName != null)
             {
                 registrationBuilder.Named<TService>(serviceName);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
+            builder.Update(_container);
         }
 
         /// <summary>
@@ -133,12 +121,14 @@ namespace JQ.Container.Autofac
         {
             if (assemblies != null)
             {
-                var registrationBuilder = _containerBuilder.RegisterAssemblyTypes(assemblies);
+                var builder = new ContainerBuilder();
+                var registrationBuilder = builder.RegisterAssemblyTypes(assemblies);
                 if (predicate != null)
                 {
                     registrationBuilder.Where(predicate);
                 }
                 registrationBuilder.SetLifeStyle(lifeStyle);
+                builder.Update(_container);
             }
         }
 

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using JQ.Result;
+using Monitor.TransDto.Admin;
 
 namespace Monitor.IUserApplication
 {
@@ -15,5 +12,12 @@ namespace Monitor.IUserApplication
     /// </summary>
     public interface IAdminApplication
     {
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="pwd">密码</param>
+        /// <returns>用户信息</returns>
+        IOperateResult<AdminDto> Login(string userName, string pwd);
     }
 }

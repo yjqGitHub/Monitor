@@ -1,5 +1,6 @@
 ﻿using Castle.DynamicProxy;
 using JQ.Result;
+using JQ.Utils;
 using System;
 
 namespace JQ.Intercept
@@ -19,9 +20,16 @@ namespace JQ.Intercept
             {
                 invocation.Proceed();
             }
+            catch (JQException ex)
+            {
+                invocation.ReturnValue = OperateUtil.Exception(ex);
+                string message = $"{invocation.MethodInvocationTarget.Name}-{invocation.Method.Name}:{ex.Message}";
+                LogUtil.Info(message);
+            }
             catch (Exception ex)
             {
                 invocation.ReturnValue = OperateUtil.Exception(ex);
+                LogUtil.Error(ex, memberName: $"{invocation.MethodInvocationTarget.Name}-{invocation.Method.Name}");
             }
         }
     }

@@ -54,3 +54,7 @@ E:\Project\SelfCode\CodeShare\Monitor\Monitor.Domain\bin\Debug\EmitMapper.dll
 E:\Project\SelfCode\CodeShare\Monitor\Monitor.Domain\bin\Debug\Monitor.Domain.dll.config
 E:\Project\SelfCode\CodeShare\Monitor\Monitor.Domain\bin\Debug\Castle.Core.dll
 E:\Project\SelfCode\CodeShare\Monitor\Monitor.Domain\bin\Debug\Castle.Core.xml
+F:\Code\SharedCode\Monitor\Monitor.Domain\bin\Debug\Monitor.Domain.dll.config
+F:\Code\SharedCode\Monitor\Monitor.Domain\bin\Debug\Castle.Core.dll
+F:\Code\SharedCode\Monitor\Monitor.Domain\bin\Debug\EmitMapper.dll
+F:\Code\SharedCode\Monitor\Monitor.Domain\bin\Debug\Castle.Core.xml

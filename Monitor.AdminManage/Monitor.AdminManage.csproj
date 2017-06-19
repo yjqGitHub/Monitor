@@ -45,6 +45,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -400,6 +408,42 @@
       <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
       <Name>JQ</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.DomainServer\Monitor.Domain.DomainServer.csproj">
+      <Project>{65b32fef-76bb-4281-b881-05c36c4aff53}</Project>
+      <Name>Monitor.Domain.DomainServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.IDomainServer\Monitor.Domain.IDomainServer.csproj">
+      <Project>{52e416ba-3325-44cd-b1fd-bd7472565b65}</Project>
+      <Name>Monitor.Domain.IDomainServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.IRepository\Monitor.Domain.IRepository.csproj">
+      <Project>{31e20cb0-218c-4cb2-b6a0-4ec335bd3a28}</Project>
+      <Name>Monitor.Domain.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.Repository\Monitor.Domain.Repository.csproj">
+      <Project>{17a659f2-f050-4549-ae46-c6d2848525d1}</Project>
+      <Name>Monitor.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain\Monitor.Domain.csproj">
+      <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
+      <Name>Monitor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
+      <Project>{60b04982-cf40-4d1f-aada-2cb6c11c9896}</Project>
+      <Name>Monitor.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.IUserApplication\Monitor.IUserApplication.csproj">
+      <Project>{3F37FD22-B0CA-4F23-AFF1-811B05606E7E}</Project>
+      <Name>Monitor.IUserApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.TransDto\Monitor.TransDto.csproj">
+      <Project>{ccdab82d-e670-4c09-a3de-e578f5a7b720}</Project>
+      <Name>Monitor.TransDto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.UserApplication\Monitor.UserApplication.csproj">
+      <Project>{085b712b-38c4-45f0-af64-4cf372a7756e}</Project>
+      <Name>Monitor.UserApplication</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Index.cshtml" />
@@ -447,6 +491,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Config\ipdata.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NLog.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

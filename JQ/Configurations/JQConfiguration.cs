@@ -167,21 +167,21 @@ namespace JQ.Configurations
 
         public static JQConfiguration Instance { get; set; }
 
-        public static JQConfiguration Install(string domainName = null, string appConfigPath = null, bool? isStartConfigWatch = null, string defaultLoggerName = null, string validateCodeSalt = null, string validateCookieKey = null)
+        public static JQConfiguration Install(string domainName = null, string appConfigPath = null, bool? isStartConfigWatch = null, string defaultLoggerName = null, string validateCodeSalt = null, string validateCookieKey = null, string ipdataPath = null)
         {
             Instance = new JQConfiguration();
             //项目名字
             domainName.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.AppDomainName = domainName);
             //配置文件路径
             appConfigPath.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.AppConfigPath = appConfigPath);
-            isStartConfigWatch.IsNotNullThenExcute(() => ConfigWacherUtil.Install());
             //默认的日志记录器名字
             defaultLoggerName.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.DefaultLoggerName = defaultLoggerName);
             //验证码加密盐值
             validateCodeSalt.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.ValidateCodeSalt = validateCodeSalt);
             //设置验证码的cookieKey
             validateCookieKey.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.ValidateCodeCookieKey = validateCookieKey);
-
+            //设置IP解析的文件路径
+            ipdataPath.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.IpDataPath = ipdataPath);
             return Instance;
         }
 

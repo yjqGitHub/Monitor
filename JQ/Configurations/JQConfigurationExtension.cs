@@ -1,9 +1,9 @@
-﻿using JQ.Container.Autofac;
-using JQ.Serialization.NewtonsoftJson;
+﻿using JQ.Logger.NLogger;
 using JQ.Serialization.DefaultBinary;
+using JQ.Serialization.NewtonsoftJson;
 using JQ.Serialization.Protobuf;
-using JQ.Logger.NLogger;
 using JQ.Utils;
+using JQ.Container.Autofac;
 
 namespace JQ.Configurations
 {

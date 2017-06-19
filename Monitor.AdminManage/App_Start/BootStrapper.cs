@@ -1,4 +1,13 @@
+using Autofac;
+using Autofac.Integration.Mvc;
 using JQ.Configurations;
+using JQ.Container;
+using JQ.Container.Autofac;
+using JQ.MongoDb;
+using JQ.MQ.RabbitMQ;
+using JQ.Utils;
+using System.Reflection;
+using System.Web.Mvc;
 
 namespace Monitor.AdminManage.App_Start
 {
@@ -16,13 +25,42 @@ namespace Monitor.AdminManage.App_Start
         /// </summary>
         public static void Install()
         {
+            var repositoryAssembly = Assembly.Load("Monitor.Domain.Repository");
+            var domainServiceAssembly = Assembly.Load("Monitor.Domain.DomainServer");
+            var userApplicationAssembly = Assembly.Load("Monitor.UserApplication");
 
             JQConfiguration.Install(
                 domainName: "Monitor",
                 validateCodeSalt: "Monitor.ValidateCode",
                 isStartConfigWatch: true,
+                defaultLoggerName: "Monitor.Public.*",
                 validateCookieKey: "Monitor.ValidateCode"
-                ).UseDefaultConfig();
+                )
+                .UseDefaultConfig()
+                .UseMongoDb()
+                .UseRabbitMQ()
+                .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
+                .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
+                .RegisterAssemblyTypes(userApplicationAssembly, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
+                ;
+
+            //×¢²á¿ØÖÆÆ÷
+            RegisterControllers();
+            ConfigWacherUtil.Install();
+        }
+
+        /// <summary>
+        /// ×¢²á¿ØÖÆÆ÷
+        /// </summary>
+        /// <param name="builder"></param>
+        private static void RegisterControllers()
+        {
+            var container = (ContainerManager.Current as AutofacObjectContainer).Container;
+            //×¢²á¿ØÖÆÆ÷
+            var builder = new ContainerBuilder();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.Update(container);
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 
         /// <summary>
