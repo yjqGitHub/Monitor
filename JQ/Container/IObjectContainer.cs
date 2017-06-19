@@ -62,6 +62,15 @@ namespace JQ.Container
         /// <param name="lifeStyle">生命周期</param>
         void RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.PerLifetimeScope);
 
+        /// <summary>
+        /// 根据程序集注册
+        /// </summary>
+        /// <param name="assemblies">程序集</param>
+        /// <param name="interceptType">Aop类型</param>
+        /// <param name="predicate">筛选条件</param>
+        /// <param name="lifeStyle">生命周期</param>
+        void RegisterAssemblyTypes(Assembly assemblies, Type interceptType, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.PerLifetimeScope);
+
         #endregion 注册
 
         #region 解析获取

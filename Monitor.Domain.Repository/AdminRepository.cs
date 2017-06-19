@@ -1,4 +1,5 @@
 ﻿using JQ.MongoDb;
+using Monitor.Domain.IRepository;
 using Monitor.Domain.Model;
 using Monitor.Domain.Repository.Constants;
 
@@ -11,7 +12,7 @@ namespace Monitor.Domain.Repository
     /// 类功能描述：AdminRepository
     /// 创建标识：yjq 2017/6/18 18:11:41
     /// </summary>
-    public sealed class AdminRepository : MongoBaseRepository<AdminInfo>
+    public sealed class AdminRepository : MongoBaseRepository<AdminInfo>, IAdminRepository
     {
         public AdminRepository(IMongoDatabaseProvider databaseProvider) : base(databaseProvider, RepositoryConstant.MonitorMongoDbConfig)
         {

@@ -66,7 +66,7 @@ namespace JQ.Configurations
 
         private string GetDefaultAppConfigPath()
         {
-            return FileUtil.GetDomianPath() + "/AppData/Config/AppSetting.config";
+            return FileUtil.GetDomianPath() + "/App_Data/Config/AppSetting.config";
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace JQ.Configurations
 
         private string GetDefaultIpDataPath()
         {
-            return FileUtil.GetDomianPath() + "/AppData/Config/ipdata.config";
+            return FileUtil.GetDomianPath() + "/App_Data/Config/ipdata.config";
         }
 
         /// <summary>
@@ -160,6 +160,12 @@ namespace JQ.Configurations
         public JQConfiguration RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.Transient)
         {
             ContainerManager.RegisterAssemblyTypes(assemblies, predicate, lifeStyle);
+            return this;
+        }
+
+        public JQConfiguration RegisterAssemblyTypes(Assembly assemblies, Type interceptType, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.Transient)
+        {
+            ContainerManager.RegisterAssemblyTypes(assemblies, interceptType, predicate, lifeStyle);
             return this;
         }
 

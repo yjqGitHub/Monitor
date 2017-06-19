@@ -20,7 +20,7 @@ namespace Monitor.UserApplication
     /// 类功能描述：
     /// 创建标识：yjq 2017/6/19 11:39:06
     /// </summary>
-    public sealed class AdminApplication : IAdminApplication
+    public class AdminApplication : IAdminApplication
     {
         private readonly IAdminDomainServer _adminDomainServer;
         private readonly IAdminRepository _adminRepository;

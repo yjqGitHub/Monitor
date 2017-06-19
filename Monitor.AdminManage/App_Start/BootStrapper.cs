@@ -3,6 +3,7 @@ using Autofac.Integration.Mvc;
 using JQ.Configurations;
 using JQ.Container;
 using JQ.Container.Autofac;
+using JQ.Intercept;
 using JQ.MongoDb;
 using JQ.MQ.RabbitMQ;
 using JQ.Utils;
@@ -41,7 +42,7 @@ namespace Monitor.AdminManage.App_Start
                 .UseRabbitMQ()
                 .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                 .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
-                .RegisterAssemblyTypes(userApplicationAssembly, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
+                .RegisterAssemblyTypes(userApplicationAssembly, typeof(BusinessDealIntercept), m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
                 ;
 
             //×¢²á¿ØÖÆÆ÷

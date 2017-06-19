@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
 using JQ.Extensions;
 using System;
 using System.Linq;
@@ -127,7 +128,32 @@ namespace JQ.Container.Autofac
                 {
                     registrationBuilder.Where(predicate);
                 }
-                registrationBuilder.SetLifeStyle(lifeStyle);
+                registrationBuilder.AsImplementedInterfaces().SetLifeStyle(lifeStyle);
+                builder.Update(_container);
+            }
+        }
+
+        /// <summary>
+        /// 根据程序集注册
+        /// </summary>
+        /// <param name="assemblies">程序集</param>
+        /// <param name="interceptType">Aop类型</param>
+        /// <param name="predicate">筛选条件</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public void RegisterAssemblyTypes(Assembly assemblies, Type interceptType, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.PerLifetimeScope)
+        {
+            if (assemblies != null)
+            {
+                
+                var builder = new ContainerBuilder();
+                builder.RegisterType(interceptType).InstancePerLifetimeScope();
+                var registrationBuilder = builder.RegisterAssemblyTypes(assemblies);
+                if (predicate != null)
+                {
+                    registrationBuilder.Where(predicate);
+                }
+                registrationBuilder.AsImplementedInterfaces().InterceptedBy(interceptType).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
+               
                 builder.Update(_container);
             }
         }

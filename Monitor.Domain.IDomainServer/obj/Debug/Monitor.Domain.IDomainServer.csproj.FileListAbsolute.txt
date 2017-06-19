@@ -44,3 +44,5 @@ F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Monitor.Domain
 F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Castle.Core.dll
 F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\EmitMapper.dll
 F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Castle.Core.xml
+F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Autofac.Extras.DynamicProxy.dll
+F:\Code\SharedCode\Monitor\Monitor.Domain.IDomainServer\bin\Debug\Autofac.Extras.DynamicProxy.xml
