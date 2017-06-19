@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using JQ.Web;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 
 namespace Monitor.Domain.ValueObject
@@ -12,6 +13,28 @@ namespace Monitor.Domain.ValueObject
     /// </summary>
     public class LoginLog
     {
+        public LoginLog()
+        {
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loginTime">登录时间</param>
+        /// <param name="loginIp">登录Ip</param>
+        /// <param name="loginAddress">登录地址</param>
+        /// <param name="sitrPort">登录端口</param>
+        /// <param name="userAgent">登录端口信息</param>
+        public LoginLog(DateTime loginTime, string loginIp, SitePort sitrPort, string userAgent) : this()
+        {
+            LoginTime = loginTime;
+            LoginIp = loginIp;
+            LoginAddress = IpDataHelper.SearchLocation(loginIp)?.ToString();
+            LoginSitePort = sitrPort;
+            LoginUserAgent = userAgent;
+        }
+
         /// <summary>
         /// 登录时间
         /// </summary>

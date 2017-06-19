@@ -1,5 +1,6 @@
 ﻿using JQ.Container;
 using JQ.Extensions;
+using JQ.Utils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -17,6 +18,8 @@ namespace JQ.Configurations
     {
         private Dictionary<RuntimeTypeHandle, string> _serviceNameDic = new Dictionary<RuntimeTypeHandle, string>();
         private Queue<Action> _unstallActionList = new Queue<Action>();
+        private string _appConfigPath;
+        private string _ipDataPath;
 
         private JQConfiguration()
         {
@@ -41,6 +44,54 @@ namespace JQ.Configurations
         /// 设置验证码的cookieKey
         /// </summary>
         public string ValidateCodeCookieKey { get; set; } = "JQ_ValidateCode";
+
+        /// <summary>
+        /// 配置文件的路径
+        /// </summary>
+        public string AppConfigPath
+        {
+            get
+            {
+                if (_appConfigPath.IsNullOrWhiteSpace())
+                {
+                    _appConfigPath = GetDefaultAppConfigPath();
+                }
+                return _appConfigPath;
+            }
+            set
+            {
+                _appConfigPath = value;
+            }
+        }
+
+        private string GetDefaultAppConfigPath()
+        {
+            return FileUtil.GetDomianPath() + "/AppData/Config/AppSetting.config";
+        }
+
+        /// <summary>
+        /// 解析IP的文件路径
+        /// </summary>
+        public string IpDataPath
+        {
+            get
+            {
+                if (_ipDataPath.IsNullOrWhiteSpace())
+                {
+                    _ipDataPath = GetDefaultIpDataPath();
+                }
+                return _ipDataPath;
+            }
+            set
+            {
+                _ipDataPath = value;
+            }
+        }
+
+        private string GetDefaultIpDataPath()
+        {
+            return FileUtil.GetDomianPath() + "/AppData/Config/ipdata.config";
+        }
 
         /// <summary>
         /// 添加注册的服务名字与类型的匹配
@@ -70,12 +121,13 @@ namespace JQ.Configurations
         /// 添加停止运行时要运行的方法
         /// </summary>
         /// <param name="action"></param>
-        public void AddUnstallAction(Action action)
+        public JQConfiguration AddUnstallAction(Action action)
         {
             if (action != null)
             {
                 _unstallActionList.Enqueue(action);
             }
+            return this;
         }
 
         public void Unstall()
@@ -115,11 +167,14 @@ namespace JQ.Configurations
 
         public static JQConfiguration Instance { get; set; }
 
-        public static JQConfiguration Install(string domainName = null, string defaultLoggerName = null, string validateCodeSalt = null, string validateCookieKey = null)
+        public static JQConfiguration Install(string domainName = null, string appConfigPath = null, bool? isStartConfigWatch = null, string defaultLoggerName = null, string validateCodeSalt = null, string validateCookieKey = null)
         {
-            Instance = new Configurations.JQConfiguration();
+            Instance = new JQConfiguration();
             //项目名字
             domainName.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.AppDomainName = domainName);
+            //配置文件路径
+            appConfigPath.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.AppConfigPath = appConfigPath);
+            isStartConfigWatch.IsNotNullThenExcute(() => ConfigWacherUtil.Install());
             //默认的日志记录器名字
             defaultLoggerName.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.DefaultLoggerName = defaultLoggerName);
             //验证码加密盐值

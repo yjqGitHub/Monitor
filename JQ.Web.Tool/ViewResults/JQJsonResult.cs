@@ -84,12 +84,12 @@ namespace JQ.Web.Tool.ViewResults
             return new JQJsonResult { Data = AjaxResultInfo.Success(msg, data) };
         }
 
-        public static JQJsonResult Create<T>(OperateResult<T> operateResult)
+        public static JQJsonResult Create<T>(IOperateResult<T> operateResult)
         {
             return new JQJsonResult { Data = operateResult.ToAjaxResult() };
         }
 
-        public static JQJsonResult Create(OperateResult operateResult)
+        public static JQJsonResult Create(IOperateResult operateResult)
         {
             return new JQJsonResult { Data = operateResult.ToAjaxResult() };
         }

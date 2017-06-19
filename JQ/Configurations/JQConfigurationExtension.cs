@@ -3,6 +3,7 @@ using JQ.Serialization.NewtonsoftJson;
 using JQ.Serialization.DefaultBinary;
 using JQ.Serialization.Protobuf;
 using JQ.Logger.NLogger;
+using JQ.Utils;
 
 namespace JQ.Configurations
 {
@@ -23,7 +24,8 @@ namespace JQ.Configurations
                          .UseDefaultBinarySerializer()
                          .UseProtobufBinarySerializer()
                          .UseNLog()
-                          ;
+                         .AddUnstallAction(() => FileWatchUtil.UnInstall());
+            ;
 
             return configuration;
         }

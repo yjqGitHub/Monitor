@@ -12,6 +12,19 @@ namespace JQ.Extensions
     public static partial class ActionExtension
     {
         /// <summary>
+        /// 当对象不为空时才执行方法
+        /// </summary>
+        /// <param name="obj">要判断的对象</param>
+        /// <param name="action">要执行的方法</param>
+        public static void IsNotNullThenExcute(this object obj, Action action)
+        {
+            if (obj.IsNotNull())
+            {
+                action();
+            }
+        }
+
+        /// <summary>
         /// 当对象不为空且不是由空白字符组成是才执行方法
         /// </summary>
         /// <param name="obj">要判断的对象</param>

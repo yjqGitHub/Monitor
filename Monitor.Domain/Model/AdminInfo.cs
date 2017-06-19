@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using JQ.Web;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Monitor.Domain.ValueObject;
 using Monitor.Infrastructure.FriendMessage;
@@ -92,7 +93,8 @@ namespace Monitor.Domain.Model
         /// <summary>
         /// 登录记录
         /// </summary>
-        public List<LoginRecordInfo> LoginRecords { get; set; }
+        [BsonIgnore]
+        public virtual List<LoginRecordInfo> LoginRecords { get; set; }
 
         /// <summary>
         /// 校验是否可以登录
@@ -107,6 +109,15 @@ namespace Monitor.Domain.Model
                     throw new JQ.JQException(FriendMessage.USER_DISABLED);
                 default: break;
             }
+        }
+
+        /// <summary>
+        /// 更改上次登录信息
+        /// </summary>
+        /// <param name="sitePort">登录站点</param>
+        public void ChangeLastLoginInfo(SitePort sitePort)
+        {
+            this.LastLoginInfo = new LoginLog(DateTime.Now, WebUtil.GetRealIP(), sitePort, WebUtil.GetUserAgent());
         }
     }
 }

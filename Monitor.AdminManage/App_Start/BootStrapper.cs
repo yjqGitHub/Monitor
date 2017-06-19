@@ -16,7 +16,13 @@ namespace Monitor.AdminManage.App_Start
         /// </summary>
         public static void Install()
         {
-            JQConfiguration.Install("Monitor", "Monitor", "Monitor.ValidateCode", "Monitor.ValidateCode").UseDefaultConfig();
+
+            JQConfiguration.Install(
+                domainName: "Monitor",
+                validateCodeSalt: "Monitor.ValidateCode",
+                isStartConfigWatch: true,
+                validateCookieKey: "Monitor.ValidateCode"
+                ).UseDefaultConfig();
         }
 
         /// <summary>
