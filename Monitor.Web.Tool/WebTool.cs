@@ -18,10 +18,10 @@ namespace Monitor.Web.Tool
     {
         #region 验证码
 
-        private const string _ValidateCodeCookieKey = "Monitor.ValidateCode";
+        private const string _VALIDATCODE_COOKIEKEY = "Monitor.ValidateCode";
 
         //todo 改为动态配置
-        private const string _ValidateCodeSalt = "Monitor.ValidateCodeSalt";
+        private const string _VALIDATCODE_SALT = "Monitor.ValidateCodeSalt";
 
         /// <summary>
         /// 设置验证码
@@ -29,7 +29,7 @@ namespace Monitor.Web.Tool
         /// <param name="codeValue">验证码值</param>
         public static void SetCode(string codeValue)
         {
-            CookieHelper.SetCookie(_ValidateCodeCookieKey, (codeValue + _ValidateCodeSalt).ToMd5(), DateTime.Now.AddMinutes(2));
+            CookieHelper.SetCookie(_VALIDATCODE_COOKIEKEY, (codeValue + _VALIDATCODE_SALT).ToMd5(), DateTime.Now.AddMinutes(2));
         }
 
         /// <summary>
@@ -39,12 +39,12 @@ namespace Monitor.Web.Tool
         /// <returns>正确返回true</returns>
         public static bool CheckCode(string codeValue)
         {
-            string savedCodeValue = CookieHelper.GetCookieValue(_ValidateCodeCookieKey);
+            string savedCodeValue = CookieHelper.GetCookieValue(_VALIDATCODE_COOKIEKEY);
             if (codeValue.IsNullOrWhiteSpace())
             {
                 return false;
             }
-            return string.Equals(savedCodeValue, (codeValue + _ValidateCodeSalt).ToMd5());
+            return string.Equals(savedCodeValue, (codeValue + _VALIDATCODE_SALT).ToMd5());
         }
 
         #endregion 验证码
@@ -52,13 +52,13 @@ namespace Monitor.Web.Tool
         #region 用户Cookie设置 todo 将改为设置一个sign在前端，利用sign在缓存获取当前登录用户信息
 
         //todo 改为动态配置
-        private const string _LoginUserProviderKey = "Monitor.CurrentUser";
+        private const string _CURRENTUSER_PROVIDERKEY = "Monitor.CurrentUser";
 
-        private const string _LoginUserCookiecKey = "Monitor_CurrentUser";
-        private const string _LoginUserSignCookieKey = "Monitor_CurrentUser_Sign";
+        private const string _CURRENTUSER_COOKIEKEY = "Monitor_CurrentUser";
+        private const string _CURRENTUSER_SIGN_COOKIEKEY = "Monitor_CurrentUser_Sign";
 
         //todo 改为动态配置
-        private const string _LoginUserSignSalt = "Monitor_CurrentUser_Sign";
+        private const string _CURRENTUSER_SIGN_SALT = "Monitor_CurrentUser_Sign";
 
         /// <summary>
         /// 用户Cookie设置
@@ -68,11 +68,11 @@ namespace Monitor.Web.Tool
         {
             if (userInfo == null) return;
             var userBytes = userInfo.AdminId.ToString().ToBytes();
-            var encodeBytes = DESProviderUtil.Encode(userBytes, _LoginUserProviderKey);
+            var encodeBytes = DESProviderUtil.Encode(userBytes, _CURRENTUSER_PROVIDERKEY);
             var userStr = encodeBytes.ToStr();
-            CookieHelper.SetCookie(_LoginUserCookiecKey, userStr);
-            string sign = (userStr + _LoginUserSignSalt).ToMd5();
-            CookieHelper.SetCookie(_LoginUserSignCookieKey, sign);
+            CookieHelper.SetCookie(_CURRENTUSER_COOKIEKEY, userStr);
+            string sign = (userStr + _CURRENTUSER_SIGN_SALT).ToMd5();
+            CookieHelper.SetCookie(_CURRENTUSER_SIGN_COOKIEKEY, sign);
         }
 
         /// <summary>
@@ -81,13 +81,13 @@ namespace Monitor.Web.Tool
         /// <returns>当前用户ID</returns>
         public static ObjectId GetCurrentUserId()
         {
-            string sign = CookieHelper.GetCookieValue(_LoginUserSignCookieKey);
-            string userStr = CookieHelper.GetCookieValue(_LoginUserCookiecKey);
-            string checkSign = (userStr + _LoginUserSignSalt).ToMd5();
+            string sign = CookieHelper.GetCookieValue(_CURRENTUSER_SIGN_COOKIEKEY);
+            string userStr = CookieHelper.GetCookieValue(_CURRENTUSER_COOKIEKEY);
+            string checkSign = (userStr + _CURRENTUSER_SIGN_SALT).ToMd5();
             if (sign.Equals(checkSign))
             {
                 var encodeUserBytes = userStr.ToBytes();
-                var userBytes = DESProviderUtil.Decode(encodeUserBytes, _LoginUserProviderKey);
+                var userBytes = DESProviderUtil.Decode(encodeUserBytes, _CURRENTUSER_PROVIDERKEY);
                 ObjectId userId;
                 if (ObjectId.TryParse(userBytes.ToStr(), out userId))
                 {
