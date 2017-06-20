@@ -3,7 +3,7 @@ using JQ.ParamterValidate;
 using Monitor.Domain.IDomainServer;
 using Monitor.Domain.IRepository;
 using Monitor.Domain.Model;
-using Monitor.Infrastructure.FriendMessage;
+using Monitor.Infrastructure.FriendlyMessage;
 
 namespace Monitor.Domain.DomainServer
 {
@@ -30,7 +30,7 @@ namespace Monitor.Domain.DomainServer
         /// <param name="pwd">密码</param>
         public void LoginCheck(AdminInfo adminInfo, string pwd)
         {
-            adminInfo.NotNull(FriendMessage.USER_OR_PWD_ERROR);
+            adminInfo.NotNull(FriendlyMessage.USER_OR_PWD_ERROR);
             adminInfo.CheckCanLogin();
             CheckPwd(adminInfo, pwd);
         }
@@ -43,7 +43,7 @@ namespace Monitor.Domain.DomainServer
         public void CheckPwd(AdminInfo adminInfo, string pwd)
         {
             string loginPwd = string.Concat(pwd, adminInfo.PwdSalt).ToMd5();
-            adminInfo.Pwd.Equal(loginPwd, FriendMessage.USER_OR_PWD_ERROR);
+            adminInfo.Pwd.Equal(loginPwd, FriendlyMessage.USER_OR_PWD_ERROR);
         }
     }
 }

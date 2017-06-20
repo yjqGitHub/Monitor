@@ -7,6 +7,7 @@ using JQ.Intercept;
 using JQ.MongoDb;
 using JQ.MQ.RabbitMQ;
 using JQ.Utils;
+using System;
 using System.Reflection;
 using System.Web.Mvc;
 
@@ -31,18 +32,16 @@ namespace Monitor.AdminManage.App_Start
             var userApplicationAssembly = Assembly.Load("Monitor.UserApplication");
 
             JQConfiguration.Install(
-                domainName: "Monitor",
-                validateCodeSalt: "Monitor.ValidateCode",
-                isStartConfigWatch: true,
-                defaultLoggerName: "Monitor.Public.*",
-                validateCookieKey: "Monitor.ValidateCode"
-                )
-                .UseDefaultConfig()
-                .UseMongoDb()
-                .UseRabbitMQ()
-                .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
-                .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
-                .RegisterAssemblyTypes(userApplicationAssembly, typeof(BusinessDealIntercept), m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
+                                    domainName: "Monitor",
+                                    isStartConfigWatch: true,
+                                    defaultLoggerName: "Monitor.Public.*"
+                                    )
+                            .UseDefaultConfig()
+                            .UseMongoDb()
+                            .UseRabbitMQ()
+                            .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
+                            .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
+                            .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
                 ;
 
             //×¢²á¿ØÖÆÆ÷

@@ -47,7 +47,26 @@ namespace JQ.Container.Autofac
                 registrationBuilder.Named(serviceName, implementationType);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            builder.Update(_container);
+            UpdateContainer(builder);
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="implementationType">实例类型</param>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名称</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public void RegisterType(Type implementationType, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            var builder = new ContainerBuilder();
+            var registrationBuilder = builder.RegisterType(implementationType);
+            if (serviceName.IsNotNullAndNotWhiteSpace())
+            {
+                registrationBuilder.Named(serviceName, implementationType);
+            }
+            registrationBuilder.SetLifeStyle(lifeStyle);
+            UpdateContainer(builder);
         }
 
         /// <summary>
@@ -66,7 +85,27 @@ namespace JQ.Container.Autofac
                 registrationBuilder.Named(serviceName, implementationType);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            builder.Update(_container);
+            UpdateContainer(builder);
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="serviceType">服务类型</param>
+        /// <param name="implementationType">实例类型</param>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名字</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public void RegisterType(Type serviceType, Type implementationType, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            var builder = new ContainerBuilder();
+            var registrationBuilder = builder.RegisterType(implementationType).As(serviceType);
+            if (serviceName.IsNotNullAndNotWhiteSpace())
+            {
+                registrationBuilder.Named(serviceName, implementationType);
+            }
+            registrationBuilder.InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
+            UpdateContainer(builder);
         }
 
         /// <summary>
@@ -87,7 +126,29 @@ namespace JQ.Container.Autofac
                 registrationBuilder.Named<TService>(serviceName);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            builder.Update(_container);
+            UpdateContainer(builder);
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <typeparam name="TService">服务类型</typeparam>
+        /// <typeparam name="TImplementer">实例类型</typeparam>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名字</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public void RegisterType<TService, TImplementer>(Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            var builder = new ContainerBuilder();
+            var registrationBuilder = builder.RegisterType<TImplementer>().As<TService>();
+            if (serviceName.IsNotNullAndNotWhiteSpace())
+            {
+                registrationBuilder.Named<TService>(serviceName);
+            }
+            registrationBuilder.InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
+            UpdateContainer(builder);
         }
 
         /// <summary>
@@ -109,7 +170,30 @@ namespace JQ.Container.Autofac
                 registrationBuilder.Named<TService>(serviceName);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            builder.Update(_container);
+            UpdateContainer(builder);
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <typeparam name="TService">服务类型</typeparam>
+        /// <typeparam name="TImplementer">实例类型</typeparam>
+        /// <param name="instance">实例值</param>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名字</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public void RegisterInstance<TService, TImplementer>(TImplementer instance, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            var builder = new ContainerBuilder();
+            var registrationBuilder = builder.RegisterInstance(instance).As<TService>();
+            if (serviceName != null)
+            {
+                registrationBuilder.Named<TService>(serviceName);
+            }
+            registrationBuilder.InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
+            UpdateContainer(builder);
         }
 
         /// <summary>
@@ -129,7 +213,7 @@ namespace JQ.Container.Autofac
                     registrationBuilder.Where(predicate);
                 }
                 registrationBuilder.AsImplementedInterfaces().SetLifeStyle(lifeStyle);
-                builder.Update(_container);
+                UpdateContainer(builder);
             }
         }
 
@@ -137,25 +221,32 @@ namespace JQ.Container.Autofac
         /// 根据程序集注册
         /// </summary>
         /// <param name="assemblies">程序集</param>
-        /// <param name="interceptType">Aop类型</param>
+        /// <param name="interceptTypeList">Aop类型</param>
         /// <param name="predicate">筛选条件</param>
         /// <param name="lifeStyle">生命周期</param>
-        public void RegisterAssemblyTypes(Assembly assemblies, Type interceptType, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.PerLifetimeScope)
+        public void RegisterAssemblyTypes(Assembly assemblies, Type[] interceptTypeList, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.PerLifetimeScope)
         {
             if (assemblies != null)
             {
-                
                 var builder = new ContainerBuilder();
-                builder.RegisterType(interceptType).InstancePerLifetimeScope();
                 var registrationBuilder = builder.RegisterAssemblyTypes(assemblies);
                 if (predicate != null)
                 {
                     registrationBuilder.Where(predicate);
                 }
-                registrationBuilder.AsImplementedInterfaces().InterceptedBy(interceptType).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
-               
-                builder.Update(_container);
+                registrationBuilder.AsImplementedInterfaces().InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
+
+                UpdateContainer(builder);
             }
+        }
+
+        /// <summary>
+        /// 更改容器
+        /// </summary>
+        /// <param name="builder"></param>
+        private void UpdateContainer(ContainerBuilder builder)
+        {
+            builder.Update(_container);
         }
 
         #endregion 注册

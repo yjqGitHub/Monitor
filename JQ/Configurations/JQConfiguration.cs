@@ -25,6 +25,8 @@ namespace JQ.Configurations
         {
         }
 
+        #region Property
+
         /// <summary>
         /// 项目名字
         /// </summary>
@@ -34,16 +36,6 @@ namespace JQ.Configurations
         /// 默认的日志记录器名字
         /// </summary>
         public string DefaultLoggerName { get; set; } = "JQ.*";
-
-        /// <summary>
-        /// 验证码加密盐值
-        /// </summary>
-        public string ValidateCodeSalt { get; set; } = "JQ_ValidateCode";
-
-        /// <summary>
-        /// 设置验证码的cookieKey
-        /// </summary>
-        public string ValidateCodeCookieKey { get; set; } = "JQ_ValidateCode";
 
         /// <summary>
         /// 配置文件的路径
@@ -139,13 +131,47 @@ namespace JQ.Configurations
             }
         }
 
+        #endregion Property
+
         #region Register
 
+        public JQConfiguration SetDefault(Type implementationType, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            ContainerManager.RegisterType(implementationType, serviceName, lifeStyle);
+            return this;
+        }
+
+        public JQConfiguration SetDefault(Type implementationType, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            ContainerManager.RegisterType(implementationType, interceptTypeList, serviceName, lifeStyle);
+            return this;
+        }
+
+        public JQConfiguration SetDefault(Type serviceType, Type implementationType, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            ContainerManager.RegisterType(serviceType, implementationType, serviceName, lifeStyle);
+            return this;
+        }
+
+        public JQConfiguration SetDefault(Type serviceType, Type implementationType, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            ContainerManager.RegisterType(serviceType, implementationType, interceptTypeList, serviceName, lifeStyle);
+            return this;
+        }
+
         public JQConfiguration SetDefault<TService, TImplementer>(string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
-    where TService : class
-    where TImplementer : class, TService
+            where TService : class
+            where TImplementer : class, TService
         {
             ContainerManager.RegisterType<TService, TImplementer>(serviceName, lifeStyle);
+            return this;
+        }
+
+        public JQConfiguration SetDefault<TService, TImplementer>(Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            ContainerManager.RegisterType<TService, TImplementer>(interceptTypeList, serviceName, lifeStyle);
             return this;
         }
 
@@ -157,15 +183,23 @@ namespace JQ.Configurations
             return this;
         }
 
+        public JQConfiguration SetDefault<TService, TImplementer>(TImplementer instance, Type[] interceptTypeList, string serviceName = null)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            ContainerManager.RegisterInstance<TService, TImplementer>(instance, interceptTypeList, serviceName);
+            return this;
+        }
+
         public JQConfiguration RegisterAssemblyTypes(Assembly assemblies, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.Transient)
         {
             ContainerManager.RegisterAssemblyTypes(assemblies, predicate, lifeStyle);
             return this;
         }
 
-        public JQConfiguration RegisterAssemblyTypes(Assembly assemblies, Type interceptType, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.Transient)
+        public JQConfiguration RegisterAssemblyTypes(Assembly assemblies, Type[] interceptTypeList, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.Transient)
         {
-            ContainerManager.RegisterAssemblyTypes(assemblies, interceptType, predicate, lifeStyle);
+            ContainerManager.RegisterAssemblyTypes(assemblies, interceptTypeList, predicate, lifeStyle);
             return this;
         }
 
@@ -173,7 +207,7 @@ namespace JQ.Configurations
 
         public static JQConfiguration Instance { get; set; }
 
-        public static JQConfiguration Install(string domainName = null, string appConfigPath = null, bool? isStartConfigWatch = null, string defaultLoggerName = null, string validateCodeSalt = null, string validateCookieKey = null, string ipdataPath = null)
+        public static JQConfiguration Install(string domainName = null, string appConfigPath = null, bool? isStartConfigWatch = null, string defaultLoggerName = null, string ipdataPath = null)
         {
             Instance = new JQConfiguration();
             //项目名字
@@ -182,10 +216,6 @@ namespace JQ.Configurations
             appConfigPath.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.AppConfigPath = appConfigPath);
             //默认的日志记录器名字
             defaultLoggerName.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.DefaultLoggerName = defaultLoggerName);
-            //验证码加密盐值
-            validateCodeSalt.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.ValidateCodeSalt = validateCodeSalt);
-            //设置验证码的cookieKey
-            validateCookieKey.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.ValidateCodeCookieKey = validateCookieKey);
             //设置IP解析的文件路径
             ipdataPath.IsNotNullAndNotWhiteSpaceThenExcute(() => Instance.IpDataPath = ipdataPath);
             return Instance;

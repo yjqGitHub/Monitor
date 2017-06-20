@@ -1,4 +1,5 @@
 ﻿using JQ.Result;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,42 @@ namespace JQ.MongoDb
         /// <param name="entityList">实体列表</param>
         /// <returns></returns>
         Task InsertManyAsync(IEnumerable<TEntity> entityList);
+
+        /// <summary>
+        /// 更新一条记录
+        /// </summary>
+        /// <param name="filter">条件</param>
+        /// <param name="obj">更新内容</param>
+        /// <param name="updateOptions">设置</param>
+        /// <returns>记录数大于返回true</returns>
+        bool UpdateOne(Expression<Func<TEntity, bool>> filter, object obj);
+
+        /// <summary>
+        /// 异步更新一条记录
+        /// </summary>
+        /// <param name="filter">条件</param>
+        /// <param name="obj">更新内容</param>
+        /// <param name="updateOptions">设置</param>
+        /// <returns>记录数大于返回true</returns>
+        Task<bool> UpdateOneAsync(Expression<Func<TEntity, bool>> filter, object obj);
+
+        /// <summary>
+        /// 更新记录信息
+        /// </summary>
+        /// <param name="filter">条件</param>
+        /// <param name="obj">更新内容</param>
+        /// <param name="updateOptions">设置</param>
+        /// <returns>更新记录数</returns>
+        long UpdateMany(Expression<Func<TEntity, bool>> filter, object obj);
+
+        /// <summary>
+        /// 异步更新记录信息
+        /// </summary>
+        /// <param name="filter">条件</param>
+        /// <param name="obj">更新内容</param>
+        /// <param name="updateOptions">设置</param>
+        /// <returns>更新记录数</returns>
+        Task<long> UpdateManyAsync(Expression<Func<TEntity, bool>> filter, object obj);
 
         /// <summary>
         /// 删除一条数据

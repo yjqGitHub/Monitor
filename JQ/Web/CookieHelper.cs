@@ -67,5 +67,34 @@ namespace JQ.Web
             };
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
+
+        /// <summary>
+        /// 添加一个Cookie
+        /// </summary>
+        /// <param name="cookiename">cookie名</param>
+        /// <param name="cookievalue">cookie值</param>
+        /// <param name="domain">关联域</param>
+        public static void SetCookie(string cookiename, string cookievalue, string domain)
+        {
+            SetCookie(cookiename, cookievalue, DateTime.Now.AddDays(1.0), domain);
+        }
+
+        /// <summary>
+        /// 添加一个Cookie
+        /// </summary>
+        /// <param name="cookiename">cookie名</param>
+        /// <param name="cookievalue">cookie值</param>
+        /// <param name="expires">过期时间 DateTime</param>
+        /// <param name="domain">关联域</param>
+        public static void SetCookie(string cookiename, string cookievalue, DateTime expires, string domain)
+        {
+            HttpCookie cookie = new HttpCookie(cookiename)
+            {
+                Value = cookievalue,
+                Expires = expires,
+                Domain = domain
+            };
+            HttpContext.Current.Response.Cookies.Add(cookie);
+        }
     }
 }

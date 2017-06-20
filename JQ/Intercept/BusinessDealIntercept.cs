@@ -22,14 +22,18 @@ namespace JQ.Intercept
             }
             catch (JQException ex)
             {
-                invocation.ReturnValue = OperateUtil.Exception(ex);
-                string message = $"{invocation.MethodInvocationTarget.Name}-{invocation.Method.Name}:{ex.Message}";
+                invocation.ReturnValue = OperateUtil.EmitCreate(invocation.Method.ReturnType, OperateState.ParamError, ex.Message); //OperateUtil.Exception(ex);
+                string message = $"{invocation.TargetType.FullName}-{invocation.Method.Name}:{ex.Message}";
                 LogUtil.Info(message);
             }
             catch (Exception ex)
             {
-                invocation.ReturnValue = OperateUtil.Exception(ex);
-                LogUtil.Error(ex, memberName: $"{invocation.MethodInvocationTarget.Name}-{invocation.Method.Name}");
+                invocation.ReturnValue = OperateUtil.EmitCreate(invocation.Method.ReturnType, OperateState.Failed, "系统错误,请联系管理员"); //OperateUtil.Exception(ex);
+                LogUtil.Error(ex, memberName: $"{invocation.TargetType.FullName}-{invocation.Method.Name}");
+            }
+            finally
+            {
+
             }
         }
     }

@@ -86,6 +86,58 @@ namespace JQ.MongoDb
         }
 
         /// <summary>
+        /// 更新一条记录
+        /// </summary>
+        /// <param name="filter">条件</param>
+        /// <param name="obj">更新内容</param>
+        /// <param name="updateOptions">设置</param>
+        /// <returns>记录数大于返回true</returns>
+        public virtual bool UpdateOne(Expression<Func<TEntity, bool>> filter, object obj)
+        {
+            var updateResult = Collection.UpdateOne(filter, obj.ToUpdate<TEntity>());
+            return updateResult.ModifiedCount > 0;
+        }
+
+        /// <summary>
+        /// 异步更新一条记录
+        /// </summary>
+        /// <param name="filter">条件</param>
+        /// <param name="obj">更新内容</param>
+        /// <param name="updateOptions">设置</param>
+        /// <returns>记录数大于返回true</returns>
+        public async virtual Task<bool> UpdateOneAsync(Expression<Func<TEntity, bool>> filter, object obj)
+        {
+            var updateResult = await Collection.UpdateOneAsync(filter, obj.ToUpdate<TEntity>());
+            return updateResult.ModifiedCount > 0;
+        }
+
+        /// <summary>
+        /// 更新记录信息
+        /// </summary>
+        /// <param name="filter">条件</param>
+        /// <param name="obj">更新内容</param>
+        /// <param name="updateOptions">设置</param>
+        /// <returns>更新记录数</returns>
+        public long UpdateMany(Expression<Func<TEntity, bool>> filter, object obj)
+        {
+            var updateResult = Collection.UpdateMany(filter, obj.ToUpdate<TEntity>());
+            return updateResult.ModifiedCount;
+        }
+
+        /// <summary>
+        /// 异步更新记录信息
+        /// </summary>
+        /// <param name="filter">条件</param>
+        /// <param name="obj">更新内容</param>
+        /// <param name="updateOptions">设置</param>
+        /// <returns>更新记录数</returns>
+        public async Task<long> UpdateManyAsync(Expression<Func<TEntity, bool>> filter, object obj)
+        {
+            var updateResult = await Collection.UpdateManyAsync(filter, obj.ToUpdate<TEntity>());
+            return updateResult.ModifiedCount;
+        }
+
+        /// <summary>
         /// 删除一条数据
         /// </summary>
         /// <param name="filter">删除的条件</param>

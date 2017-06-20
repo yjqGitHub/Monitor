@@ -18,6 +18,6 @@ namespace Monitor.IUserApplication
         /// <param name="userName">用户名</param>
         /// <param name="pwd">密码</param>
         /// <returns>用户信息</returns>
-        IOperateResult<AdminDto> Login(string userName, string pwd);
+        OperateResult<AdminDto> Login(string userName, string pwd);
     }
 }

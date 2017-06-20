@@ -40,8 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FriendMessage\UserFriendMessage.cs" />
+    <Compile Include="FriendlyMessage\UserFriendlyMessage.cs" />
+    <Compile Include="Helper\WebCommonTool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JQ\JQ.csproj">
+      <Project>{4F5AAC66-E256-4D06-8BDF-8782F5FA687A}</Project>
+      <Name>JQ</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

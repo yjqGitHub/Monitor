@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Monitor.Domain.ValueObject;
-using Monitor.Infrastructure.FriendMessage;
+using Monitor.Infrastructure.FriendlyMessage;
 using System;
 using System.Collections.Generic;
 
@@ -104,9 +104,9 @@ namespace Monitor.Domain.Model
             switch (State)
             {
                 case AdminState.NotActive:
-                    throw new JQ.JQException(FriendMessage.USER_NOT_ACTIVE);
+                    throw new JQ.JQException(FriendlyMessage.USER_NOT_ACTIVE);
                 case AdminState.Disabled:
-                    throw new JQ.JQException(FriendMessage.USER_DISABLED);
+                    throw new JQ.JQException(FriendlyMessage.USER_DISABLED);
                 default: break;
             }
         }

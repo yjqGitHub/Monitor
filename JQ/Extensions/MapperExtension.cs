@@ -18,7 +18,7 @@
         /// <returns>目标类型值</returns>
         public static TTo MapperTo<TFrom, TTo>(this TFrom fromValue)
         {
-            return EmitMapper.MapperUtil.MapperTo<TFrom, TTo>(fromValue);
+            return Emits.MapperUtil.MapperTo<TFrom, TTo>(fromValue);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@
         /// <returns>目标类型值</returns>
         public static TTo MapperTo<TTo>(this object fromValue)
         {
-            return EmitMapper.MapperUtil.MapperTo<TTo>(fromValue);
+            return Emits.MapperUtil.MapperTo<TTo>(fromValue);
         }
     }
 }

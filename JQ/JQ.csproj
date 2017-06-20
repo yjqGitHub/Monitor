@@ -76,7 +76,7 @@
     <Compile Include="Container\ContainerManager.cs" />
     <Compile Include="Container\IObjectContainer.cs" />
     <Compile Include="Container\LifeStyle.cs" />
-    <Compile Include="EmitMapper\MapperUtil.cs" />
+    <Compile Include="Emits\MapperUtil.cs" />
     <Compile Include="Extensions\ActionExtension.cs" />
     <Compile Include="Extensions\BytesExtension.cs" />
     <Compile Include="Extensions\ConcurrentDicExtension.cs" />
@@ -89,6 +89,7 @@
     <Compile Include="Extensions\ObjectConvertExtension.cs" />
     <Compile Include="Extensions\ObjectJudgeExtension.cs" />
     <Compile Include="Intercept\BusinessDealIntercept.cs" />
+    <Compile Include="Intercept\BusinessDealInterceptConfigurationExtension.cs" />
     <Compile Include="JQDisposable.cs" />
     <Compile Include="JQException.cs" />
     <Compile Include="Logger\ILogger.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\Ajax\AjaxResultInfo.cs" />
     <Compile Include="Result\Ajax\AjaxState.cs" />
-    <Compile Include="Result\Operate\IOperateResult.cs" />
     <Compile Include="Result\Operate\OperateUtil.cs" />
     <Compile Include="Result\Page\IPageResult.cs" />
     <Compile Include="Result\Operate\OperateResult.cs" />
@@ -118,16 +118,17 @@
     <Compile Include="SysConstants\ContentTypeConstant.cs" />
     <Compile Include="Utils\ConfigUtil.cs" />
     <Compile Include="Utils\ConfigWacherUtil.cs" />
+    <Compile Include="Utils\DESProviderUtil.cs" />
     <Compile Include="Utils\EnsureUtil.cs" />
     <Compile Include="Utils\ExceptionUtil.cs" />
     <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="Utils\FileWatchUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
+    <Compile Include="Utils\PropertyUtil.cs" />
     <Compile Include="Utils\StringUtil.cs" />
     <Compile Include="Utils\TypeUtil.cs" />
     <Compile Include="ValidateCode\ValidateCoder.cs" />
     <Compile Include="ValidateCode\ValidateCodeType.cs" />
-    <Compile Include="ValidateCode\VerificationCodeHelper.cs" />
     <Compile Include="Web\CookieHelper.cs" />
     <Compile Include="Web\IpDataHelper.cs" />
     <Compile Include="Web\IPLocation.cs" />

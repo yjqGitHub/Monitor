@@ -10,7 +10,7 @@ namespace JQ.Result
     /// 创建标识：yjq 2017/6/11 0:26:07
     /// </summary>
     [Serializable]
-    public class OperateResult<T> : IOperateResult<T>
+    public class OperateResult
     {
         public OperateResult()
         {
@@ -60,9 +60,35 @@ namespace JQ.Result
             get { return State == OperateState.Success; }
         }
 
+        public virtual AjaxResultInfo ToAjaxResult()
+        {
+            return new AjaxResultInfo(State, Message);
+        }
+    }
+
+    [Serializable]
+    public class OperateResult<T> : OperateResult
+    {
+        public OperateResult() : base()
+        {
+        }
+
+        public OperateResult(OperateState state) : base(state)
+        {
+        }
+
+        public OperateResult(OperateState state, string msg)
+            : base(state, msg)
+        {
+        }
+
+        public OperateResult(Exception ex) : base(ex)
+        {
+        }
+
         public T Value { get; set; }
 
-        public virtual AjaxResultInfo ToAjaxResult()
+        public override AjaxResultInfo ToAjaxResult()
         {
             return new AjaxResultInfo(State, Message, Value);
         }

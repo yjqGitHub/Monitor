@@ -24,3 +24,16 @@
 /Monitor.TransDto/bin
 /Monitor.UserApplication/obj
 /Monitor.UserApplication/bin
+/Monitor.Domain/obj
+/Monitor.Domain/bin
+/Monitor.Domain.DomainServer/obj
+/Monitor.Domain.DomainServer/bin
+/Monitor.Domain.IDomainServer/obj
+/Monitor.Domain.IDomainServer/bin
+/Monitor.Domain.IRepository/obj
+/Monitor.Domain.IRepository/bin
+/Monitor.Domain.Repository/obj
+/Monitor.Domain.Repository/bin
+/Monitor.Infrastructure/obj
+/Monitor.Infrastructure/bin
+/Monitor.AdminManage/App_Data/NLogs

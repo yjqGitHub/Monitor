@@ -36,12 +36,13 @@ namespace Monitor.UserApplication
         /// <param name="userName">用户名</param>
         /// <param name="pwd">密码</param>
         /// <returns>用户信息</returns>
-        public IOperateResult<AdminDto> Login(string userName, string pwd)
+        public OperateResult<AdminDto> Login(string userName, string pwd)
         {
             var adminInfo = _adminRepository.GetInfo(m => m.FIsDeleted == false && m.UserName == userName.Trim());
             _adminDomainServer.LoginCheck(adminInfo, pwd);
             var adminDto = adminInfo.MapperTo<AdminDto>();
             adminInfo.ChangeLastLoginInfo(Domain.ValueObject.SitePort.WebPC);
+            _adminRepository.UpdateOne(m => m.AdminId == adminInfo.AdminId, new { LastLoginInfo = adminInfo.LastLoginInfo });
             return OperateUtil.Success(adminDto, "登录成功");
         }
     }

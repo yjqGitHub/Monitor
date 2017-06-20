@@ -39,6 +39,18 @@ namespace JQ.Container
         /// <summary>
         /// 注册
         /// </summary>
+        /// <param name="implementationType">实例类型</param>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名称</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public static void RegisterType(Type implementationType, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            Current.RegisterType(implementationType, interceptTypeList, serviceName: serviceName, lifeStyle: lifeStyle);
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
         /// <param name="serviceType">服务类型</param>
         /// <param name="implementationType">实例类型</param>
         /// <param name="serviceName">服务名字</param>
@@ -46,6 +58,19 @@ namespace JQ.Container
         public static void RegisterType(Type serviceType, Type implementationType, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
         {
             Current.RegisterType(serviceType, implementationType, serviceName: serviceName, lifeStyle: lifeStyle);
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="serviceType">服务类型</param>
+        /// <param name="implementationType">实例类型</param>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名字</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public static void RegisterType(Type serviceType, Type implementationType, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            Current.RegisterType(serviceType, implementationType, interceptTypeList, serviceName: serviceName, lifeStyle: lifeStyle);
         }
 
         /// <summary>
@@ -67,6 +92,21 @@ namespace JQ.Container
         /// </summary>
         /// <typeparam name="TService">服务类型</typeparam>
         /// <typeparam name="TImplementer">实例类型</typeparam>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名字</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public static void RegisterType<TService, TImplementer>(Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            Current.RegisterType<TService, TImplementer>(interceptTypeList, serviceName: serviceName, lifeStyle: lifeStyle);
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <typeparam name="TService">服务类型</typeparam>
+        /// <typeparam name="TImplementer">实例类型</typeparam>
         /// <param name="instance">实例值</param>
         /// <param name="serviceName">服务名字</param>
         /// <param name="lifeStyle">生命周期</param>
@@ -75,6 +115,22 @@ namespace JQ.Container
             where TImplementer : class, TService
         {
             Current.RegisterInstance<TService, TImplementer>(instance, serviceName: serviceName, lifeStyle: lifeStyle);
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <typeparam name="TService">服务类型</typeparam>
+        /// <typeparam name="TImplementer">实例类型</typeparam>
+        /// <param name="instance">实例值</param>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名字</param>
+        /// <param name="lifeStyle">生命周期</param>
+        public static void RegisterInstance<TService, TImplementer>(TImplementer instance, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+            where TService : class
+            where TImplementer : class, TService
+        {
+            Current.RegisterInstance<TService, TImplementer>(instance, interceptTypeList, serviceName: serviceName, lifeStyle: lifeStyle);
         }
 
         /// <summary>
@@ -92,12 +148,12 @@ namespace JQ.Container
         /// 根据程序集注册
         /// </summary>
         /// <param name="assemblies">程序集</param>
-        /// <param name="interceptType">Aop类型</param>
+        /// <param name="interceptTypeList">Aop类型</param>
         /// <param name="predicate">筛选条件</param>
         /// <param name="lifeStyle">生命周期</param>
-        public static void RegisterAssemblyTypes(Assembly assemblies, Type interceptType, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.PerLifetimeScope)
+        public static void RegisterAssemblyTypes(Assembly assemblies, Type[] interceptTypeList, Func<Type, bool> predicate = null, LifeStyle lifeStyle = LifeStyle.PerLifetimeScope)
         {
-            Current.RegisterAssemblyTypes(assemblies, interceptType, predicate: predicate, lifeStyle: lifeStyle);
+            Current.RegisterAssemblyTypes(assemblies, interceptTypeList, predicate: predicate, lifeStyle: lifeStyle);
         }
 
         #endregion 注册

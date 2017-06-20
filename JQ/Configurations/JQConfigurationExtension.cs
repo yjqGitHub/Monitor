@@ -4,6 +4,7 @@ using JQ.Serialization.NewtonsoftJson;
 using JQ.Serialization.Protobuf;
 using JQ.Utils;
 using JQ.Container.Autofac;
+using JQ.Intercept;
 
 namespace JQ.Configurations
 {
@@ -19,6 +20,7 @@ namespace JQ.Configurations
         public static JQConfiguration UseDefaultConfig(this JQConfiguration configuration)
         {
             configuration.UseAutofac()
+                         .UseBusinessDealIntercept()
                          .UseJsnoNet()
                          //.UseDefaultBinarySerializer()
                          .UseDefaultBinarySerializer()
