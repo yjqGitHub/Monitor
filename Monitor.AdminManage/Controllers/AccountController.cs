@@ -2,8 +2,8 @@
 using JQ.Web.Tool.Filters;
 using JQ.Web.Tool.ViewResults;
 using Monitor.AdminManage.Models;
-using Monitor.Infrastructure.Helper;
 using Monitor.IUserApplication;
+using Monitor.Web.Tool;
 using System.Web.Mvc;
 
 namespace Monitor.AdminManage.Controllers
@@ -32,7 +32,7 @@ namespace Monitor.AdminManage.Controllers
         {
             ValidateCoder coder = new ValidateCoder();
             var codeInfo = coder.CreateImage(6, ValidateCodeType.Number);
-            WebCommonTool.SetCode(codeInfo.Item1);
+            WebTool.SetCode(codeInfo.Item1);
             return File(codeInfo.Item2, @"image/Png");
         }
 
@@ -45,13 +45,14 @@ namespace Monitor.AdminManage.Controllers
         [Validate]
         public JQJsonResult Login(AccountModel model)
         {
-            if (!WebCommonTool.CheckCode(model.Code))
+            if (!WebTool.CheckCode(model.Code))
             {
                 return JQJsonResult.ParamError("请输入正确的验证码");
             }
             var operateResult = _adminApplication.Login(model.UserName, model.Pwd);
             if (operateResult.IsSuccess)
             {
+                WebTool.SetCurrentLoginUser(operateResult.Value);
             }
             else
             {

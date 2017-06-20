@@ -13,6 +13,11 @@ namespace Monitor.Domain.Model
     /// </summary>
     public class LoginRecordInfo : IAggregateRoot
     {
+        public LoginRecordInfo()
+        {
+            RecordId = ObjectId.GenerateNewId();
+        }
+
         /// <summary>
         /// 记录ID
         /// </summary>

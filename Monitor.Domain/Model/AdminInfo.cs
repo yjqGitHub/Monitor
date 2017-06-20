@@ -17,6 +17,11 @@ namespace Monitor.Domain.Model
     /// </summary>
     public class AdminInfo : IAggregateRoot
     {
+        public AdminInfo()
+        {
+            AdminId = ObjectId.GenerateNewId();
+        }
+
         /// <summary>
         /// 管理员ID
         /// </summary>

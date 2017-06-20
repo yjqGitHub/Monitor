@@ -118,6 +118,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -444,6 +445,10 @@
       <Project>{085b712b-38c4-45f0-af64-4cf372a7756e}</Project>
       <Name>Monitor.UserApplication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monitor.Web.Tool\Monitor.Web.Tool.csproj">
+      <Project>{a112f0da-a2f1-492d-9e50-1c2c2f64271f}</Project>
+      <Name>Monitor.Web.Tool</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\Index.cshtml" />
@@ -494,6 +499,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

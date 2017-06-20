@@ -24,11 +24,13 @@ namespace Monitor.UserApplication
     {
         private readonly IAdminDomainServer _adminDomainServer;
         private readonly IAdminRepository _adminRepository;
+        private readonly ILoginRecordRepository _loginRecordRepository;
 
-        public AdminApplication(IAdminDomainServer adminDomainServer, IAdminRepository adminRepository)
+        public AdminApplication(IAdminDomainServer adminDomainServer, IAdminRepository adminRepository, ILoginRecordRepository loginRecordRepository)
         {
             _adminDomainServer = adminDomainServer;
             _adminRepository = adminRepository;
+            _loginRecordRepository = loginRecordRepository;
         }
         /// <summary>
         /// 用户登录
@@ -43,6 +45,11 @@ namespace Monitor.UserApplication
             var adminDto = adminInfo.MapperTo<AdminDto>();
             adminInfo.ChangeLastLoginInfo(Domain.ValueObject.SitePort.WebPC);
             _adminRepository.UpdateOne(m => m.AdminId == adminInfo.AdminId, new { LastLoginInfo = adminInfo.LastLoginInfo });
+            _loginRecordRepository.InsertOne(new LoginRecordInfo()
+            {
+                AdminId = adminInfo.AdminId,
+                LoginLogInfo = adminInfo.LastLoginInfo
+            });
             return OperateUtil.Success(adminDto, "登录成功");
         }
     }

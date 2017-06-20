@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AdminRepository.cs" />
     <Compile Include="Constants\MonogoDbConfigConstant.cs" />
+    <Compile Include="LoginRecordRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

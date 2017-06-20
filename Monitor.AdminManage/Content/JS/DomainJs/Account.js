@@ -13,8 +13,9 @@ $("form").submit(function () {
             data: $(this).serialize()
         }, function (data) {
             ShowSuccessMsg(data.Message);
+            location.href = "/Home/Index";
         }, function (error) {
-            ShowWarningMsg(error.Message);
+           // ShowWarningMsg(error.Message);
         });
     }
     return false;
