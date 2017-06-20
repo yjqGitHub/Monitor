@@ -37,3 +37,5 @@
 /Monitor.Infrastructure/obj
 /Monitor.Infrastructure/bin
 /Monitor.AdminManage/App_Data/NLogs
+/Monitor.Web.Tool/obj
+/Monitor.Web.Tool/bin
