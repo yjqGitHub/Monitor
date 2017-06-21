@@ -6,6 +6,7 @@ using JQ.Container.Autofac;
 using JQ.Intercept;
 using JQ.MongoDb;
 using JQ.MQ.RabbitMQ;
+using JQ.Redis.StackExchangeRedis;
 using JQ.Utils;
 using System;
 using System.Reflection;
@@ -39,6 +40,7 @@ namespace Monitor.AdminManage.App_Start
                             .UseDefaultConfig()
                             .UseMongoDb()
                             .UseRabbitMQ()
+                            .UseStackExchageRedis()
                             .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)

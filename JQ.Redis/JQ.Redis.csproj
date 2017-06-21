@@ -49,7 +49,11 @@
     <Compile Include="IRedisDatabaseProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedisCacheOption.cs" />
+    <Compile Include="RedisClientExtension.cs" />
     <Compile Include="StackExchangeRedis\ConnectionMultiplexerFactory.cs" />
+    <Compile Include="StackExchangeRedis\StackExchangeConfigurationExtension.cs" />
+    <Compile Include="StackExchangeRedis\StackExchangeRedisClient.cs" />
+    <Compile Include="StackExchangeRedis\StackExchangeRedisProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

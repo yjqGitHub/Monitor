@@ -11,11 +11,6 @@ namespace JQ.Redis
     /// </summary>
     public interface IRedisDatabaseProvider
     {
-        /// <summary>
-        /// 创建默认的redis客户端
-        /// </summary>
-        /// <returns></returns>
-        IRedisClient CreateDefaultConfigClient();
 
         /// <summary>
         /// 创建redis客户端
@@ -23,13 +18,6 @@ namespace JQ.Redis
         /// <param name="redisCacheOption">redis配置信息</param>
         /// <returns></returns>
         IRedisClient CreateClient(RedisCacheOption redisCacheOption);
-
-        /// <summary>
-        /// 创建redis客户端
-        /// </summary>
-        /// <param name="serializer">序列化类</param>
-        /// <returns></returns>
-        IRedisClient CreateClient(IBinarySerializer serializer);
 
         /// <summary>
         /// 创建redis客户端
