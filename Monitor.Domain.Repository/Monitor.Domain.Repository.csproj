@@ -62,6 +62,10 @@
       <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
       <Name>Monitor.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
+      <Project>{60B04982-CF40-4D1F-AADA-2CB6C11C9896}</Project>
+      <Name>Monitor.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

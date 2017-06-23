@@ -1,15 +1,12 @@
-﻿using JQ.Serialization;
+﻿using JQ.Extensions;
+using JQ.MQ.Serialization;
+using JQ.ParamterValidate;
+using JQ.Utils;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JQ.ParamterValidate;
-using JQ.Extensions;
-using RabbitMQ.Client.Events;
 using System.Diagnostics;
-using JQ.Utils;
 
 namespace JQ.MQ.RabbitMQ
 {
@@ -22,11 +19,11 @@ namespace JQ.MQ.RabbitMQ
     /// </summary>
     public sealed class RabbitMQClient : JQDisposable, IMQClient
     {
-        private readonly IBinarySerializer _binarySerializer;
+        private readonly IMQBinarySerializer _binarySerializer;
         private readonly MQConfig _mqConfig;
         private IModel _channel;
 
-        public RabbitMQClient(MQConfig mqConfig, IBinarySerializer binarySerializer)
+        public RabbitMQClient(MQConfig mqConfig, IMQBinarySerializer binarySerializer)
         {
             mqConfig.NotNull("配置信息不能为空");
             binarySerializer.NotNull("对象序列化接口不能为空");

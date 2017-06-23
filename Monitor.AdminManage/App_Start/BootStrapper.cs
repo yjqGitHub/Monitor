@@ -5,9 +5,12 @@ using JQ.Container;
 using JQ.Container.Autofac;
 using JQ.Intercept;
 using JQ.MongoDb;
+using JQ.MQ.Logger;
 using JQ.MQ.RabbitMQ;
+using JQ.MQ.Serialization;
 using JQ.Redis.StackExchangeRedis;
 using JQ.Utils;
+using Monitor.Infrastructure.MQ;
 using System;
 using System.Reflection;
 using System.Web.Mvc;
@@ -39,8 +42,11 @@ namespace Monitor.AdminManage.App_Start
                                     )
                             .UseDefaultConfig()
                             .UseMongoDb()
+                            .UseMQProtobufBinarySerializer()
+                            .UseMQJsonBinarySerializer()
                             .UseRabbitMQ()
                             .UseStackExchageRedis()
+                            .UseMQLogger(() => MQLoggerUtil.GetMQLoggerConfig())
                             .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)

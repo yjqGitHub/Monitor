@@ -1,4 +1,5 @@
 ﻿using JQ.Configurations;
+using JQ.Redis.Serialization;
 
 namespace JQ.Redis.StackExchangeRedis
 {
@@ -13,6 +14,7 @@ namespace JQ.Redis.StackExchangeRedis
     {
         public static JQConfiguration UseStackExchageRedis(this JQConfiguration configuration)
         {
+            configuration.SetDefault<IRedisBinarySerializer, RedisJsonBinarySerializer>();
             configuration.SetDefault<IRedisDatabaseProvider, StackExchangeRedisProvider>();
             configuration.AddUnstallAction(() => ConnectionMultiplexerFactory.DisposeConn());
             return configuration;

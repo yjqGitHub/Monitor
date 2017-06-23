@@ -12,9 +12,9 @@ namespace Monitor.Domain.Repository.Constants
     /// </summary>
     public partial class RepositoryConstant
     {
-        /// <summary>
-        /// Monitor的MongoDb配置
-        /// </summary>
-        public static readonly MonogoDbConfig MonitorMongoDbConfig = MonogoDbConfig.CreateConfig(ConfigUtil.GetValue("MonogoDbConfig", memberName: "RepositoryConstant.MonogoDbConfig"));//MonogoDbConfig.CreateConfig("mongodb://yjq:123456@localhost:27017/Monitor");
+        ///// <summary>
+        ///// Monitor的MongoDb配置
+        ///// </summary>
+        //public static MonogoDbConfig MonitorMongoDbConfig = MonogoDbConfig.CreateConfig(ConfigUtil.GetValue("MonogoDbConfig", memberName: "RepositoryConstant.MonogoDbConfig"));//MonogoDbConfig.CreateConfig("mongodb://yjq:123456@localhost:27017/Monitor");
     }
 }

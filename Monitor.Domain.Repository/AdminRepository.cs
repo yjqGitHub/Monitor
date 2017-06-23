@@ -2,6 +2,7 @@
 using Monitor.Domain.IRepository;
 using Monitor.Domain.Model;
 using Monitor.Domain.Repository.Constants;
+using Monitor.Infrastructure.Mongo;
 
 namespace Monitor.Domain.Repository
 {
@@ -14,7 +15,7 @@ namespace Monitor.Domain.Repository
     /// </summary>
     public sealed class AdminRepository : MongoBaseRepository<AdminInfo>, IAdminRepository
     {
-        public AdminRepository(IMongoDatabaseProvider databaseProvider) : base(databaseProvider, RepositoryConstant.MonitorMongoDbConfig)
+        public AdminRepository(IMongoDatabaseProvider databaseProvider) : base(databaseProvider, MonogoDbConfigUtil.GetDefaultConfig())
         {
         }
     }

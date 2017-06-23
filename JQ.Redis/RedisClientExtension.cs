@@ -19,9 +19,9 @@ namespace JQ.Redis
         /// <param name="key">键</param>
         /// <param name="expireTimeSpan">过期时间</param>
         /// <param name="setAction">设置值的方法</param>
-        public static void SetAndSetExpireTime(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Action setAction)
+        public static void SetAndSetExpireTime(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Action<IRedisClient, string> setAction)
         {
-            setAction();
+            setAction(redisClient, key);
             redisClient.Expire(key, expireTimeSpan);
         }
 
@@ -33,9 +33,9 @@ namespace JQ.Redis
         /// <param name="expireTimeSpan">过期时间</param>
         /// <param name="setAction">设置值的方法</param>
         /// <returns>结果可等待</returns>
-        public async static Task SetAndSetExpireTimeAsync(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<Task> setAction)
+        public async static Task SetAndSetExpireTimeAsync(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<IRedisClient, string, Task> setAction)
         {
-            await setAction();
+            await setAction(redisClient, key);
             await redisClient.ExpireAsync(key, expireTimeSpan);
             return;
         }
@@ -49,9 +49,9 @@ namespace JQ.Redis
         /// <param name="expireTimeSpan">过期时间</param>
         /// <param name="setAction">设置值的方法</param>
         /// <returns>值</returns>
-        public static T SetAndSetExpireTime<T>(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<T> setAction)
+        public static T SetAndSetExpireTime<T>(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<IRedisClient, string, T> setAction)
         {
-            var result = setAction();
+            var result = setAction(redisClient, key);
             redisClient.Expire(key, expireTimeSpan);
             return result;
         }
@@ -65,9 +65,9 @@ namespace JQ.Redis
         /// <param name="expireTimeSpan">过期时间</param>
         /// <param name="setAction">设置值的方法</param>
         /// <returns>值</returns>
-        public async static Task<T> SetAndSetExpireTimeAsync<T>(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<Task<T>> setAction)
+        public async static Task<T> SetAndSetExpireTimeAsync<T>(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<IRedisClient, string, Task<T>> setAction)
         {
-            var result = await setAction();
+            var result = await setAction(redisClient, key);
             await redisClient.ExpireAsync(key, expireTimeSpan);
             return result;
         }
@@ -81,9 +81,9 @@ namespace JQ.Redis
         /// <param name="expireTimeSpan">过期时间</param>
         /// <param name="getAction">获取的方法</param>
         /// <returns>缓存值</returns>
-        public static T GetAndSetExpireTime<T>(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<T> getAction)
+        public static T GetAndSetExpireTime<T>(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<IRedisClient, string, T> getAction)
         {
-            var result = getAction();
+            var result = getAction(redisClient, key);
             redisClient.Expire(key, expireTimeSpan);
             return result;
         }
@@ -97,9 +97,9 @@ namespace JQ.Redis
         /// <param name="expireTimeSpan">过期时间</param>
         /// <param name="getAction">获取的方法</param>
         /// <returns>缓存值</returns>
-        public async static Task<T> GetAndSetExpireTimeAsync<T>(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<Task<T>> getAction)
+        public async static Task<T> GetAndSetExpireTimeAsync<T>(this IRedisClient redisClient, string key, TimeSpan expireTimeSpan, Func<IRedisClient, string, Task<T>> getAction)
         {
-            var result = await getAction();
+            var result = await getAction(redisClient, key);
             await redisClient.ExpireAsync(key, expireTimeSpan);
             return result;
         }

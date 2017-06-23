@@ -28,6 +28,7 @@ namespace JQ.MQ.Logger
                 throw new NotSupportedException("请设置获取MQLoggerConfig的方法");
             }
             configuration.SetDefault<ILoggerFactory, MQLoggerFactory>(serviceName: REGISTER_NAME_MQLOGGERFACTORY);
+            configuration.SetDefault<ILoggerMessage, JQLoggerMessage>();
             configuration.AddRegisterName(typeof(MQLoggerFactory).TypeHandle, REGISTER_NAME_MQLOGGERFACTORY);
             MQLogger.GetMQLoggerConfigAction = action;
             configuration.AddUnstallAction(() => { MQLogger.GetMQLoggerConfigAction = null; });

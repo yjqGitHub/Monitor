@@ -10,6 +10,11 @@
     public partial class FriendlyMessage
     {
         /// <summary>
+        /// 用户不存在
+        /// </summary>
+        public const string USER_NOT_EXIT = "该用户不存在";
+
+        /// <summary>
         /// 账户未激活
         /// </summary>
         public const string USER_NOT_ACTIVE = "账户未激活";
@@ -23,5 +28,10 @@
         /// 用户或密码错误
         /// </summary>
         public const string USER_OR_PWD_ERROR = "用户或密码错误";
+
+        /// <summary>
+        /// 密码错误次数超出限制提示
+        /// </summary>
+        public const string USER_OR_ERROR_OVER_LIMIT = "由于密码错误次数过多,您的账号已被锁定,请联系管理员";
     }
 }

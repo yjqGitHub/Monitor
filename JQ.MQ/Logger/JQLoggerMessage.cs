@@ -1,5 +1,6 @@
 ﻿using JQ.Configurations;
 using JQ.Extensions;
+using ProtoBuf;
 using System;
 
 namespace JQ.MQ.Logger
@@ -11,6 +12,7 @@ namespace JQ.MQ.Logger
     /// 类功能描述：日志信息
     /// 创建标识：yjq 2017/6/12 21:01:08
     /// </summary>
+    [ProtoContract]
     public class JQLoggerMessage : ILoggerMessage
     {
         public JQLoggerMessage()
@@ -20,26 +22,31 @@ namespace JQ.MQ.Logger
         /// <summary>
         /// 项目名称
         /// </summary>
+        [ProtoMember(1)]
         public string AppDomain { get; set; }
 
         /// <summary>
         /// 记录器名字
         /// </summary>
+        [ProtoMember(2)]
         public string LoggerName { get; set; }
 
         /// <summary>
         /// 日志消息类型
         /// </summary>
+        [ProtoMember(3)]
         public MessageType MessageType { get; set; }
 
         /// <summary>
         /// 日志信息内容
         /// </summary>
+        [ProtoMember(4)]
         public string Message { get; set; }
 
         /// <summary>
         /// 创建时间
         /// </summary>
+        [ProtoMember(5)]
         public DateTime CreateTime { get; set; }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using JQ.Serialization;
+﻿using JQ.MQ.Serialization;
 
 namespace JQ.MQ.RabbitMQ
 {
@@ -11,9 +11,9 @@ namespace JQ.MQ.RabbitMQ
     /// </summary>
     public sealed class RabbitMQFactory : IMQFactory
     {
-        private readonly IBinarySerializer _binarySerializer;
+        private readonly IMQBinarySerializer _binarySerializer;
 
-        public RabbitMQFactory(IBinarySerializer binarySerializer)
+        public RabbitMQFactory(IMQBinarySerializer binarySerializer)
         {
             _binarySerializer = binarySerializer;
         }

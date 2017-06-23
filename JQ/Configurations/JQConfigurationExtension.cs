@@ -23,8 +23,9 @@ namespace JQ.Configurations
                          .UseBusinessDealIntercept()
                          .UseJsnoNet()
                          //.UseDefaultBinarySerializer()
-                         .UseDefaultBinarySerializer()
                          .UseProtobufBinarySerializer()
+                         .UseDefaultBinarySerializer()
+                         .UseJsonBinarySerializer()
                          .UseNLog()
                          .AddUnstallAction(() => FileWatchUtil.UnInstall());
             ;

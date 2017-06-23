@@ -48,6 +48,10 @@
       <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
       <Name>JQ.MongoDb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JQ.Redis\JQ.Redis.csproj">
+      <Project>{02EBE948-6720-4126-81B6-D8B6FA962DD0}</Project>
+      <Name>JQ.Redis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JQ\JQ.csproj">
       <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
       <Name>JQ</Name>
@@ -72,9 +76,6 @@
       <Project>{60b04982-cf40-4d1f-aada-2cb6c11c9896}</Project>
       <Name>Monitor.Infrastructure</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

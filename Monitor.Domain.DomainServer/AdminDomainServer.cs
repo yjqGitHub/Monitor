@@ -1,9 +1,14 @@
-﻿using JQ.Extensions;
+﻿using JQ;
+using JQ.Extensions;
 using JQ.ParamterValidate;
+using JQ.Redis;
 using Monitor.Domain.IDomainServer;
 using Monitor.Domain.IRepository;
 using Monitor.Domain.Model;
+using Monitor.Domain.ValueObject;
 using Monitor.Infrastructure.FriendlyMessage;
+using Monitor.Infrastructure.Redis;
+using System;
 
 namespace Monitor.Domain.DomainServer
 {
@@ -30,9 +35,27 @@ namespace Monitor.Domain.DomainServer
         /// <param name="pwd">密码</param>
         public void LoginCheck(AdminInfo adminInfo, string pwd)
         {
-            adminInfo.NotNull(FriendlyMessage.USER_OR_PWD_ERROR);
-            adminInfo.CheckCanLogin();
+            adminInfo.NotNull(FriendlyMessage.USER_NOT_EXIT);
+            CheckCanLogin(adminInfo);
             CheckPwd(adminInfo, pwd);
+        }
+
+        public void CheckCanLogin(AdminInfo adminInfo)
+        {
+            switch (adminInfo.State)
+            {
+                case AdminState.NotActive:
+                    throw new JQException(FriendlyMessage.USER_NOT_ACTIVE);
+                case AdminState.Disabled:
+                    throw new JQException(FriendlyMessage.USER_DISABLED);
+                default: break;
+            }
+            //获取尝试登录的失败次数
+            var tryLoginErrorCount = RedisHelper.GetClient().StringGet<long>(string.Format(RedisKeyConstant.REDIS_KEY_LOGINERROR_COUNT_BASE, adminInfo.UserName));
+            if (tryLoginErrorCount >= 5)
+            {
+                throw new JQException(FriendlyMessage.USER_OR_ERROR_OVER_LIMIT);
+            }
         }
 
         /// <summary>
@@ -43,7 +66,15 @@ namespace Monitor.Domain.DomainServer
         public void CheckPwd(AdminInfo adminInfo, string pwd)
         {
             string loginPwd = string.Concat(pwd, adminInfo.PwdSalt).ToMd5();
-            adminInfo.Pwd.Equal(loginPwd, FriendlyMessage.USER_OR_PWD_ERROR);
+            if (!adminInfo.Pwd.Equals(loginPwd))
+            {
+                //设置尝试登录失败次数
+                RedisHelper.GetClient().SetAndSetExpireTime(string.Format(RedisKeyConstant.REDIS_KEY_LOGINERROR_COUNT_BASE, adminInfo.UserName), expireTimeSpan: TimeSpan.FromMinutes(1), setAction: (redisClient, key) =>
+                {
+                    redisClient.StringIncrement(key);
+                });
+                throw new JQException(FriendlyMessage.USER_OR_PWD_ERROR);
+            }
         }
     }
 }

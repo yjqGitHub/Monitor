@@ -1,11 +1,9 @@
 ﻿using JQ.Configurations;
 using JQ.Extensions;
 using JQ.Redis;
-using JQ.Serialization;
-using JQ.Serialization.NewtonsoftJson;
 using JQ.Utils;
 
-namespace Monitor.Infrastructure
+namespace Monitor.Infrastructure.Redis
 {
     /// <summary>
     /// Copyright (C) 2015 备胎 版权所有。
@@ -38,16 +36,6 @@ namespace Monitor.Infrastructure
         public static IRedisClient GetClient()
         {
             return JQConfiguration.Resolve<IRedisDatabaseProvider>().CreateClient(GetDefaultOption());
-        }
-
-        /// <summary>
-        /// 获取用json序列化的redis客户端
-        /// </summary>
-        /// <returns></returns>
-        public static IRedisClient GetJsonSerializerClient()
-        {
-            var binarySerializer = JQConfiguration.ResolveNamed<IBinarySerializer>(typeof(NewtonsoftJsonBinarySerializer).TypeHandle);
-            return JQConfiguration.Resolve<IRedisDatabaseProvider>().CreateClient(GetDefaultOption(), binarySerializer);
         }
     }
 }

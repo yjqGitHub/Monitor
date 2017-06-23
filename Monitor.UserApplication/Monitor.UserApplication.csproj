@@ -53,6 +53,10 @@
       <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
       <Name>JQ.MongoDb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JQ.Redis\JQ.Redis.csproj">
+      <Project>{02EBE948-6720-4126-81B6-D8B6FA962DD0}</Project>
+      <Name>JQ.Redis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JQ\JQ.csproj">
       <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
       <Name>JQ</Name>
@@ -76,6 +80,10 @@
     <ProjectReference Include="..\Monitor.Domain\Monitor.Domain.csproj">
       <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
       <Name>Monitor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
+      <Project>{60B04982-CF40-4D1F-AADA-2CB6C11C9896}</Project>
+      <Name>Monitor.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monitor.IUserApplication\Monitor.IUserApplication.csproj">
       <Project>{3f37fd22-b0ca-4f23-aff1-811b05606e7e}</Project>

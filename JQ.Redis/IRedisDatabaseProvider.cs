@@ -1,4 +1,4 @@
-﻿using JQ.Serialization;
+﻿using JQ.Redis.Serialization;
 
 namespace JQ.Redis
 {
@@ -11,7 +11,6 @@ namespace JQ.Redis
     /// </summary>
     public interface IRedisDatabaseProvider
     {
-
         /// <summary>
         /// 创建redis客户端
         /// </summary>
@@ -25,6 +24,6 @@ namespace JQ.Redis
         /// <param name="redisCacheOption">redis配置信息</param>
         /// <param name="serializer">序列化类</param>
         /// <returns></returns>
-        IRedisClient CreateClient(RedisCacheOption redisCacheOption, IBinarySerializer serializer);
+        IRedisClient CreateClient(RedisCacheOption redisCacheOption, IRedisBinarySerializer serializer);
     }
 }

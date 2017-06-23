@@ -1,7 +1,7 @@
 ﻿using JQ.MongoDb;
 using Monitor.Domain.IRepository;
 using Monitor.Domain.Model;
-using Monitor.Domain.Repository.Constants;
+using Monitor.Infrastructure.Mongo;
 
 namespace Monitor.Domain.Repository
 {
@@ -14,7 +14,7 @@ namespace Monitor.Domain.Repository
     /// </summary>
     public sealed class LoginRecordRepository : MongoBaseRepository<LoginRecordInfo>, ILoginRecordRepository
     {
-        public LoginRecordRepository(IMongoDatabaseProvider databaseProvider) : base(databaseProvider, RepositoryConstant.MonitorMongoDbConfig)
+        public LoginRecordRepository(IMongoDatabaseProvider databaseProvider) : base(databaseProvider, MonogoDbConfigUtil.GetDefaultConfig())
         {
         }
     }

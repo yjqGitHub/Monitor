@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JQ.Extensions;
 using Monitor.Domain.Model;
+using Monitor.Infrastructure.Redis;
 
 namespace Monitor.UserApplication
 {
@@ -40,7 +41,7 @@ namespace Monitor.UserApplication
         /// <returns>用户信息</returns>
         public OperateResult<AdminDto> Login(string userName, string pwd)
         {
-            var adminInfo = _adminRepository.GetInfo(m => m.FIsDeleted == false && m.UserName == userName.Trim());
+            var adminInfo = _adminRepository.GetInfo(m => m.IsDeleted == false && m.UserName == userName.Trim());
             _adminDomainServer.LoginCheck(adminInfo, pwd);
             var adminDto = adminInfo.MapperTo<AdminDto>();
             adminInfo.ChangeLastLoginInfo(Domain.ValueObject.SitePort.WebPC);

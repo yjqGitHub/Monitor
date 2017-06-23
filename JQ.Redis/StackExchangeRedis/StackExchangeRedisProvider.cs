@@ -1,4 +1,4 @@
-﻿using JQ.Serialization;
+﻿using JQ.Redis.Serialization;
 
 namespace JQ.Redis.StackExchangeRedis
 {
@@ -11,9 +11,9 @@ namespace JQ.Redis.StackExchangeRedis
     /// </summary>
     public sealed class StackExchangeRedisProvider : IRedisDatabaseProvider
     {
-        private readonly IBinarySerializer _binarySerializer;
+        private readonly IRedisBinarySerializer _binarySerializer;
 
-        public StackExchangeRedisProvider(IBinarySerializer binarySerializer)
+        public StackExchangeRedisProvider(IRedisBinarySerializer binarySerializer)
         {
             _binarySerializer = binarySerializer;
         }
@@ -34,7 +34,7 @@ namespace JQ.Redis.StackExchangeRedis
         /// <param name="redisCacheOption">redis配置信息</param>
         /// <param name="serializer">序列化类</param>
         /// <returns></returns>
-        public IRedisClient CreateClient(RedisCacheOption redisCacheOption, IBinarySerializer serializer)
+        public IRedisClient CreateClient(RedisCacheOption redisCacheOption, IRedisBinarySerializer serializer)
         {
             return new StackExchangeRedisClient(redisCacheOption, serializer);
         }

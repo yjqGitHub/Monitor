@@ -2,7 +2,6 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Monitor.Domain.ValueObject;
-using Monitor.Infrastructure.FriendlyMessage;
 using System;
 using System.Collections.Generic;
 
@@ -66,7 +65,7 @@ namespace Monitor.Domain.Model
         /// <summary>
         /// 是否已删除
         /// </summary>
-        public bool FIsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         /// <summary>
         /// 添加时间
@@ -100,21 +99,6 @@ namespace Monitor.Domain.Model
         /// </summary>
         [BsonIgnore]
         public virtual List<LoginRecordInfo> LoginRecords { get; set; }
-
-        /// <summary>
-        /// 校验是否可以登录
-        /// </summary>
-        public void CheckCanLogin()
-        {
-            switch (State)
-            {
-                case AdminState.NotActive:
-                    throw new JQ.JQException(FriendlyMessage.USER_NOT_ACTIVE);
-                case AdminState.Disabled:
-                    throw new JQ.JQException(FriendlyMessage.USER_DISABLED);
-                default: break;
-            }
-        }
 
         /// <summary>
         /// 更改上次登录信息

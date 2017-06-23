@@ -1,5 +1,5 @@
 ﻿using JQ.Extensions;
-using JQ.Serialization;
+using JQ.Redis.Serialization;
 using JQ.Utils;
 using StackExchange.Redis;
 using System;
@@ -20,13 +20,13 @@ namespace JQ.Redis.StackExchangeRedis
     {
         private IDatabase _database;
 
-        private readonly IBinarySerializer _serializer;
+        private readonly IRedisBinarySerializer _serializer;
 
         private readonly ConnectionMultiplexer _connectionMultiplexer;
 
         private readonly RedisCacheOption _redisCacheOption;
 
-        public StackExchangeRedisClient(RedisCacheOption redisCacheOption, IBinarySerializer serializer)
+        public StackExchangeRedisClient(RedisCacheOption redisCacheOption, IRedisBinarySerializer serializer)
         {
             EnsureUtil.NotNull(redisCacheOption, "RedisCacheOptions");
             EnsureUtil.NotNull(serializer, "IBinarySerializer");
@@ -42,7 +42,7 @@ namespace JQ.Redis.StackExchangeRedis
             get { return _database ?? (_database = Connection.GetDatabase(_redisCacheOption.DatabaseId)); }
         }
 
-        public IBinarySerializer Serializer
+        public IRedisBinarySerializer Serializer
         {
             get
             {
