@@ -190,7 +190,7 @@ namespace JQ.MQ.Logger
             var conifg = GetConfig();
             var mqClient = JQConfiguration.Resolve<IMQFactory>().Create(conifg);
             string queueName = string.Empty;
-            string routeKey = string.Concat("JQ.LoggerMessage.", message.LoggerName, ".", message.MessageType.ToString());
+            string routeKey = string.Concat("JQ.LoggerMessage.", message.MessageType.ToString());
             mqClient.Publish(message, _exchangeName, queueName, routeKey, exchangeType: MQExchangeType.TOPICS, durable: true);
         }
     }

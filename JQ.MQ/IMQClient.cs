@@ -10,7 +10,7 @@ namespace JQ.MQ
     /// 类功能描述：IMQClient
     /// 创建标识：yjq 2017/6/11 19:23:54
     /// </summary>
-    public interface IMQClient
+    public interface IMQClient : IDisposable
     {
         #region 发送消息
 

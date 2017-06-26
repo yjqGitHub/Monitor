@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{95311366-C66F-4AAE-B945-52B23A223B23}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Monitor.TaskScheduling</RootNamespace>
+    <AssemblyName>Monitor.TaskScheduling</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.4.6.0\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Topshelf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Topshelf.4.0.3\lib\net452\Topshelf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bootstrap.cs" />
+    <Compile Include="LoggerSubscribeTask.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <Content Include="App_Data\App_Data\AppSetting.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\App_Data\ipdata.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JQ.DataAccess\JQ.DataAccess.csproj">
+      <Project>{2756b9ee-e783-42c6-9793-6731e5726e05}</Project>
+      <Name>JQ.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">
+      <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
+      <Name>JQ.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.MQ\JQ.MQ.csproj">
+      <Project>{753b7793-a43e-49e0-9cc4-aa29a94cfeb7}</Project>
+      <Name>JQ.MQ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.Redis\JQ.Redis.csproj">
+      <Project>{02ebe948-6720-4126-81b6-d8b6fa962dd0}</Project>
+      <Name>JQ.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ\JQ.csproj">
+      <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
+      <Name>JQ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.DomainServer\Monitor.Domain.DomainServer.csproj">
+      <Project>{65b32fef-76bb-4281-b881-05c36c4aff53}</Project>
+      <Name>Monitor.Domain.DomainServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.IDomainServer\Monitor.Domain.IDomainServer.csproj">
+      <Project>{52e416ba-3325-44cd-b1fd-bd7472565b65}</Project>
+      <Name>Monitor.Domain.IDomainServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.IRepository\Monitor.Domain.IRepository.csproj">
+      <Project>{31e20cb0-218c-4cb2-b6a0-4ec335bd3a28}</Project>
+      <Name>Monitor.Domain.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.Repository\Monitor.Domain.Repository.csproj">
+      <Project>{17a659f2-f050-4549-ae46-c6d2848525d1}</Project>
+      <Name>Monitor.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain\Monitor.Domain.csproj">
+      <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
+      <Name>Monitor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
+      <Project>{60b04982-cf40-4d1f-aada-2cb6c11c9896}</Project>
+      <Name>Monitor.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.IUserApplication\Monitor.IUserApplication.csproj">
+      <Project>{3f37fd22-b0ca-4f23-aff1-811b05606e7e}</Project>
+      <Name>Monitor.IUserApplication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.TransDto\Monitor.TransDto.csproj">
+      <Project>{ccdab82d-e670-4c09-a3de-e578f5a7b720}</Project>
+      <Name>Monitor.TransDto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.UserApplication\Monitor.UserApplication.csproj">
+      <Project>{085b712b-38c4-45f0-af64-4cf372a7756e}</Project>
+      <Name>Monitor.UserApplication</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor.TransDto", "Monitor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor.Web.Tool", "Monitor.Web.Tool\Monitor.Web.Tool.csproj", "{A112F0DA-A2F1-492D-9E50-1C2C2F64271F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor.TaskScheduling", "Monitor.TaskScheduling\Monitor.TaskScheduling.csproj", "{95311366-C66F-4AAE-B945-52B23A223B23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{A112F0DA-A2F1-492D-9E50-1C2C2F64271F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A112F0DA-A2F1-492D-9E50-1C2C2F64271F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A112F0DA-A2F1-492D-9E50-1C2C2F64271F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95311366-C66F-4AAE-B945-52B23A223B23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95311366-C66F-4AAE-B945-52B23A223B23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95311366-C66F-4AAE-B945-52B23A223B23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95311366-C66F-4AAE-B945-52B23A223B23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,5 +149,6 @@ Global
 		{3F37FD22-B0CA-4F23-AFF1-811B05606E7E} = {3D66E35D-A583-4039-A542-B84D1348DF32}
 		{CCDAB82D-E670-4C09-A3DE-E578F5A7B720} = {D2CB10DD-4F55-4845-90AE-C1A61DA9C296}
 		{A112F0DA-A2F1-492D-9E50-1C2C2F64271F} = {DEB48B37-82EE-49A8-BEA8-20181390456D}
+		{95311366-C66F-4AAE-B945-52B23A223B23} = {DEB48B37-82EE-49A8-BEA8-20181390456D}
 	EndGlobalSection
 EndGlobal
