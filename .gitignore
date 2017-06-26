@@ -39,3 +39,5 @@
 /Monitor.AdminManage/App_Data/NLogs
 /Monitor.Web.Tool/obj
 /Monitor.Web.Tool/bin
+/Monitor.TaskScheduling/obj
+/Monitor.TaskScheduling/bin

@@ -116,6 +116,7 @@
     <Compile Include="Serialization\Protobuf\ProtobufBinarySerializer.cs" />
     <Compile Include="Serialization\Protobuf\ProtobufBinarySerializerConfigurationExtension.cs" />
     <Compile Include="SysConstants\ContentTypeConstant.cs" />
+    <Compile Include="Utils\BufferQueue.cs" />
     <Compile Include="Utils\ConfigUtil.cs" />
     <Compile Include="Utils\ConfigWacherUtil.cs" />
     <Compile Include="Utils\DESProviderUtil.cs" />

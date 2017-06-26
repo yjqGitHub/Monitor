@@ -3,6 +3,7 @@ using JQ.MQ;
 using JQ.MQ.Logger;
 using Monitor.Infrastructure.MQ;
 using System;
+using System.Collections.Generic;
 
 namespace Monitor.TaskScheduling
 {
@@ -25,9 +26,12 @@ namespace Monitor.TaskScheduling
         {
             var mqFactory = JQConfiguration.Resolve<IMQFactory>();
             mqClient = mqFactory.Create(MQLoggerUtil.GetMQLoggerConfig());
-            mqClient.Subscribe<JQLoggerMessage>((message) =>
+            mqClient.Subscribe<List<JQLoggerMessage>>((messageList) =>
             {
-                Console.WriteLine(message.ToString());
+                foreach (var message in messageList)
+                {
+                    Console.WriteLine($"{message.AppDomain}=={message.Message}");
+                }
             }, exchangeName: "JQ.Message.Exchange", queueName: "JQ.Message.Queue", routingKey: "JQ.LoggerMessage.*", exchangeType: MQExchangeType.TOPICS, errorActionHandle: (message, ex) => { }, memberName: "LoggerSubscribeTask-DealLog");
         }
 
