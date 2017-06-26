@@ -877,5 +877,63 @@ namespace JQ.Redis.StackExchangeRedis
         }
 
         #endregion hash
+
+        #region lock
+
+        /// <summary>
+        /// 获取一个锁
+        /// </summary>
+        /// <typeparam name="T">值的类型</typeparam>
+        /// <param name="key">键名</param>
+        /// <param name="value">值</param>
+        /// <param name="expiry">过期时间</param>
+        /// <returns>成功返回true</returns>
+        public bool LockTake<T>(string key, T value, TimeSpan expiry)
+        {
+            var objBytes = Serializer.Serialize(value);
+            return Database.LockTake(SetPrefix(key), objBytes, expiry);
+        }
+
+        /// <summary>
+        /// 异步获取一个锁
+        /// </summary>
+        /// <typeparam name="T">值的类型</typeparam>
+        /// <param name="key">键名</param>
+        /// <param name="value">值</param>
+        /// <param name="expiry">过期时间</param>
+        /// <returns>成功返回true</returns>
+        public async Task<bool> LockTakeAsync<T>(string key, T value, TimeSpan expiry)
+        {
+            var objBytes = await Serializer.SerializeAsync(value);
+            return await Database.LockTakeAsync(SetPrefix(key), objBytes, expiry);
+        }
+
+        /// <summary>
+        /// 释放一个锁
+        /// </summary>
+        /// <typeparam name="T">值的类型</typeparam>
+        /// <param name="key">键名</param>
+        /// <param name="value">值</param>
+        /// <returns>成功返回true</returns>
+        public bool LockRelease<T>(string key, T value)
+        {
+            var objBytes = Serializer.Serialize(value);
+            return Database.LockRelease(SetPrefix(key), objBytes);
+        }
+
+        /// <summary>
+        /// 异步释放一个锁
+        /// </summary>
+        /// <typeparam name="T">值的类型</typeparam>
+        /// <param name="key">键名</param>
+        /// <param name="value">值</param>
+        /// <returns>成功返回true</returns>
+        public async Task<bool> LockReleaseAsync<T>(string key, T value)
+        {
+            var objBytes = await Serializer.SerializeAsync(value);
+            return await Database.LockReleaseAsync(SetPrefix(key), objBytes);
+        }
+
+        #endregion lock
     }
 }

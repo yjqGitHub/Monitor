@@ -536,5 +536,47 @@ namespace JQ.Redis
         void Clear();
 
         #endregion Public
+
+        #region lock
+
+        /// <summary>
+        /// 获取一个锁
+        /// </summary>
+        /// <typeparam name="T">值的类型</typeparam>
+        /// <param name="key">键名</param>
+        /// <param name="value">值</param>
+        /// <param name="expiry">过期时间</param>
+        /// <returns>成功返回true</returns>
+        bool LockTake<T>(string key, T value, TimeSpan expiry);
+
+        /// <summary>
+        /// 异步获取一个锁
+        /// </summary>
+        /// <typeparam name="T">值的类型</typeparam>
+        /// <param name="key">键名</param>
+        /// <param name="value">值</param>
+        /// <param name="expiry">过期时间</param>
+        /// <returns>成功返回true</returns>
+        Task<bool> LockTakeAsync<T>(string key, T value, TimeSpan expiry);
+
+        /// <summary>
+        /// 释放一个锁
+        /// </summary>
+        /// <typeparam name="T">值的类型</typeparam>
+        /// <param name="key">键名</param>
+        /// <param name="value">值</param>
+        /// <returns>成功返回true</returns>
+        bool LockRelease<T>(string key, T value);
+
+        /// <summary>
+        /// 异步释放一个锁
+        /// </summary>
+        /// <typeparam name="T">值的类型</typeparam>
+        /// <param name="key">键名</param>
+        /// <param name="value">值</param>
+        /// <returns>成功返回true</returns>
+        Task<bool> LockReleaseAsync<T>(string key, T value);
+
+        #endregion lock
     }
 }
