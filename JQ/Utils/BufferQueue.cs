@@ -67,7 +67,7 @@ namespace JQ.Utils
                         }
                         _handNoCount?.Invoke();
                     }
-                    catch
+                    finally
                     {
                         Interlocked.Exchange(ref _isInProcessMessage, 0);
                         if (_messageQueue.Count > 0)

@@ -2,6 +2,7 @@
 using JQ.Extensions;
 using JQ.ParamterValidate;
 using JQ.Redis;
+using JQ.Utils;
 using Monitor.Domain.IDomainServer;
 using Monitor.Domain.IRepository;
 using Monitor.Domain.Model;
@@ -54,6 +55,7 @@ namespace Monitor.Domain.DomainServer
             var tryLoginErrorCount = RedisHelper.GetClient().StringGet<long>(string.Format(RedisKeyConstant.REDIS_KEY_LOGINERROR_COUNT_BASE, adminInfo.UserName));
             if (tryLoginErrorCount >= 5)
             {
+                LogUtil.Info($"{adminInfo.UserName}:{FriendlyMessage.USER_OR_ERROR_OVER_LIMIT}");
                 throw new JQException(FriendlyMessage.USER_OR_ERROR_OVER_LIMIT);
             }
         }

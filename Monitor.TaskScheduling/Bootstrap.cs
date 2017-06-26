@@ -41,7 +41,7 @@ namespace Monitor.TaskScheduling
             var userApplicationAssembly = Assembly.Load("Monitor.UserApplication");
 
             JQConfiguration.Install(
-                                    domainName: "Monitor",
+                                    domainName: "Monitor.TaskScheduling",
                                     isStartConfigWatch: true,
                                     defaultLoggerName: "Monitor.Public.*"
                                     )

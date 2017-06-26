@@ -29,8 +29,8 @@ namespace JQ.MQ.Logger
             }
             configuration.SetDefault<ILoggerFactory, MQLoggerFactory>(serviceName: REGISTER_NAME_MQLOGGERFACTORY);
             configuration.AddRegisterName(typeof(MQLoggerFactory).TypeHandle, REGISTER_NAME_MQLOGGERFACTORY);
-            MQLogger.GetMQLoggerConfigAction = action;
-            configuration.AddUnstallAction(() => { MQLogger.GetMQLoggerConfigAction = null; });
+            MessageSendUtil.GetMQLoggerConfigAction = action;
+            configuration.AddUnstallAction(() => { MessageSendUtil.GetMQLoggerConfigAction = null; });
             return configuration;
         }
     }
