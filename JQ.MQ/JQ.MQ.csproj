@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="IMQClient.cs" />
     <Compile Include="IMQFactory.cs" />
-    <Compile Include="Logger\ILoggerMessage.cs" />
     <Compile Include="Logger\MQLoggerConfig.cs" />
     <Compile Include="Logger\MQLoggerFactory.cs" />
     <Compile Include="Logger\MQLoggerMessageConfigurationExtension.cs" />

@@ -13,7 +13,7 @@ namespace JQ.MQ.Logger
     /// 创建标识：yjq 2017/6/12 21:01:08
     /// </summary>
     [ProtoContract]
-    public class JQLoggerMessage : ILoggerMessage
+    public class JQLoggerMessage 
     {
         public JQLoggerMessage()
         {

@@ -145,9 +145,9 @@ namespace JQ.MQ.Logger
         /// <param name="messageType">消息类型</param>
         /// <param name="message">消息内容</param>
         /// <returns>消息内容</returns>
-        private ILoggerMessage GetLoggerMessage(MessageType messageType, string message)
+        private JQLoggerMessage GetLoggerMessage(MessageType messageType, string message)
         {
-            var loggerMessage = JQConfiguration.Resolve<ILoggerMessage>();
+            var loggerMessage = new JQLoggerMessage();
             loggerMessage.SetMessage(_loggerName, messageType, message);
             return loggerMessage;
         }
@@ -158,9 +158,9 @@ namespace JQ.MQ.Logger
         /// <param name="messageType">消息类型</param>
         /// <param name="ex">异常信息</param>
         /// <returns>消息内容</returns>
-        private ILoggerMessage GetLoggerMessage(MessageType messageType, Exception ex)
+        private JQLoggerMessage GetLoggerMessage(MessageType messageType, Exception ex)
         {
-            var loggerMessage = JQConfiguration.Resolve<ILoggerMessage>();
+            var loggerMessage = new JQLoggerMessage();
             loggerMessage.SetMessage(_loggerName, messageType, ex);
             return loggerMessage;
         }
@@ -172,9 +172,9 @@ namespace JQ.MQ.Logger
         /// <param name="message">消息内容</param>
         /// <param name="exception">异常信息</param>
         /// <returns>消息内容</returns>
-        private ILoggerMessage GetLoggerMessage(MessageType messageType, string message, Exception ex)
+        private JQLoggerMessage GetLoggerMessage(MessageType messageType, string message, Exception ex)
         {
-            var loggerMessage = JQConfiguration.Resolve<ILoggerMessage>();
+            var loggerMessage = new JQLoggerMessage();
             loggerMessage.SetMessage(_loggerName, messageType, message, ex);
             return loggerMessage;
         }
@@ -185,11 +185,11 @@ namespace JQ.MQ.Logger
         /// 发送日志
         /// </summary>
         /// <param name="message">消息内容</param>
-        private void SendLog(ILoggerMessage message)
+        private void SendLog(JQLoggerMessage message)
         {
             var conifg = GetConfig();
             var mqClient = JQConfiguration.Resolve<IMQFactory>().Create(conifg);
-            string queueName = string.Empty;
+            string queueName = "JQ.Message.Queue";
             string routeKey = string.Concat("JQ.LoggerMessage.", message.MessageType.ToString());
             mqClient.Publish(message, _exchangeName, queueName, routeKey, exchangeType: MQExchangeType.TOPICS, durable: true);
         }

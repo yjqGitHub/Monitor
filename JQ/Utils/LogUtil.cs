@@ -2,6 +2,7 @@
 using JQ.Extensions;
 using JQ.Logger;
 using System;
+using System.Collections.Generic;
 
 namespace JQ.Utils
 {
@@ -14,9 +15,9 @@ namespace JQ.Utils
     /// </summary>
     public static class LogUtil
     {
-        private static ILoggerFactory GetLoggerFactory()
+        private static IEnumerable<ILoggerFactory> GetLoggerFactory()
         {
-            return JQConfiguration.Resolve<ILoggerFactory>();
+            return JQConfiguration.Resolve<IEnumerable<ILoggerFactory>>();
         }
 
         /// <summary>
@@ -24,17 +25,31 @@ namespace JQ.Utils
         /// </summary>
         /// <param name="loggerName">记录器名字</param>
         /// <returns>日志记录器</returns>
-        public static ILogger GetLogger(string loggerName = null, Type type = null)
+        public static IEnumerable<ILogger> GetLogger(string loggerName = null, Type type = null)
         {
+            List<ILogger> loggerList = new List<ILogger>();
             if (!string.IsNullOrWhiteSpace(loggerName))
             {
-                return GetLoggerFactory().Create(loggerName);
+                foreach (var loggerFactory in GetLoggerFactory())
+                {
+                    loggerList.Add(loggerFactory.Create(loggerName));
+                }
             }
-            if (type != null)
+            else if (type != null)
             {
-                return GetLoggerFactory().Create(type);
+                foreach (var loggerFactory in GetLoggerFactory())
+                {
+                    loggerList.Add(loggerFactory.Create(type.Name));
+                }
             }
-            return GetLoggerFactory().Create(JQConfiguration.Instance.DefaultLoggerName);
+            else
+            {
+                foreach (var loggerFactory in GetLoggerFactory())
+                {
+                    loggerList.Add(loggerFactory.Create(JQConfiguration.Instance.DefaultLoggerName));
+                }
+            }
+            return loggerList;
         }
 
         /// <summary>
@@ -43,7 +58,7 @@ namespace JQ.Utils
         /// <param name="msg">日志内容</param>
         public static void Debug(string msg, string loggerName = null, Type type = null)
         {
-            GetLogger(loggerName: loggerName, type: type).Debug(msg);
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.Debug(msg));
         }
 
         /// <summary>
@@ -55,7 +70,7 @@ namespace JQ.Utils
         /// <param name="args"></param>
         public static void DebugFormat(string format, string loggerName = null, Type type = null, params object[] args)
         {
-            GetLogger(loggerName: loggerName, type: type).DebugFormat(format, args);
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.DebugFormat(format, args));
         }
 
         /// <summary>
@@ -64,7 +79,7 @@ namespace JQ.Utils
         /// <param name="msg">日志内容</param>
         public static void Info(string msg, string loggerName = null, Type type = null)
         {
-            GetLogger(loggerName: loggerName, type: type).Info(msg);
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.Info(msg));
         }
 
         /// <summary>
@@ -76,7 +91,7 @@ namespace JQ.Utils
         /// <param name="args"></param>
         public static void InfoFormat(string format, string loggerName = null, Type type = null, params object[] args)
         {
-            GetLogger(loggerName: loggerName, type: type).InfoFormat(format, args);
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.InfoFormat(format, args));
         }
 
         /// <summary>
@@ -86,7 +101,7 @@ namespace JQ.Utils
         /// <param name="loggerName"></param>
         public static void Warn(string msg, string loggerName = null, Type type = null)
         {
-            GetLogger(loggerName: loggerName, type: type).Warn(msg);
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.Warn(msg));
         }
 
         /// <summary>
@@ -98,7 +113,7 @@ namespace JQ.Utils
         /// <param name="args"></param>
         public static void WarnFormat(string format, string loggerName = null, Type type = null, params object[] args)
         {
-            GetLogger(loggerName: loggerName, type: type).WarnFormat(format, args);
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.WarnFormat(format, args));
         }
 
         /// <summary>
@@ -109,7 +124,7 @@ namespace JQ.Utils
         /// <param name="loggerName"></param>
         public static void Warn(Exception ex, string memberName = null, string loggerName = null, Type type = null)
         {
-            GetLogger(loggerName: loggerName, type: type).Warn(ex.ToErrMsg(memberName: memberName));
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.Warn(ex.ToErrMsg(memberName: memberName)));
         }
 
         /// <summary>
@@ -118,7 +133,7 @@ namespace JQ.Utils
         /// <param name="msg">日志内容</param>
         public static void Error(string msg, string loggerName = null, Type type = null)
         {
-            GetLogger(loggerName: loggerName, type: type).Error(msg);
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.Error(msg));
         }
 
         /// <summary>
@@ -127,7 +142,7 @@ namespace JQ.Utils
         /// <param name="ex">异常信息</param>
         public static void Error(Exception ex, string memberName = null, string loggerName = null, Type type = null)
         {
-            GetLogger(loggerName: loggerName, type: type).Error(ex.ToErrMsg(memberName: memberName));
+            GetLogger(loggerName: loggerName, type: type).ForEach(logger => logger.Error(ex.ToErrMsg(memberName: memberName)));
         }
     }
 }

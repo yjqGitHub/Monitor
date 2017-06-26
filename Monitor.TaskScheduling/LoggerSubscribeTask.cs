@@ -25,7 +25,7 @@ namespace Monitor.TaskScheduling
         {
             var mqFactory = JQConfiguration.Resolve<IMQFactory>();
             mqClient = mqFactory.Create(MQLoggerUtil.GetMQLoggerConfig());
-            mqClient.Subscribe<ILoggerMessage>((message) =>
+            mqClient.Subscribe<JQLoggerMessage>((message) =>
             {
                 Console.WriteLine(message.ToString());
             }, exchangeName: "JQ.Message.Exchange", queueName: "JQ.Message.Queue", routingKey: "JQ.LoggerMessage.*", exchangeType: MQExchangeType.TOPICS, errorActionHandle: (message, ex) => { }, memberName: "LoggerSubscribeTask-DealLog");
