@@ -10,7 +10,7 @@ namespace JQ.Container
     /// 类功能描述：容器接口
     /// 创建标识：yjq 2017/6/11 14:31:13
     /// </summary>
-    public interface IObjectContainer
+    public interface IObjectContainer : IDisposable
     {
         #region 注册
 

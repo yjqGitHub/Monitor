@@ -41,3 +41,5 @@
 /Monitor.Web.Tool/bin
 /Monitor.TaskScheduling/obj
 /Monitor.TaskScheduling/bin
+/JQ.Hangfire/obj
+/JQ.Hangfire/bin

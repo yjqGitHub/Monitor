@@ -42,9 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdminApplication.cs" />
+    <Compile Include="IRuntimeLogApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JQ.MQ\JQ.MQ.csproj">
+      <Project>{753B7793-A43E-49E0-9CC4-AA29A94CFEB7}</Project>
+      <Name>JQ.MQ</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JQ\JQ.csproj">
       <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
       <Name>JQ</Name>
@@ -65,9 +70,6 @@
       <Project>{CCDAB82D-E670-4C09-A3DE-E578F5A7B720}</Project>
       <Name>Monitor.TransDto</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

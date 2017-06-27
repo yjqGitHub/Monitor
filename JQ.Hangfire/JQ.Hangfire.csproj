@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C4727257-EAD3-4725-B43B-0CE9E54DA3DB}</ProjectGuid>
+    <ProjectGuid>{555841B8-B3BB-4EEF-BA5E-F8C299CC0535}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Monitor.Domain</RootNamespace>
-    <AssemblyName>Monitor.Domain</AssemblyName>
+    <RootNamespace>JQ.Hangfire</RootNamespace>
+    <AssemblyName>JQ.Hangfire</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,8 +31,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    <Reference Include="Hangfire.Core, Version=1.6.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.Core.1.6.14\lib\net45\Hangfire.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.6.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hangfire.SqlServer.1.6.14\lib\net45\Hangfire.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,37 +65,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAggregateRoot.cs" />
-    <Compile Include="IEntity.cs" />
-    <Compile Include="Model\AdminInfo.cs" />
-    <Compile Include="Model\LoginRecordInfo.cs" />
-    <Compile Include="Model\RuntimeLogInfo.cs" />
+    <Compile Include="JQIocJobActivator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueObject\AdminState.cs" />
-    <Compile Include="ValueObject\LoginLog.cs" />
-    <Compile Include="ValueObject\RuntimeLogType.cs" />
-    <Compile Include="ValueObject\SitePort.cs" />
+    <Compile Include="RegistrationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">
-      <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
-      <Name>JQ.MongoDb</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\JQ.MQ\JQ.MQ.csproj">
-      <Project>{753B7793-A43E-49E0-9CC4-AA29A94CFEB7}</Project>
-      <Name>JQ.MQ</Name>
-    </ProjectReference>
     <ProjectReference Include="..\JQ\JQ.csproj">
       <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
       <Name>JQ</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
-      <Project>{60b04982-cf40-4d1f-aada-2cb6c11c9896}</Project>
-      <Name>Monitor.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

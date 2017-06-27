@@ -47,11 +47,16 @@
   <ItemGroup>
     <Compile Include="AdminApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeLogApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">
       <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
       <Name>JQ.MongoDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JQ.MQ\JQ.MQ.csproj">
+      <Project>{753B7793-A43E-49E0-9CC4-AA29A94CFEB7}</Project>
+      <Name>JQ.MQ</Name>
     </ProjectReference>
     <ProjectReference Include="..\JQ.Redis\JQ.Redis.csproj">
       <Project>{02EBE948-6720-4126-81B6-D8B6FA962DD0}</Project>
@@ -93,9 +98,6 @@
       <Project>{CCDAB82D-E670-4C09-A3DE-E578F5A7B720}</Project>
       <Name>Monitor.TransDto</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

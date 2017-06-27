@@ -1,8 +1,9 @@
 ﻿using JQ.Configurations;
 using JQ.MQ;
 using JQ.MQ.Logger;
+using JQ.Utils;
 using Monitor.Infrastructure.MQ;
-using System;
+using Monitor.IUserApplication;
 using System.Collections.Generic;
 
 namespace Monitor.TaskScheduling
@@ -24,15 +25,16 @@ namespace Monitor.TaskScheduling
 
         public void Install()
         {
+            var runtimeLogApplication = JQConfiguration.Resolve<IRuntimeLogApplication>();
             var mqFactory = JQConfiguration.Resolve<IMQFactory>();
             mqClient = mqFactory.Create(MQLoggerUtil.GetMQLoggerConfig());
             mqClient.Subscribe<List<JQLoggerMessage>>((messageList) =>
             {
-                foreach (var message in messageList)
-                {
-                    Console.WriteLine($"{message.AppDomain}=={message.Message}");
-                }
-            }, exchangeName: "JQ.Message.Exchange", queueName: "JQ.Message.Queue", routingKey: "JQ.LoggerMessage.*", exchangeType: MQExchangeType.TOPICS, errorActionHandle: (message, ex) => { }, memberName: "LoggerSubscribeTask-DealLog");
+                runtimeLogApplication.AddManyLog(messageList);
+            }, exchangeName: "JQ.Message.Exchange", queueName: "JQ.Message.Queue", routingKey: "JQ.LoggerMessage.*", exchangeType: MQExchangeType.TOPICS, errorActionHandle: (message, ex) =>
+            {
+                LogUtil.Error(ex, memberName: "LoggerSubscribeTask-Install-Subscribe");
+            }, memberName: "LoggerSubscribeTask-DealLog");
         }
 
         public void Unstall()

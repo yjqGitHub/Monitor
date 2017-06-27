@@ -41,16 +41,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdminDomainServer.cs" />
+    <Compile Include="IRuntimeLogDomainServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JQ.MQ\JQ.MQ.csproj">
+      <Project>{753B7793-A43E-49E0-9CC4-AA29A94CFEB7}</Project>
+      <Name>JQ.MQ</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monitor.Domain\Monitor.Domain.csproj">
       <Project>{C4727257-EAD3-4725-B43B-0CE9E54DA3DB}</Project>
       <Name>Monitor.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

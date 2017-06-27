@@ -14,7 +14,7 @@ namespace JQ.Container.Autofac
     /// 类功能描述：Autofac容器
     /// 创建标识：yjq 2017/6/11 14:35:10
     /// </summary>
-    public sealed class AutofacObjectContainer : IObjectContainer
+    public sealed class AutofacObjectContainer : JQDisposable,IObjectContainer
     {
         private readonly IContainer _container;
 
@@ -334,6 +334,11 @@ namespace JQ.Container.Autofac
         private ILifetimeScope Scope()
         {
             return Container;
+        }
+
+        protected override void DisposeCode()
+        {
+            Scope().Dispose();
         }
     }
 }

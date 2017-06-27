@@ -8,9 +8,9 @@ namespace Monitor.TaskScheduling
         {
             HostFactory.Run(x =>
             {
-                x.Service<Bootstrap>(s =>
+                x.Service<BootStrapper>(s =>
                 {
-                    s.ConstructUsing(name => new Bootstrap());
+                    s.ConstructUsing(name => new BootStrapper());
                     s.WhenStarted(tc => tc.Install());
                     s.WhenStopped(tc => tc.UnInstall());
                 });

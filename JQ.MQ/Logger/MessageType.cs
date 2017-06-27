@@ -39,6 +39,6 @@ namespace JQ.MQ.Logger
         ///验证错误日志
         /// </summary>
         [Description("验证错误日志")]
-        Fatal = 5,
+        Fatal = 5
     }
 }
