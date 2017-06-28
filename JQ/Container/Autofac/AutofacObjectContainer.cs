@@ -72,6 +72,32 @@ namespace JQ.Container.Autofac
             //UpdateContainer(builder);
         }
 
+        public void RegisterType<T>(string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
+            var registrationBuilder = builder.RegisterType<T>();
+            if (serviceName.IsNotNullAndNotWhiteSpace())
+            {
+                registrationBuilder.Named<T>(serviceName);
+            }
+            registrationBuilder.SetLifeStyle(lifeStyle);
+            //UpdateContainer(builder);
+        }
+
+        public void RegisterType<T>(Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
+        {
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
+            var registrationBuilder = builder.RegisterType<T>();
+            if (serviceName.IsNotNullAndNotWhiteSpace())
+            {
+                registrationBuilder.Named<T>(serviceName);
+            }
+            registrationBuilder.InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
+            //UpdateContainer(builder);
+        }
+
         /// <summary>
         /// 注册
         /// </summary>

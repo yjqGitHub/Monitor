@@ -49,7 +49,7 @@ namespace JQ.Utils
             }
             else
             {
-                LogUtil.WarnFormat("【{0}】文件不存在", args: filePath);
+                LogUtil.WarnFormat("文件不存在【{0}】", args: filePath);
             }
         }
 
@@ -90,7 +90,7 @@ namespace JQ.Utils
 
             _timer = new Timer(new TimerCallback(OnWatchedFileChange), null, Timeout.Infinite, Timeout.Infinite);
             _timer.Change(_timeOutMillis, Timeout.Infinite);
-            LogUtil.InfoFormat("【{0}】文件监听器开启", args: _fileInfo.FullName);
+            LogUtil.InfoFormat("文件监听器开启【{0}】", args: _fileInfo.FullName);
         }
 
         private void ConfigWacherHandler_OnChanged(object source, FileSystemEventArgs e)
@@ -107,7 +107,7 @@ namespace JQ.Utils
         {
             if (_fileInfo == null)
             {
-                LogUtil.Error("【InternalConfigure】文件不存在");
+                LogUtil.Error("文件不存在【InternalConfigure】");
             }
             else if (FileUtil.IsExistsFile(_fileInfo.FullName))
             {
@@ -134,7 +134,7 @@ namespace JQ.Utils
                     try
                     {
                         _fileChangedHandle?.Invoke(fs);
-                        LogUtil.InfoFormat("【{0}】文件信息变更后加载完毕", args: _fileInfo.FullName);
+                        LogUtil.InfoFormat("文件信息变更后加载完毕【{0}】", args: _fileInfo.FullName);
                     }
                     finally
                     {
@@ -144,7 +144,7 @@ namespace JQ.Utils
             }
             else
             {
-                LogUtil.WarnFormat("【{0}】文件不存在", args: _fileInfo.FullName);
+                LogUtil.WarnFormat("文件不存在【{0}】", args: _fileInfo.FullName);
             }
         }
 

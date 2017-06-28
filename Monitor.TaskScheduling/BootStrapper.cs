@@ -13,7 +13,7 @@ using JQ.Redis.StackExchangeRedis;
 using JQ.Utils;
 using Monitor.Infrastructure.MQ;
 using System;
-using System.Configuration;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Monitor.TaskScheduling
@@ -27,13 +27,13 @@ namespace Monitor.TaskScheduling
     /// </summary>
     public sealed class BootStrapper
     {
-        private LoggerSubscribeTask loggerSubcribe;
+        private LoggerSubscribeTask _loggerSubcribe;
         private BackgroundJobServer _server;
+        private List<Action> _removeJobActionList = new List<Action>();
 
-        public BootStrapper()
-        {
-        }
-
+        /// <summary>
+        /// 启动时执行
+        /// </summary>
         public void Install()
         {
             var repositoryAssembly = Assembly.Load("Monitor.Domain.Repository");
@@ -57,9 +57,32 @@ namespace Monitor.TaskScheduling
                             .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
+                            .SetDefault<LoggerSubscribeTask>()
                 ;
 
             ConfigWacherUtil.Install();
+            UseHangfire();
+        }
+
+        /// <summary>
+        /// 停止时执行
+        /// </summary>
+        public void UnInstall()
+        {
+            _loggerSubcribe?.Dispose();
+            foreach (var removeJobAction in _removeJobActionList)
+            {
+                removeJobAction?.Invoke();
+            }
+            _server.Dispose();
+            JQConfiguration.UnInstall();
+        }
+
+        /// <summary>
+        /// 使用hangfire
+        /// </summary>
+        private void UseHangfire()
+        {
             var options = new RedisStorageOptions
             {
                 Prefix = "hangfire:",
@@ -67,29 +90,20 @@ namespace Monitor.TaskScheduling
             };
             GlobalConfiguration.Configuration
               .UseColouredConsoleLogProvider()
-              .UseAutofacActivator(ContainerManager.Current)
-              .UseRedisStorage("localhost,password=yjq", options: options)
+              .UseJQActivator(ContainerManager.Current)
+              .UseRedisStorage(ConfigUtil.GetValue("Redis.Connection"), options: options)
               ;
-            loggerSubcribe = new LoggerSubscribeTask();
             _server = new BackgroundJobServer();
-            loggerSubcribe.Install();
+            InstallTasks();
         }
 
-        private void StartHangFire()
+        /// <summary>
+        /// 注册任务
+        /// </summary>
+        private void InstallTasks()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["Hangfire.Server"];
-            if (connectionString != null)
-            {
-                GlobalConfiguration.Configuration.UseColouredConsoleLogProvider().UseSqlServerStorage(connectionString.ToString());
-                _server.SendStop();
-            }
-        }
-
-        public void UnInstall()
-        {
-            loggerSubcribe.Unstall();
-            _server.Dispose();
-            JQConfiguration.UnInstall();
+            _loggerSubcribe = JQConfiguration.Resolve<LoggerSubscribeTask>();
+            BackgroundJob.Enqueue(() => _loggerSubcribe.Start());
         }
     }
 }

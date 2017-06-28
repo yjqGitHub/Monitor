@@ -34,6 +34,23 @@ namespace JQ.Container
         /// <summary>
         /// 注册
         /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="serviceName">服务名称</param>
+        /// <param name="lifeStyle">生命周期</param>
+        void RegisterType<T>(string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton);
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <typeparam name="T">对象类型</typeparam>
+        /// <param name="interceptTypeList">Aop类型</param>
+        /// <param name="serviceName">服务名称</param>
+        /// <param name="lifeStyle">生命周期</param>
+        void RegisterType<T>(Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton);
+
+        /// <summary>
+        /// 注册
+        /// </summary>
         /// <param name="serviceType">服务类型</param>
         /// <param name="implementationType">实例类型</param>
         /// <param name="serviceName">服务名字</param>

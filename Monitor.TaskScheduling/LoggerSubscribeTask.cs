@@ -1,10 +1,11 @@
-﻿using JQ.Configurations;
+﻿using JQ;
 using JQ.MQ;
 using JQ.MQ.Logger;
 using JQ.Utils;
 using Monitor.Infrastructure.MQ;
 using Monitor.IUserApplication;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Monitor.TaskScheduling
 {
@@ -15,31 +16,39 @@ namespace Monitor.TaskScheduling
     /// 类功能描述：日志记录器监听任务
     /// 创建标识：yjq 2017/6/26 13:29:17
     /// </summary>
-    public sealed class LoggerSubscribeTask
+    public sealed class LoggerSubscribeTask : JQDisposable
     {
         private IMQClient mqClient;
+        private readonly IRuntimeLogApplication _runtimeLogApplication;
+        private readonly IMQFactory _mqFactory;
 
-        public LoggerSubscribeTask()
+        public LoggerSubscribeTask(IRuntimeLogApplication runtimeLogApplication, IMQFactory mqFactory)
         {
+            _runtimeLogApplication = runtimeLogApplication;
+            _mqFactory = mqFactory;
         }
 
-        public void Install()
+        /// <summary>
+        /// 启动监听日志消息
+        /// </summary>
+        [DisplayName("监听日志消息任务")]
+        public void Start()
         {
-            var runtimeLogApplication = JQConfiguration.Resolve<IRuntimeLogApplication>();
-            var mqFactory = JQConfiguration.Resolve<IMQFactory>();
-            mqClient = mqFactory.Create(MQLoggerUtil.GetMQLoggerConfig());
+            mqClient = _mqFactory.Create(MQLoggerUtil.GetMQLoggerConfig());
             mqClient.Subscribe<List<JQLoggerMessage>>((messageList) =>
             {
-                runtimeLogApplication.AddManyLog(messageList);
+                _runtimeLogApplication.AddManyLog(messageList);
             }, exchangeName: "JQ.Message.Exchange", queueName: "JQ.Message.Queue", routingKey: "JQ.LoggerMessage.*", exchangeType: MQExchangeType.TOPICS, errorActionHandle: (message, ex) =>
             {
                 LogUtil.Error(ex, memberName: "LoggerSubscribeTask-Install-Subscribe");
             }, memberName: "LoggerSubscribeTask-DealLog");
         }
 
-        public void Unstall()
+        protected override void DisposeCode()
         {
-            mqClient.Dispose();
+            LogUtil.Info("执行释放LoggerSubscribeTask-DisposeCode");
+            LogUtil.Info("【停止】监听日志消息任务");
+            mqClient?.Dispose();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace JQ.Hangfire
     /// </summary>
     public static class GlobalConfigurationExtensions
     {
-        public static IGlobalConfiguration<JQIocJobActivator> UseAutofacActivator(
+        public static IGlobalConfiguration<JQIocJobActivator> UseJQActivator(
             [NotNull] this IGlobalConfiguration configuration,
             [NotNull] IObjectContainer lifetimeScope, bool useTaggedLifetimeScope = true)
         {
