@@ -21,7 +21,6 @@ namespace JQ.Hangfire
             {
                 throw new ArgumentNullException(nameof(iocResolver));
             }
-
             _iocResolver = iocResolver;
         }
 
@@ -32,14 +31,14 @@ namespace JQ.Hangfire
 
         public override JobActivatorScope BeginScope(JobActivatorContext context)
         {
-            return new HangfireIocJobActivatorScope(_iocResolver);
+            return new JQIocJobActivatorScope(_iocResolver);
         }
 
-        private class HangfireIocJobActivatorScope : JobActivatorScope
+        private class JQIocJobActivatorScope : JobActivatorScope
         {
             private readonly IObjectContainer _lifetimeScope;
 
-            public HangfireIocJobActivatorScope(IObjectContainer lifetimeScope)
+            public JQIocJobActivatorScope(IObjectContainer lifetimeScope)
             {
                 _lifetimeScope = lifetimeScope;
             }
@@ -51,7 +50,6 @@ namespace JQ.Hangfire
 
             public override void DisposeScope()
             {
-                _lifetimeScope.Dispose();
             }
         }
     }

@@ -35,12 +35,13 @@ namespace Monitor.AdminManage.App_Start
             var domainServiceAssembly = Assembly.Load("Monitor.Domain.DomainServer");
             var userApplicationAssembly = Assembly.Load("Monitor.UserApplication");
 
+            var builder = new ContainerBuilder();
             JQConfiguration.Install(
                                     domainName: "Monitor",
                                     isStartConfigWatch: true,
                                     defaultLoggerName: "Monitor.Public.*"
                                     )
-                            .UseDefaultConfig()
+                            .UseDefaultConfig(builder)
                             .UseMongoDb()
                             .UseMQProtobufBinarySerializer()
                             .UseMQJsonBinarySerializer()
@@ -53,22 +54,10 @@ namespace Monitor.AdminManage.App_Start
                 ;
 
             //×¢²á¿ØÖÆÆ÷
-            RegisterControllers();
-            ConfigWacherUtil.Install();
-        }
-
-        /// <summary>
-        /// ×¢²á¿ØÖÆÆ÷
-        /// </summary>
-        /// <param name="builder"></param>
-        private static void RegisterControllers()
-        {
-            var container = (ContainerManager.Current as AutofacObjectContainer).Container;
-            //×¢²á¿ØÖÆÆ÷
-            var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            builder.Update(container);
+            var container = (ContainerManager.Current as AutofacObjectContainer).Container;
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            ConfigWacherUtil.Install();
         }
 
         /// <summary>

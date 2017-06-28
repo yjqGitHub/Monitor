@@ -1,6 +1,9 @@
-﻿using Hangfire;
+﻿using Autofac;
+using Hangfire;
+using Hangfire.Redis;
 using JQ.Configurations;
 using JQ.Container;
+using JQ.Hangfire;
 using JQ.Intercept;
 using JQ.MongoDb;
 using JQ.MQ.Logger;
@@ -10,13 +13,8 @@ using JQ.Redis.StackExchangeRedis;
 using JQ.Utils;
 using Monitor.Infrastructure.MQ;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
 
 namespace Monitor.TaskScheduling
 {
@@ -29,12 +27,11 @@ namespace Monitor.TaskScheduling
     /// </summary>
     public sealed class BootStrapper
     {
-        private readonly LoggerSubscribeTask loggerSubcribe;
-        private readonly BackgroundJobServer _server;
+        private LoggerSubscribeTask loggerSubcribe;
+        private BackgroundJobServer _server;
+
         public BootStrapper()
         {
-            loggerSubcribe = new LoggerSubscribeTask();
-            _server = new BackgroundJobServer();
         }
 
         public void Install()
@@ -43,12 +40,14 @@ namespace Monitor.TaskScheduling
             var domainServiceAssembly = Assembly.Load("Monitor.Domain.DomainServer");
             var userApplicationAssembly = Assembly.Load("Monitor.UserApplication");
 
+            var builder = new ContainerBuilder();
+
             JQConfiguration.Install(
                                     domainName: "Monitor.TaskScheduling",
                                     isStartConfigWatch: true,
                                     defaultLoggerName: "Monitor.Public.*"
                                     )
-                            .UseDefaultConfig()
+                            .UseDefaultConfig(builder)
                             .UseMongoDb()
                             .UseMQProtobufBinarySerializer()
                             .UseMQJsonBinarySerializer()
@@ -61,9 +60,19 @@ namespace Monitor.TaskScheduling
                 ;
 
             ConfigWacherUtil.Install();
-
+            var options = new RedisStorageOptions
+            {
+                Prefix = "hangfire:",
+                InvisibilityTimeout = TimeSpan.FromHours(3)
+            };
+            GlobalConfiguration.Configuration
+              .UseColouredConsoleLogProvider()
+              .UseAutofacActivator(ContainerManager.Current)
+              .UseRedisStorage("localhost,password=yjq", options: options)
+              ;
+            loggerSubcribe = new LoggerSubscribeTask();
+            _server = new BackgroundJobServer();
             loggerSubcribe.Install();
-
         }
 
         private void StartHangFire()
@@ -74,12 +83,12 @@ namespace Monitor.TaskScheduling
                 GlobalConfiguration.Configuration.UseColouredConsoleLogProvider().UseSqlServerStorage(connectionString.ToString());
                 _server.SendStop();
             }
-               
         }
 
         public void UnInstall()
         {
             loggerSubcribe.Unstall();
+            _server.Dispose();
             JQConfiguration.UnInstall();
         }
     }

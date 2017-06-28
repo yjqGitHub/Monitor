@@ -17,7 +17,7 @@ namespace JQ.Configurations
     public sealed class JQConfiguration
     {
         private Dictionary<RuntimeTypeHandle, string> _serviceNameDic = new Dictionary<RuntimeTypeHandle, string>();
-        private Queue<Action> _unstallActionList = new Queue<Action>();
+        private Stack<Action> _unstallActionList = new Stack<Action>();
         private string _appConfigPath;
         private string _ipDataPath;
 
@@ -117,7 +117,7 @@ namespace JQ.Configurations
         {
             if (action != null)
             {
-                _unstallActionList.Enqueue(action);
+                _unstallActionList.Push(action);
             }
             return this;
         }
@@ -126,7 +126,7 @@ namespace JQ.Configurations
         {
             while (_unstallActionList.Count > 0)
             {
-                var action = _unstallActionList.Dequeue();
+                var action = _unstallActionList.Pop();
                 action?.Invoke();
             }
         }

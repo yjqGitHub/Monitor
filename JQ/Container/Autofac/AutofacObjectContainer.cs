@@ -14,21 +14,22 @@ namespace JQ.Container.Autofac
     /// 类功能描述：Autofac容器
     /// 创建标识：yjq 2017/6/11 14:35:10
     /// </summary>
-    public sealed class AutofacObjectContainer : JQDisposable,IObjectContainer
+    public sealed class AutofacObjectContainer : IObjectContainer
     {
-        private readonly IContainer _container;
+        private IContainer _container;
+        private ContainerBuilder _builder;
 
         public AutofacObjectContainer()
         {
-            _container = new ContainerBuilder().Build();
+            _builder = new ContainerBuilder();
         }
 
         public AutofacObjectContainer(ContainerBuilder builder)
         {
-            _container = builder.Build();
+            _builder = builder ?? new ContainerBuilder();
         }
 
-        public IContainer Container { get { return _container; } }
+        public IContainer Container { get { return _container ?? (_container = _builder.Build()); } }
 
         #region 注册
 
@@ -40,14 +41,15 @@ namespace JQ.Container.Autofac
         /// <param name="lifeStyle">生命周期</param>
         public void RegisterType(Type implementationType, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
         {
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
             var registrationBuilder = builder.RegisterType(implementationType);
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named(serviceName, implementationType);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            UpdateContainer(builder);
+            //UpdateContainer(builder);
         }
 
         /// <summary>
@@ -59,14 +61,15 @@ namespace JQ.Container.Autofac
         /// <param name="lifeStyle">生命周期</param>
         public void RegisterType(Type implementationType, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
         {
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
             var registrationBuilder = builder.RegisterType(implementationType);
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named(serviceName, implementationType);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            UpdateContainer(builder);
+            //UpdateContainer(builder);
         }
 
         /// <summary>
@@ -78,14 +81,15 @@ namespace JQ.Container.Autofac
         /// <param name="life">生命周期</param>
         public void RegisterType(Type serviceType, Type implementationType, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
         {
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
             var registrationBuilder = builder.RegisterType(implementationType).As(serviceType);
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named(serviceName, implementationType);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            UpdateContainer(builder);
+            //UpdateContainer(builder);
         }
 
         /// <summary>
@@ -98,14 +102,15 @@ namespace JQ.Container.Autofac
         /// <param name="lifeStyle">生命周期</param>
         public void RegisterType(Type serviceType, Type implementationType, Type[] interceptTypeList, string serviceName = null, LifeStyle lifeStyle = LifeStyle.Singleton)
         {
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
             var registrationBuilder = builder.RegisterType(implementationType).As(serviceType);
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named(serviceName, implementationType);
             }
             registrationBuilder.InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
-            UpdateContainer(builder);
+            //UpdateContainer(builder);
         }
 
         /// <summary>
@@ -119,14 +124,15 @@ namespace JQ.Container.Autofac
             where TService : class
             where TImplementer : class, TService
         {
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
             var registrationBuilder = builder.RegisterType<TImplementer>().As<TService>();
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named<TService>(serviceName);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            UpdateContainer(builder);
+            //UpdateContainer(builder);
         }
 
         /// <summary>
@@ -141,14 +147,15 @@ namespace JQ.Container.Autofac
             where TService : class
             where TImplementer : class, TService
         {
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
             var registrationBuilder = builder.RegisterType<TImplementer>().As<TService>();
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named<TService>(serviceName);
             }
             registrationBuilder.InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
-            UpdateContainer(builder);
+            //UpdateContainer(builder);
         }
 
         /// <summary>
@@ -163,14 +170,15 @@ namespace JQ.Container.Autofac
             where TService : class
             where TImplementer : class, TService
         {
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
             var registrationBuilder = builder.RegisterInstance(instance).As<TService>();
             if (serviceName != null)
             {
                 registrationBuilder.Named<TService>(serviceName);
             }
             registrationBuilder.SetLifeStyle(lifeStyle);
-            UpdateContainer(builder);
+            //UpdateContainer(builder);
         }
 
         /// <summary>
@@ -186,14 +194,15 @@ namespace JQ.Container.Autofac
             where TService : class
             where TImplementer : class, TService
         {
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
+            var builder = _builder;
             var registrationBuilder = builder.RegisterInstance(instance).As<TService>();
             if (serviceName != null)
             {
                 registrationBuilder.Named<TService>(serviceName);
             }
             registrationBuilder.InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
-            UpdateContainer(builder);
+            //UpdateContainer(builder);
         }
 
         /// <summary>
@@ -206,14 +215,15 @@ namespace JQ.Container.Autofac
         {
             if (assemblies != null)
             {
-                var builder = new ContainerBuilder();
+                //var builder = new ContainerBuilder();
+                var builder = _builder;
                 var registrationBuilder = builder.RegisterAssemblyTypes(assemblies);
                 if (predicate != null)
                 {
                     registrationBuilder.Where(predicate);
                 }
                 registrationBuilder.AsImplementedInterfaces().SetLifeStyle(lifeStyle);
-                UpdateContainer(builder);
+                //UpdateContainer(builder);
             }
         }
 
@@ -228,7 +238,8 @@ namespace JQ.Container.Autofac
         {
             if (assemblies != null)
             {
-                var builder = new ContainerBuilder();
+                //var builder = new ContainerBuilder();
+                var builder = _builder;
                 var registrationBuilder = builder.RegisterAssemblyTypes(assemblies);
                 if (predicate != null)
                 {
@@ -236,7 +247,7 @@ namespace JQ.Container.Autofac
                 }
                 registrationBuilder.AsImplementedInterfaces().InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
 
-                UpdateContainer(builder);
+                //UpdateContainer(builder);
             }
         }
 
@@ -246,7 +257,7 @@ namespace JQ.Container.Autofac
         /// <param name="builder"></param>
         private void UpdateContainer(ContainerBuilder builder)
         {
-            builder.Update(_container);
+            //builder.Update(_container);
         }
 
         #endregion 注册
@@ -334,11 +345,6 @@ namespace JQ.Container.Autofac
         private ILifetimeScope Scope()
         {
             return Container;
-        }
-
-        protected override void DisposeCode()
-        {
-            Scope().Dispose();
         }
     }
 }

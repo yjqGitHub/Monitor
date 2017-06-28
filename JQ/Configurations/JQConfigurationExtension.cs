@@ -5,6 +5,7 @@ using JQ.Serialization.Protobuf;
 using JQ.Utils;
 using JQ.Container.Autofac;
 using JQ.Intercept;
+using Autofac;
 
 namespace JQ.Configurations
 {
@@ -17,9 +18,9 @@ namespace JQ.Configurations
     /// </summary>
     public static class JQConfigurationExtension
     {
-        public static JQConfiguration UseDefaultConfig(this JQConfiguration configuration)
+        public static JQConfiguration UseDefaultConfig(this JQConfiguration configuration, ContainerBuilder containerBuilder = null)
         {
-            configuration.UseAutofac()
+            configuration.UseAutofac(containerBuilder)
                          .UseBusinessDealIntercept()
                          .UseJsnoNet()
                          //.UseDefaultBinarySerializer()

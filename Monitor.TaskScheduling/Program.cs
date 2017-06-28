@@ -16,9 +16,9 @@ namespace Monitor.TaskScheduling
                 });
                 x.RunAsLocalSystem();
 
-                x.SetDescription("监控任务调度服务");
-                x.SetDisplayName("监控任务调度服务");
-                x.SetServiceName("监控任务调度服务");
+                x.SetDescription("监控系统任务调度服务");
+                x.SetDisplayName("监控系统任务调度服务");
+                x.SetServiceName("监控系统任务调度服务");
             });
         }
     }
