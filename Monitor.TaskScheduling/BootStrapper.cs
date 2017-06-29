@@ -57,7 +57,7 @@ namespace Monitor.TaskScheduling
                             .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
-                            .SetDefault<LoggerSubscribeTask>()
+                            .SetDefault<LoggerSubscribeTask>(lifeStyle: LifeStyle.PerLifetimeScope)
                 ;
 
             ConfigWacherUtil.Install();

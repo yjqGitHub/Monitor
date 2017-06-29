@@ -20,18 +20,17 @@ namespace Monitor.AdminManage.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-            var options = new RedisStorageOptions
-            {
-                Prefix = "hangfire:",
-                InvisibilityTimeout = TimeSpan.FromHours(3)
-            };
-            GlobalConfiguration.Configuration
-           .UseRedisStorage(ConfigUtil.GetValue("Redis.Connection"), options: options)
-           //.UseSqlServerStorage(connectionString.ToString())
-           ;
+           // var options = new RedisStorageOptions
+           // {
+           //     Prefix = "hangfire:",
+           //     InvisibilityTimeout = TimeSpan.FromHours(3)
+           // };
+           // GlobalConfiguration.Configuration
+           //.UseRedisStorage(ConfigUtil.GetValue("Redis.Connection"), options: options)
+           //;
 
-            app.UseHangfireDashboard();
-            app.UseHangfireServer();
+           // app.UseHangfireDashboard();
+           // app.UseHangfireServer();
         }
     }
 }

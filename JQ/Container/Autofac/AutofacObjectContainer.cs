@@ -43,7 +43,7 @@ namespace JQ.Container.Autofac
         {
             //var builder = new ContainerBuilder();
             var builder = _builder;
-            var registrationBuilder = builder.RegisterType(implementationType);
+            var registrationBuilder = builder.RegisterType(implementationType).AsSelf();
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named(serviceName, implementationType);
@@ -63,7 +63,7 @@ namespace JQ.Container.Autofac
         {
             //var builder = new ContainerBuilder();
             var builder = _builder;
-            var registrationBuilder = builder.RegisterType(implementationType);
+            var registrationBuilder = builder.RegisterType(implementationType).AsSelf();
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named(serviceName, implementationType);
@@ -76,7 +76,7 @@ namespace JQ.Container.Autofac
         {
             //var builder = new ContainerBuilder();
             var builder = _builder;
-            var registrationBuilder = builder.RegisterType<T>();
+            var registrationBuilder = builder.RegisterType<T>().AsSelf();
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named<T>(serviceName);
@@ -89,7 +89,7 @@ namespace JQ.Container.Autofac
         {
             //var builder = new ContainerBuilder();
             var builder = _builder;
-            var registrationBuilder = builder.RegisterType<T>();
+            var registrationBuilder = builder.RegisterType<T>().AsSelf();
             if (serviceName.IsNotNullAndNotWhiteSpace())
             {
                 registrationBuilder.Named<T>(serviceName);

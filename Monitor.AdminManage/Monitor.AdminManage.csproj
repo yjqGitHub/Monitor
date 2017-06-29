@@ -423,6 +423,10 @@
       <Project>{2756b9ee-e783-42c6-9793-6731e5726e05}</Project>
       <Name>JQ.DataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JQ.Hangfire\JQ.Hangfire.csproj">
+      <Project>{555841b8-b3bb-4eef-ba5e-f8c299cc0535}</Project>
+      <Name>JQ.Hangfire</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">
       <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
       <Name>JQ.MongoDb</Name>
