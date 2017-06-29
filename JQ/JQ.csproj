@@ -120,6 +120,7 @@
     <Compile Include="Utils\ConfigUtil.cs" />
     <Compile Include="Utils\ConfigWacherUtil.cs" />
     <Compile Include="Utils\DESProviderUtil.cs" />
+    <Compile Include="Utils\EmailUtil.cs" />
     <Compile Include="Utils\EnsureUtil.cs" />
     <Compile Include="Utils\ExceptionUtil.cs" />
     <Compile Include="Utils\FileUtil.cs" />

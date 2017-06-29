@@ -11,6 +11,7 @@ using JQ.MQ.Serialization;
 using JQ.Redis.StackExchangeRedis;
 using JQ.Utils;
 using Monitor.Infrastructure.MQ;
+using Monitor.SchedulerTasks;
 using System;
 using System.Reflection;
 using System.Web.Mvc;
@@ -51,6 +52,7 @@ namespace Monitor.AdminManage.App_Start
                             .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
+                            .RegisterScheduleTasks()
                 ;
 
             //×¢²á¿ØÖÆÆ÷

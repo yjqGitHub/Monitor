@@ -156,13 +156,13 @@ namespace JQ.Utils
         }
 
         /// <summary>
-        /// 停止运行时调用
+        /// 释放所有的监听文件程序(停止运行时调用)
         /// </summary>
         public static void UnInstall()
         {
             foreach (var item in _fileWatchList)
             {
-                item?.DisposeCode();
+                item?.Dispose();
             }
         }
     }

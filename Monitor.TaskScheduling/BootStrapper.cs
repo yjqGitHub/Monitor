@@ -12,6 +12,7 @@ using JQ.MQ.Serialization;
 using JQ.Redis.StackExchangeRedis;
 using JQ.Utils;
 using Monitor.Infrastructure.MQ;
+using Monitor.SchedulerTasks;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -27,8 +28,12 @@ namespace Monitor.TaskScheduling
     /// </summary>
     public sealed class BootStrapper
     {
-        private LoggerSubscribeTask _loggerSubcribe;
+        private LogSubscribeTask _logSubcribeTask;
         private BackgroundJobServer _server;
+
+        /// <summary>
+        /// 停止时需要移除的方法列表
+        /// </summary>
         private List<Action> _removeJobActionList = new List<Action>();
 
         /// <summary>
@@ -57,25 +62,11 @@ namespace Monitor.TaskScheduling
                             .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
-                            .SetDefault<LoggerSubscribeTask>(lifeStyle: LifeStyle.PerLifetimeScope)
+                            .RegisterScheduleTasks()
                 ;
 
             ConfigWacherUtil.Install();
             UseHangfire();
-        }
-
-        /// <summary>
-        /// 停止时执行
-        /// </summary>
-        public void UnInstall()
-        {
-            _loggerSubcribe?.Dispose();
-            foreach (var removeJobAction in _removeJobActionList)
-            {
-                removeJobAction?.Invoke();
-            }
-            _server.Dispose();
-            JQConfiguration.UnInstall();
         }
 
         /// <summary>
@@ -102,8 +93,22 @@ namespace Monitor.TaskScheduling
         /// </summary>
         private void InstallTasks()
         {
-            _loggerSubcribe = JQConfiguration.Resolve<LoggerSubscribeTask>();
-            BackgroundJob.Enqueue(() => _loggerSubcribe.Start());
+            _logSubcribeTask = JQConfiguration.Resolve<LogSubscribeTask>();
+            BackgroundJob.Enqueue(() => _logSubcribeTask.Start());
+        }
+
+        /// <summary>
+        /// 停止时执行
+        /// </summary>
+        public void UnInstall()
+        {
+            _logSubcribeTask?.Dispose();
+            foreach (var removeJobAction in _removeJobActionList)
+            {
+                removeJobAction?.Invoke();
+            }
+            _server.Dispose();
+            JQConfiguration.UnInstall();
         }
     }
 }

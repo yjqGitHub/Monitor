@@ -1,5 +1,7 @@
 ﻿using Hangfire;
 using Hangfire.Redis;
+using JQ.Container;
+using JQ.Hangfire;
 using JQ.Utils;
 using Microsoft.Owin;
 using Owin;
@@ -20,17 +22,18 @@ namespace Monitor.AdminManage.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-           // var options = new RedisStorageOptions
-           // {
-           //     Prefix = "hangfire:",
-           //     InvisibilityTimeout = TimeSpan.FromHours(3)
-           // };
-           // GlobalConfiguration.Configuration
-           //.UseRedisStorage(ConfigUtil.GetValue("Redis.Connection"), options: options)
-           //;
+            var options = new RedisStorageOptions
+            {
+                Prefix = "hangfire:",
+                InvisibilityTimeout = TimeSpan.FromHours(3)
+            };
+            GlobalConfiguration.Configuration
+                               .UseJQActivator(ContainerManager.Current)
+                               .UseRedisStorage(ConfigUtil.GetValue("Redis.Connection"), options: options)
+           ;
 
-           // app.UseHangfireDashboard();
-           // app.UseHangfireServer();
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
         }
     }
 }

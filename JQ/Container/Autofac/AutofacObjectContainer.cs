@@ -29,7 +29,23 @@ namespace JQ.Container.Autofac
             _builder = builder ?? new ContainerBuilder();
         }
 
-        public IContainer Container { get { return _container ?? (_container = _builder.Build()); } }
+        public IContainer Container
+        {
+            get
+            {
+                if (_container == null)
+                {
+                    lock (this)
+                    {
+                        if (_container == null)
+                        {
+                            _container = _builder.Build();
+                        }
+                    }
+                }
+                return _container;
+            }
+        }
 
         #region 注册
 

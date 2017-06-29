@@ -475,6 +475,10 @@
       <Project>{3F37FD22-B0CA-4F23-AFF1-811B05606E7E}</Project>
       <Name>Monitor.IUserApplication</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monitor.SchedulerTasks\Monitor.SchedulerTasks.csproj">
+      <Project>{c4a016f6-75de-49e7-a69b-6d6bf724e0f1}</Project>
+      <Name>Monitor.SchedulerTasks</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monitor.TaskScheduling\Monitor.TaskScheduling.csproj">
       <Project>{95311366-c66f-4aae-b945-52b23a223b23}</Project>
       <Name>Monitor.TaskScheduling</Name>

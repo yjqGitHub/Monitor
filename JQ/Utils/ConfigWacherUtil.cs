@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.IO;
-using System.Linq;
 using System.Xml;
 
 namespace JQ.Utils
@@ -10,7 +9,7 @@ namespace JQ.Utils
     /// <summary>
     /// Copyright (C) 2015 备胎 版权所有。
     /// 类名：ConfigWacherUtil.cs
-    /// 类属性：公共类（非静态）
+    /// 类属性：公共类（静态）
     /// 类功能描述：
     /// 创建标识：yjq 2017/6/19 10:36:40
     /// </summary>

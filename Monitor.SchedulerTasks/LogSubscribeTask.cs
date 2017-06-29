@@ -7,22 +7,22 @@ using Monitor.IUserApplication;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Monitor.TaskScheduling
+namespace Monitor.SchedulerTasks
 {
     /// <summary>
     /// Copyright (C) 2015 备胎 版权所有。
-    /// 类名：LoggerSubscribeTask.cs
+    /// 类名：LogSubscribeTask.cs
     /// 类属性：公共类（非静态）
-    /// 类功能描述：日志记录器监听任务
-    /// 创建标识：yjq 2017/6/26 13:29:17
+    /// 类功能描述：
+    /// 创建标识：yjq 2017/6/29 13:42:33
     /// </summary>
-    public sealed class LoggerSubscribeTask : JQDisposable
+    public sealed class LogSubscribeTask : JQDisposable
     {
         private IMQClient mqClient;
         private readonly IRuntimeLogApplication _runtimeLogApplication;
         private readonly IMQFactory _mqFactory;
 
-        public LoggerSubscribeTask(IRuntimeLogApplication runtimeLogApplication, IMQFactory mqFactory)
+        public LogSubscribeTask(IRuntimeLogApplication runtimeLogApplication, IMQFactory mqFactory)
         {
             _runtimeLogApplication = runtimeLogApplication;
             _mqFactory = mqFactory;

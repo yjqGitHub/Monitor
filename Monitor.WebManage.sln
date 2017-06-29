@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_Infrastructure", "5_Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0_Presentation", "0_Presentation", "{DEB48B37-82EE-49A8-BEA8-20181390456D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Application", "1_Application", "{3D66E35D-A583-4039-A542-B84D1348DF32}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Application", "2_Application", "{3D66E35D-A583-4039-A542-B84D1348DF32}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Domain", "2_Domain", "{D2CB10DD-4F55-4845-90AE-C1A61DA9C296}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_Domain", "3_Domain", "{D2CB10DD-4F55-4845-90AE-C1A61DA9C296}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JQ.Web.Tool", "JQ.Web.Tool\JQ.Web.Tool.csproj", "{2E8E5769-8271-4910-8EC8-E60B70ED92A1}"
 EndProject
@@ -50,6 +50,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor.TaskScheduling", "Monitor.TaskScheduling\Monitor.TaskScheduling.csproj", "{95311366-C66F-4AAE-B945-52B23A223B23}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JQ.Hangfire", "JQ.Hangfire\JQ.Hangfire.csproj", "{555841B8-B3BB-4EEF-BA5E-F8C299CC0535}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitor.SchedulerTasks", "Monitor.SchedulerTasks\Monitor.SchedulerTasks.csproj", "{C4A016F6-75DE-49E7-A69B-6D6BF724E0F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_SchedulerTask", "1_SchedulerTask", "{999FF479-9DDA-440B-BEB9-E77BDAC533FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +137,10 @@ Global
 		{555841B8-B3BB-4EEF-BA5E-F8C299CC0535}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{555841B8-B3BB-4EEF-BA5E-F8C299CC0535}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{555841B8-B3BB-4EEF-BA5E-F8C299CC0535}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4A016F6-75DE-49E7-A69B-6D6BF724E0F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4A016F6-75DE-49E7-A69B-6D6BF724E0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4A016F6-75DE-49E7-A69B-6D6BF724E0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4A016F6-75DE-49E7-A69B-6D6BF724E0F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,5 +165,6 @@ Global
 		{A112F0DA-A2F1-492D-9E50-1C2C2F64271F} = {DEB48B37-82EE-49A8-BEA8-20181390456D}
 		{95311366-C66F-4AAE-B945-52B23A223B23} = {DEB48B37-82EE-49A8-BEA8-20181390456D}
 		{555841B8-B3BB-4EEF-BA5E-F8C299CC0535} = {E2D9E87A-A6A3-4C0A-B895-A8FD80F0F984}
+		{C4A016F6-75DE-49E7-A69B-6D6BF724E0F1} = {999FF479-9DDA-440B-BEB9-E77BDAC533FB}
 	EndGlobalSection
 EndGlobal
