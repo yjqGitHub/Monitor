@@ -1,0 +1,14 @@
+--创建【站点】Collection
+db.createCollection("WebSiteInfo")
+--添加【SSO管理站点】
+db.WebSiteInfo.insertOne({
+    "_id" : ObjectId("59574b4563ac422ab4a38170"),
+    "AppId" : "11f244e6539499ae",
+    "AppSecret" : "a359e20111f244e6539499aeae053bc9",
+    "SiteName" : "SSO站点",
+    "SiteTitle" : "SSO站点管理",
+    "SiteImageUrl" : "/Content/Image/Site/sso_logo.png",
+    "SiteDefaultBackUrl" : "/Home/Index",
+    "State" : 10,
+    "IsDeleted" : false
+})

@@ -103,9 +103,9 @@ namespace JQ.Result
             return new AjaxResultInfo(AjaxState.Success, msg, data);
         }
 
-        public static AjaxResultInfo NoLogin()
+        public static AjaxResultInfo NoLogin(string loginUrl)
         {
-            return new AjaxResultInfo(AjaxState.NoLogin, "请先登录") { RedirectUrl = "/Account/Login" };
+            return new AjaxResultInfo(AjaxState.NoLogin, "请先登录") { RedirectUrl = loginUrl };
         }
 
         private static AjaxState GetAjaxState(OperateState operateState)

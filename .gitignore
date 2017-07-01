@@ -45,3 +45,5 @@
 /JQ.Hangfire/bin
 /Monitor.SchedulerTasks/obj
 /Monitor.SchedulerTasks/bin
+/Monitor.SSO.WebManage/obj
+/Monitor.SSO.WebManage/bin

@@ -36,14 +36,15 @@ namespace JQ.Web.Tool
         /// <param name="msg">反馈内容</param>
         /// <param name="isHaveClose">是否有关闭按钮</param>
         /// <param name="isHavingBack">是否有返回按钮</param>
+        /// <param name="errorView">错误页面</param>
         /// <returns>操作方法结果</returns>
-        public static ActionResult GetParamErrorActionResult(this ControllerContext filterContext, string msg, bool isHaveClose = false, bool isHavingBack = true)
+        public static ActionResult GetParamErrorActionResult(this ControllerContext filterContext, string msg, bool isHaveClose = false, bool isHavingBack = true, string errorView = null)
         {
             if (filterContext.IsAjaxRequest())
             {
                 return JQJsonResult.ParamError(msg);
             }
-            return new ViewResult() { ViewName = _VIEW_ERROR, ViewData = new ViewDataDictionary<JQHandleErrorModel>(new JQHandleErrorModel(msg)) };
+            return new ViewResult() { ViewName = errorView ?? _VIEW_ERROR, ViewData = new ViewDataDictionary<JQHandleErrorModel>(new JQHandleErrorModel(msg)) };
         }
 
         /// <summary>
@@ -53,8 +54,9 @@ namespace JQ.Web.Tool
         /// <param name="exception">异常信息</param>
         /// <param name="isHaveClose">是否有关闭按钮</param>
         /// <param name="isHavingBack">是否有返回按钮</param>
+        /// <param name="errorView">错误页面</param>
         /// <returns>操作方法结果</returns>
-        public static ActionResult GetExceptionActionResult(this ControllerContext filterContext, Exception exception, bool isHaveClose = false, bool isHavingBack = true)
+        public static ActionResult GetExceptionActionResult(this ControllerContext filterContext, Exception exception, bool isHaveClose = false, bool isHavingBack = true, string errorView = null)
         {
             if (filterContext.IsAjaxRequest())
             {
@@ -63,7 +65,7 @@ namespace JQ.Web.Tool
             else
             {
                 UrlHelper url = new UrlHelper(filterContext.RequestContext);
-                return new ViewResult() { ViewName = _VIEW_ERROR, ViewData = new ViewDataDictionary<JQHandleErrorModel>(new JQHandleErrorModel(exception)) };
+                return new ViewResult() { ViewName = errorView ?? _VIEW_ERROR, ViewData = new ViewDataDictionary<JQHandleErrorModel>(new JQHandleErrorModel(exception)) };
             }
         }
     }

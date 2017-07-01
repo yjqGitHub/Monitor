@@ -54,6 +54,16 @@ namespace JQ.Web.Tool.ViewResults
         }
 
         /// <summary>
+        /// 未登录
+        /// </summary>
+        /// <param name="loginUrl">登录地址</param>
+        /// <returns></returns>
+        public static JQJsonResult NoLogin(string loginUrl)
+        {
+            return new JQJsonResult { Data = AjaxResultInfo.NoLogin(loginUrl) };
+        }
+
+        /// <summary>
         /// 参数错误
         /// </summary>
         /// <param name="msg">错误内容</param>

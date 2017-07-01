@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 
 namespace JQ.Extensions
 {
@@ -126,5 +127,35 @@ namespace JQ.Extensions
         #endregion base64字符解密
 
         #endregion base64加解密
+
+        #region 对字符串进行Url加密
+
+        /// <summary>
+        /// 对字符串进行Url加密
+        /// </summary>
+        /// <param name="str">要加密的字符串</param>
+        /// <param name="encodeName">加密编码格式</param>
+        /// <returns>Url加密后的字符</returns>
+        public static string UrlEncode(this string str, string encodeName)
+        {
+            return HttpUtility.UrlEncode(str, Encoding.GetEncoding(encodeName));
+        }
+
+        #endregion 对字符串进行Url加密
+
+        #region 对字符串进行Url解密
+
+        /// <summary>
+        /// 对字符串进行Url解密
+        /// </summary>
+        /// <param name="str">需要解密的字符串</param>
+        /// <param name="decodeName">解密编码格式</param>
+        /// <returns>Url解密后的字符串</returns>
+        public static string UrlDecode(this string str, string decodeName)
+        {
+            return HttpUtility.UrlDecode(str, Encoding.GetEncoding(decodeName));
+        }
+
+        #endregion 对字符串进行Url解密
     }
 }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Monitor.SSO.WebManage.App_Start;
+using System;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -16,6 +14,12 @@ namespace Monitor.SSO.WebManage
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            BootStrapper.Install();
+        }
+
+        protected void Application_End(object sender, EventArgs e)
+        {
+            BootStrapper.UnInstall();
         }
     }
 }

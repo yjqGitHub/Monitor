@@ -48,11 +48,13 @@
     <Compile Include="Model\AdminInfo.cs" />
     <Compile Include="Model\LoginRecordInfo.cs" />
     <Compile Include="Model\RuntimeLogInfo.cs" />
+    <Compile Include="Model\WebSiteInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValueObject\AdminState.cs" />
     <Compile Include="ValueObject\LoginLog.cs" />
     <Compile Include="ValueObject\RuntimeLogType.cs" />
     <Compile Include="ValueObject\SitePort.cs" />
+    <Compile Include="ValueObject\SiteState.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">
