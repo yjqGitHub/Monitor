@@ -2,9 +2,9 @@
 function Ajax(config, successCallBack, failedCallBack) {
     ShowLoading();
     $.ajax(config).done(function (result) {
-        if (result.State == 10000) {
+        if (result.Code == 10000) {
             successCallBack && successCallBack(result);
-        } else if (result.State == 99999) {
+        } else if (result.Code == 99999) {
             ShowWarningMsg("请先登录");
             top.location.href = result.RedirectUrl;
         } else {

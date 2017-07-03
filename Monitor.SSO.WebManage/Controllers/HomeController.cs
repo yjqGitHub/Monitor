@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Monitor.SSO.WebManage.Controllers
 {
+    [Login]
     public class HomeController : Controller
     {
         // GET: Home

@@ -10,6 +10,7 @@ namespace JQ
     /// 类功能描述：JQException
     /// 创建标识：yjq 2017/6/10 11:29:11
     /// </summary>
+    [Serializable]
     public sealed class JQException : Exception
     {
         public JQException()

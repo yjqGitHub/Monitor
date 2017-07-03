@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using JQ.Extensions;
-using JQ.Web.Tool.ViewResults;
+﻿using JQ.Extensions;
+using JQ.Result;
 using JQ.Utils;
+using JQ.Web;
+using JQ.Web.Tool.ViewResults;
+using Monitor.Web.Tool.Authority;
 using Monitor.Web.Tool.WebConstant;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Monitor.Web.Tool.Filters
 {
@@ -38,25 +38,47 @@ namespace Monitor.Web.Tool.Filters
 
             if (filterContext.IsAjaxRequest())
             {
-                if (ticket.IsNullOrWhiteSpace())
+                if (ticket.IsNullOrWhiteSpace() || !CheckTicket(ticket))
                 {
-                    filterContext.Result = JQJsonResult.NoLogin(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_URL, memberName: "LoginAttribute-OnActionExecuting-IsAjaxRequest"));
-                }
-                else
-                {
-
+                    filterContext.Result = JQJsonResult.NoLogin(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_URL));
                 }
             }
-
-            filterContext.Result = new RedirectResult("~/Account/Login", true);
-
-            // 检查是否登录  需判断ajax请求还是直接请求
-            // if (!UserCookie.CheckLoginToAdmin())
-            // {
-            // filterContext.Result = new RedirectResult("~/Admin/Account/Login", true);
-            // }
-
+            else
+            {
+                if (ticket.IsNullOrWhiteSpace() || !CheckTicket(ticket))
+                {
+                    EnhancedUriBuilder uriBuilder = new EnhancedUriBuilder(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_URL));
+                    uriBuilder.QueryItems["backUrl"] = filterContext.HttpContext.Request.Url.ToString();
+                    uriBuilder.QueryItems["appId"] = ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_APPID);
+                    filterContext.Result = new RedirectResult(uriBuilder.ToString(), true);
+                }
+            }
             base.OnActionExecuting(filterContext);
+        }
+
+        /// <summary>
+        /// 检验门票
+        /// </summary>
+        /// <param name="ticket"></param>
+        /// <returns></returns>
+        private bool CheckTicket(string ticket)
+        {
+            //校验ticke是否可用
+            AuthorityCheckModel checkModel = new AuthorityCheckModel()
+            {
+                AppId = ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_APPID),
+                Ticket = ticket,
+                Version = ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_VERSION),
+                TimeTicket = DateTimeUtil.GetTimeSpanNow()
+            };
+            checkModel.SetSign(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_APPSECRET));
+            HttpClient httpClient = new HttpClient(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_CHECK_URL));
+            var ajaxResult = httpClient.Post<AjaxResultInfo>(checkModel.ToDictionary());
+            if (ajaxResult.State == AjaxState.Success)
+            {
+                return true;
+            }
+            return false;
         }
     }
 

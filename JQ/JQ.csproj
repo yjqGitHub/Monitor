@@ -120,6 +120,7 @@
     <Compile Include="Utils\BufferQueue.cs" />
     <Compile Include="Utils\ConfigUtil.cs" />
     <Compile Include="Utils\ConfigWacherUtil.cs" />
+    <Compile Include="Utils\DateTimeUtil.cs" />
     <Compile Include="Utils\DESProviderUtil.cs" />
     <Compile Include="Utils\EmailUtil.cs" />
     <Compile Include="Utils\EnsureUtil.cs" />
@@ -133,6 +134,8 @@
     <Compile Include="ValidateCode\ValidateCoder.cs" />
     <Compile Include="ValidateCode\ValidateCodeType.cs" />
     <Compile Include="Web\CookieHelper.cs" />
+    <Compile Include="Web\EnhancedUriBuilder.cs" />
+    <Compile Include="Web\HttpClient.cs" />
     <Compile Include="Web\IpDataHelper.cs" />
     <Compile Include="Web\IPLocation.cs" />
     <Compile Include="Web\WebUtil.cs" />

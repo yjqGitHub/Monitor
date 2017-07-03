@@ -367,7 +367,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Authority\AuthorityCheckModel.cs" />
     <Compile Include="Models\WebSiteReuqestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -394,6 +393,8 @@
     <Content Include="App_Data\Config\AppSetting.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Authority\Index.cshtml" />
+    <Content Include="Views\Shared\404.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -403,7 +404,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\CSS\" />
-    <Folder Include="Views\Authority\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JQ.DataAccess\JQ.DataAccess.csproj">

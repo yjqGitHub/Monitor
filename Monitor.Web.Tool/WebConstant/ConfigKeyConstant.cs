@@ -28,5 +28,10 @@
         /// 授权校验URL的Key
         /// </summary>
         public const string CONFIG_KEY_AUTHORITY_CHECK_URL = "AuthorityCheckUrl";
+
+        /// <summary>
+        /// 授权验证版本号的Key
+        /// </summary>
+        public const string CONFIG_KEY_AUTHORITY_VERSION = "AuthorityVersion";
     }
 }

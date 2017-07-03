@@ -124,10 +124,27 @@ namespace JQ.Extensions
 
                 if (mi != null && mi.IsPublic)
                 {
-                    map.Add(p.Name, mi.Invoke(obj, new Object[] { }));
+                    map.Add(p.Name, mi.Invoke(obj, new object[] { }));
                 }
             }
             return map;
+        }
+
+        /// <summary>
+        /// 根据键移除
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="data"></param>
+        /// <param name="key">键值</param>
+        /// <returns></returns>
+        public static Dictionary<string, T> RemoveKey<T>(this Dictionary<string, T> data, string key)
+        {
+            if (data == null) return data;
+            if (data.ContainsKey(key))
+            {
+                data.Remove(key);
+            }
+            return data;
         }
     }
 }

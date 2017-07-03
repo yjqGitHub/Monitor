@@ -50,6 +50,17 @@ namespace JQ.Extensions
         /// <summary>
         /// 将字符串转为字节数组
         /// </summary>
+        /// <param name="str">要转换的字符串</param>
+        /// <param name="encodeName">转换编码名字</param>
+        /// <returns>字节数组</returns>
+        public static byte[] ToBytes(this string str, string encodeName)
+        {
+            return ToBytes(str, Encoding.GetEncoding(encodeName));
+        }
+
+        /// <summary>
+        /// 将字符串转为字节数组
+        /// </summary>
         /// <param name="str">字符串</param>
         /// <param name="encoder">编码格式</param>
         /// <returns>转换后的字节数组</returns>

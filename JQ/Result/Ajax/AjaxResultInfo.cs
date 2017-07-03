@@ -51,6 +51,7 @@ namespace JQ.Result
         /// <summary>
         /// 操作状态
         /// </summary>
+        [JsonProperty(PropertyName = "Code")]
         public AjaxState State { get; set; }
 
         /// <summary>

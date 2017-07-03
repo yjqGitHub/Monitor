@@ -1,4 +1,6 @@
-﻿namespace Monitor.Web.Tool.Authority
+﻿using JQ.Extensions;
+
+namespace Monitor.Web.Tool.Authority
 {
     /// <summary>
     /// Copyright (C) 2017 yjq 版权所有。
@@ -33,5 +35,27 @@
         /// 版本号
         /// </summary>
         public string Version { get; set; }
+
+        /// <summary>
+        /// 设置签名
+        /// </summary>
+        /// <param name="appSecret">密钥</param>
+        public void SetSign(string appSecret)
+        {
+            var signData = this.ToDictionary().RemoveKey("Sign").AddOrUpdate("AppSecret", appSecret);
+            Sign = signData.GetSortedContent().ToMd5();
+        }
+
+        /// <summary>
+        /// 检验签名
+        /// </summary>
+        /// <param name="appSecret">密钥</param>
+        /// <returns>签名正确返回true</returns>
+        public bool CheckSign(string appSecret)
+        {
+            var signData = this.ToDictionary().RemoveKey("Sign").AddOrUpdate("AppSecret", appSecret);
+            var sign = signData.GetSortedContent().ToMd5();
+            return string.Equals(sign, Sign);
+        }
     }
 }

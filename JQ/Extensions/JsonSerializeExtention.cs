@@ -17,7 +17,7 @@ namespace JQ.Extensions
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="obj"></param>
         /// <returns>json格式的字符串</returns>
-        public static string ToJson<T>(this T obj) where T : class
+        public static string ToJson<T>(this T obj)
         {
             return Configurations.JQConfiguration.Resolve<IJsonSerializer>().Serialize(obj);
         }
@@ -29,7 +29,7 @@ namespace JQ.Extensions
         /// <typeparam name="T">要转换的对象类型</typeparam>
         /// <param name="json">json格式字符串</param>
         /// <returns>指定对象的实例</returns>
-        public static T ToObjInfo<T>(this string json) where T : class
+        public static T ToObjInfo<T>(this string json)
         {
             return Configurations.JQConfiguration.Resolve<IJsonSerializer>().Deserialize<T>(json);
         }
