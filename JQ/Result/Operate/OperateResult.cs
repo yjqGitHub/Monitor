@@ -88,6 +88,15 @@ namespace JQ.Result
 
         public T Value { get; set; }
 
+        /// <summary>
+        /// 判断操作是否成功并且值不为空
+        /// </summary>
+        /// <returns>true表示成功</returns>
+        public bool SuccessAndValueNotNull
+        {
+            get { return State == OperateState.Success && Value != null; }
+        }
+
         public override AjaxResultInfo ToAjaxResult()
         {
             return new AjaxResultInfo(State, Message, Value);

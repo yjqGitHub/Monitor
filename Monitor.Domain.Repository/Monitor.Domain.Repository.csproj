@@ -45,6 +45,7 @@
     <Compile Include="LoginRecordRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuntimeLogRepository.cs" />
+    <Compile Include="WebSiteRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">

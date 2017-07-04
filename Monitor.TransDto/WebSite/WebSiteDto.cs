@@ -1,28 +1,20 @@
 ﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using Monitor.Domain.ValueObject;
-using System;
 
-namespace Monitor.Domain.Model
+namespace Monitor.TransDto.WebSite
 {
     /// <summary>
     /// Copyright (C) 2015 备胎 版权所有。
-    /// 类名：WebSiteInfo.cs
+    /// 类名：WebSiteDto.cs
     /// 类属性：公共类（非静态）
-    /// 类功能描述：站点信息
-    /// 创建标识：yjq 2017/7/1 14:50:03
+    /// 类功能描述：
+    /// 创建标识：yjq 2017/7/4 10:29:33
     /// </summary>
-    public class WebSiteInfo : IAggregateRoot
+    public sealed class WebSiteDto
     {
-        public WebSiteInfo()
-        {
-            WebSiteId = ObjectId.GenerateNewId();
-        }
-
         /// <summary>
         /// 站点ID
         /// </summary>
-        [BsonElement(elementName: "_id")]
         public ObjectId WebSiteId { get; set; }
 
         /// <summary>
@@ -59,32 +51,5 @@ namespace Monitor.Domain.Model
         /// 站点状态
         /// </summary>
         public SiteState State { get; set; }
-
-        /// <summary>
-        /// 是否已删除
-        /// </summary>
-        public bool IsDeleted { get; set; }
-
-        /// <summary>
-        /// 添加时间
-        /// </summary>
-        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime CreateTime { get; set; }
-
-        /// <summary>
-        /// 添加人
-        /// </summary>
-        public ObjectId CreateUserId { get; set; }
-
-        /// <summary>
-        /// 上次修改时间
-        /// </summary>
-        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
-        public DateTime? LastModifyTime { get; set; }
-
-        /// <summary>
-        /// 上次修改人
-        /// </summary>
-        public ObjectId? LastModifyUserId { get; set; }
     }
 }

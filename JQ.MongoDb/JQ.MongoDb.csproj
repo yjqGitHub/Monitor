@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ProjectionUtil.cs" />
     <Compile Include="IMongoDatabaseProvider.cs" />
     <Compile Include="IMongoDbBaseRepository.cs" />
     <Compile Include="MongoBaseRepository.cs" />
@@ -63,7 +64,7 @@
     <Compile Include="MongoDbConfigurationExtension.cs" />
     <Compile Include="MonogoDbConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UpdateExtension.cs" />
+    <Compile Include="Extensions\UpdateExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

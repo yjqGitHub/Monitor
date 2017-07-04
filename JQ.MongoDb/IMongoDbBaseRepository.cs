@@ -1,5 +1,4 @@
 ﻿using JQ.Result;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -142,6 +141,59 @@ namespace JQ.MongoDb
         /// <returns>列表</returns>
         Task<IEnumerable<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> filter);
 
+
+        /// <summary>
+        /// 获取DTO（获取不到则为空）
+        /// </summary>
+        /// <typeparam name="TDto">DTO类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>DTO信息</returns>
+        TDto GetDto<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TDto>> projectionExpression);
+
+        /// <summary>
+        /// 异步获取DTO（获取不到则为空）
+        /// </summary>
+        /// <typeparam name="TDto">DTO类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>DTO信息</returns>
+        Task<TDto> GetDtoAsync<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TDto>> projectionExpression);
+
+        /// <summary>
+        /// 获取全部实体
+        /// </summary>
+        /// <typeparam name="TDto">类型</typeparam>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>获取全部实体</returns>
+        IEnumerable<TDto> GetDtoList<TDto>(Expression<Func<TEntity, TDto>> projectionExpression);
+
+        /// <summary>
+        /// 异步获取全部实体
+        /// </summary>
+        /// <typeparam name="TDto">类型</typeparam>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>获取全部实体</returns>
+        Task<IEnumerable<TDto>> GetDtoListAsync<TDto>(Expression<Func<TEntity, TDto>> projectionExpression);
+
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <typeparam name="TDto">实体类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>实体列表</returns>
+        IEnumerable<TDto> GetDtoList<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TDto>> projectionExpression);
+
+        /// <summary>
+        /// 异步获取列表
+        /// </summary>
+        /// <typeparam name="TDto">实体类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>实体列表</returns>
+        Task<IEnumerable<TDto>> GetDtoListAsync<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TDto>> projectionExpression);
+
         /// <summary>
         /// 获取数量
         /// </summary>
@@ -167,6 +219,34 @@ namespace JQ.MongoDb
         /// <param name="filter">条件</param>
         /// <returns>数量</returns>
         Task<long> CountAsync(Expression<Func<TEntity, bool>> filter);
+
+        /// <summary>
+        /// 获取分页信息
+        /// </summary>
+        /// <typeparam name="TDto">返回结果类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="pageIndex">当前页面</param>
+        /// <param name="pageSize">页长</param>
+        /// <param name="isDesc">是否倒叙排列</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <param name="maxPageCount">最大页数</param>
+        /// <returns>分页结果</returns>
+        IPageResult<TDto> PageQuery<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>> sort, int pageIndex, int pageSize, bool isDesc, Expression<Func<TEntity, TDto>> projectionExpression, int? maxPageCount = null) where TDto : new();
+
+        /// <summary>
+        /// 异步获取分页信息
+        /// </summary>
+        /// <typeparam name="TDto">返回结果类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="pageIndex">当前页面</param>
+        /// <param name="pageSize">页长</param>
+        /// <param name="isDesc">是否倒叙排列</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <param name="maxPageCount">最大页数</param>
+        /// <returns>分页结果</returns>
+        Task<IPageResult<TDto>> PageQueryAsync<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>> sort, int pageIndex, int pageSize, bool isDesc, Expression<Func<TEntity, TDto>> projectionExpression, int? maxPageCount = null) where TDto : new();
 
         /// <summary>
         /// 获取分页信息

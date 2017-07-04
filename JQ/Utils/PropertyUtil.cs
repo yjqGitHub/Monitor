@@ -21,6 +21,19 @@ namespace JQ.Utils
         /// </summary>
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, List<PropertyInfo>> _propertyCache = new ConcurrentDictionary<RuntimeTypeHandle, List<PropertyInfo>>();
 
+        public static readonly Func<PropertyInfo, string> GetPropertyTypeNameHandle = (propertInfo) =>
+        {
+            Type propertyType = propertInfo.PropertyType;
+            if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                return propertyType.GetGenericArguments()[0].Name;
+            }
+            else
+            {
+                return propertyType.Name;
+            }
+        };
+
         /// <summary>
         /// 获取实例的属性列表
         /// </summary>

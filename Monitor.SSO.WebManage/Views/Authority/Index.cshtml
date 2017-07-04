@@ -1,5 +1,8 @@
-﻿@{
+﻿@using Monitor.TransDto.WebSite;
+
+@{
     Layout = null;
+    var webSiteInfo = ViewBag.SiteInfo as WebSiteDto;
 }
 <!DOCTYPE HTML>
 <html>
@@ -21,15 +24,17 @@
     <script type="text/javascript" src="/Content/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
     <script>DD_belatedPNG.fix('*');</script>
     <![endif]-->
-    <title>后台登录 - 系统监控</title>
+    <title>后台登录 - @(webSiteInfo?.SiteTitle)</title>
     <meta name="keywords" content="系统监控">
     <meta name="description" content="系统监控">
 </head>
 <body>
-    <div class="header"></div>
+    <div class="header" style="background:#426374 url(@(webSiteInfo?.SiteImageUrl)) no-repeat center center"></div>
     <div class="loginWraper">
         <div id="loginform" class="loginBox">
             <form class="form form-horizontal">
+                @Html.Hidden("BackUrl", ViewBag.BackUrl as string)
+                @Html.Hidden("AppId", webSiteInfo?.AppId)
                 <div class="row cl">
                     <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
                     <div class="formControls col-xs-8">
@@ -45,7 +50,7 @@
                 <div class="row cl">
                     <div class="formControls col-xs-8 col-xs-offset-3">
                         <input class="input-text size-L" type="text" placeholder="验证码" id="Code" name="Code" style="width:150px;" data-check="1" data-expression="NotNull" data-err="验证码">
-                        <img src="/Account/ValidateCode" alt="点击切换验证码" title="点击切换验证码" style="margin-top: 0px; vertical-align: top; cursor: pointer;" onclick="ToggleCode(this, '/Account/ValidateCode'); return false;">
+                        <img src="/Authority/ValidateCode" alt="点击切换验证码" title="点击切换验证码" style="margin-top: 0px; vertical-align: top; cursor: pointer;" onclick="ToggleCode(this, '/Authority/ValidateCode'); return false;">
                     </div>
                 </div>
                 <div class="row cl">
@@ -61,7 +66,7 @@
     <script type="text/javascript" src="/Content/lib/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="/Content/static/h-ui/js/H-ui.min.js"></script>
     <script src="~/Content/lib/layer/3.0.3/layer.js"></script>
-    <script src="/Content/JS/DomainJs/Account.js?v=1.0"></script>
+    <script src="/Content/JS/DomainJs/Authority.js?v=1.0"></script>
     <script src="/Content/JS/CommonJs/DialogJs.js"></script>
     <script src="~/Content/JS/CommonJs/ToolJs.js"></script>
     <script src="~/Content/JS/CommonJs/Validator.js"></script>

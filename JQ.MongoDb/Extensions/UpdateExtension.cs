@@ -1,7 +1,7 @@
 ﻿using JQ.Utils;
 using MongoDB.Driver;
 
-namespace JQ.MongoDb
+namespace JQ.MongoDb.Extensions
 {
     /// <summary>
     /// Copyright (C) 2015 备胎 版权所有。

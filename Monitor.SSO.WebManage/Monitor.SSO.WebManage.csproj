@@ -123,6 +123,7 @@
     <Content Include="Content\JS\CommonJs\ToolJs.js" />
     <Content Include="Content\JS\CommonJs\Validator.js" />
     <Content Include="Content\JS\DomainJs\Account.js" />
+    <Content Include="Content\JS\DomainJs\Authority.js" />
     <Content Include="Content\lib\Hui-iconfont\1.0.8\demo.html" />
     <Content Include="Content\lib\Hui-iconfont\1.0.8\iconfont.css" />
     <Content Include="Content\lib\Hui-iconfont\1.0.8\iconfont.min.css" />
@@ -367,6 +368,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Authority\AuthoryModel.cs" />
     <Compile Include="Models\WebSiteReuqestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -395,6 +397,7 @@
     </Content>
     <Content Include="Views\Authority\Index.cshtml" />
     <Content Include="Views\Shared\404.cshtml" />
+    <Content Include="NLog.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,5 +1,7 @@
-﻿using JQ.Result;
+﻿using JQ.MongoDb.Extensions;
+using JQ.Result;
 using JQ.Utils;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -181,7 +183,6 @@ namespace JQ.MongoDb
             return deleteResult.DeletedCount;
         }
 
-        //public bool UpdateOne(Expression<Func<TEntity, bool>> filter,)
         /// <summary>
         /// 获取一条实体信息（获取不到则为空）
         /// </summary>
@@ -232,6 +233,79 @@ namespace JQ.MongoDb
         }
 
         /// <summary>
+        /// 获取DTO（获取不到则为空）
+        /// </summary>
+        /// <typeparam name="TDto">DTO类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>DTO信息</returns>
+        public virtual TDto GetDto<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TDto>> projectionExpression)
+        {
+            var projection = projectionExpression.ToProjection();
+            return Collection.Find(filter).Project(projection).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 异步获取DTO（获取不到则为空）
+        /// </summary>
+        /// <typeparam name="TDto">DTO类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>DTO信息</returns>
+        public virtual Task<TDto> GetDtoAsync<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TDto>> projectionExpression)
+        {
+            return Task.FromResult(GetDto(filter, projectionExpression));
+        }
+
+        /// <summary>
+        /// 获取全部实体
+        /// </summary>
+        /// <typeparam name="TDto">类型</typeparam>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>获取全部实体</returns>
+        public virtual IEnumerable<TDto> GetDtoList<TDto>(Expression<Func<TEntity, TDto>> projectionExpression)
+        {
+            var projection = projectionExpression.ToProjection();
+            return Collection.Find(new BsonDocument()).Project(projection).ToEnumerable();
+        }
+
+        /// <summary>
+        /// 异步获取全部实体
+        /// </summary>
+        /// <typeparam name="TDto">类型</typeparam>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>获取全部实体</returns>
+        public virtual Task<IEnumerable<TDto>> GetDtoListAsync<TDto>(Expression<Func<TEntity, TDto>> projectionExpression)
+        {
+            return Task.FromResult(GetDtoList(projectionExpression));
+        }
+
+        /// <summary>
+        /// 获取列表
+        /// </summary>
+        /// <typeparam name="TDto">实体类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>实体列表</returns>
+        public virtual IEnumerable<TDto> GetDtoList<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TDto>> projectionExpression)
+        {
+            var projection = projectionExpression.ToProjection();
+            return Collection.Find(filter).Project(projection).ToEnumerable();
+        }
+
+        /// <summary>
+        /// 异步获取列表
+        /// </summary>
+        /// <typeparam name="TDto">实体类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <returns>实体列表</returns>
+        public virtual Task<IEnumerable<TDto>> GetDtoListAsync<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TDto>> projectionExpression)
+        {
+            return Task.FromResult(GetDtoList(filter, projectionExpression));
+        }
+
+        /// <summary>
         /// 获取数量
         /// </summary>
         /// <returns>数量</returns>
@@ -267,6 +341,51 @@ namespace JQ.MongoDb
         public virtual Task<long> CountAsync(Expression<Func<TEntity, bool>> filter)
         {
             return Collection.CountAsync(filter);
+        }
+
+        /// <summary>
+        /// 获取分页信息
+        /// </summary>
+        /// <typeparam name="TDto">返回结果类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="pageIndex">当前页面</param>
+        /// <param name="pageSize">页长</param>
+        /// <param name="isDesc">是否倒叙排列</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <param name="maxPageCount">最大页数</param>
+        /// <returns>分页结果</returns>
+        public virtual IPageResult<TDto> PageQuery<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>> sort, int pageIndex, int pageSize, bool isDesc, Expression<Func<TEntity, TDto>> projectionExpression, int? maxPageCount = null) where TDto : new()
+        {
+            int totalCount = (int)Count(filter);
+            IEnumerable<TDto> data = null;
+            var projection = projectionExpression.ToProjection();
+            if (isDesc)
+            {
+                data = Collection.Find(filter).Project(projection).SortByDescending(sort).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToEnumerable();
+            }
+            else
+            {
+                data = Collection.Find(filter).Project(projection).SortBy(sort).Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToEnumerable();
+            }
+            return new PageResult<TDto>(pageIndex, pageSize, totalCount, data, maxPageCount);
+        }
+
+        /// <summary>
+        /// 异步获取分页信息
+        /// </summary>
+        /// <typeparam name="TDto">返回结果类型</typeparam>
+        /// <param name="filter">条件</param>
+        /// <param name="sort">排序</param>
+        /// <param name="pageIndex">当前页面</param>
+        /// <param name="pageSize">页长</param>
+        /// <param name="isDesc">是否倒叙排列</param>
+        /// <param name="projectionExpression">映射表达式</param>
+        /// <param name="maxPageCount">最大页数</param>
+        /// <returns>分页结果</returns>
+        public virtual Task<IPageResult<TDto>> PageQueryAsync<TDto>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>> sort, int pageIndex, int pageSize, bool isDesc, Expression<Func<TEntity, TDto>> projectionExpression, int? maxPageCount = null) where TDto : new()
+        {
+            return Task.FromResult(PageQuery(filter, sort, pageIndex, pageSize, isDesc, projectionExpression, maxPageCount: maxPageCount));
         }
 
         /// <summary>
