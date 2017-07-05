@@ -65,6 +65,8 @@ namespace Monitor.SSO.WebManage.Controllers
             {
                 return JQJsonResult.Create(operateResult);
             }
+            string token = WebTool.CreateToken();
+
             return JQJsonResult.Success("登录成功", null);
         }
 

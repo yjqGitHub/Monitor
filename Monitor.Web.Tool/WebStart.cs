@@ -31,6 +31,7 @@ namespace Monitor.Web.Tool
             var repositoryAssembly = Assembly.Load("Monitor.Domain.Repository");
             var domainServiceAssembly = Assembly.Load("Monitor.Domain.DomainServer");
             var userApplicationAssembly = Assembly.Load("Monitor.UserApplication");
+            var cacheAssembly= Assembly.Load("Monitor.Cache");
 
             JQConfiguration.Install(
                                     domainName: "Monitor",
@@ -44,6 +45,7 @@ namespace Monitor.Web.Tool
                             .UseRabbitMQ()
                             .UseStackExchageRedis()
                             .UseMQLogger(() => MQLoggerUtil.GetMQLoggerConfig())
+                            .RegisterAssemblyTypes(cacheAssembly, m => m.Namespace != null && m.Name.EndsWith("Cache"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)

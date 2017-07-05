@@ -62,5 +62,26 @@ namespace JQ.Utils
         {
             return DateTime.Parse(dateTime.AddDays(1).ToString("yyyy-MM-dd"));
         }
+
+        /// <summary>
+        /// 将时间转为UTC时间
+        /// </summary>
+        /// <param name="dateTime">要转换的时间</param>
+        /// <returns>UTC时间</returns>
+        public static DateTime ToUniversalTime(DateTime dateTime)
+        {
+            if (dateTime == DateTime.MinValue)
+            {
+                return DateTime.SpecifyKind(DateTime.MinValue, DateTimeKind.Utc);
+            }
+            else if (dateTime == DateTime.MaxValue)
+            {
+                return DateTime.SpecifyKind(DateTime.MaxValue, DateTimeKind.Utc);
+            }
+            else
+            {
+                return dateTime.ToUniversalTime();
+            }
+        }
     }
 }

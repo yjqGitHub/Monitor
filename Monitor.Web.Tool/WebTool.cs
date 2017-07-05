@@ -51,14 +51,18 @@ namespace Monitor.Web.Tool
 
         #region 用户Cookie设置 todo 将改为设置一个sign在前端，利用sign在缓存获取当前登录用户信息
 
-        //todo 改为动态配置
-        private const string _CURRENTUSER_PROVIDERKEY = "Monitor.CurrentUser";
+        /// <summary>
+        /// 用户信息加密的Key
+        /// </summary>
+        private const string _CONFIGKEY_CURRENTUSER_PROVIDERKEY = "CurrentUserProviderKey";
 
         private const string _CURRENTUSER_COOKIEKEY = "Monitor_CurrentUser";
         private const string _CURRENTUSER_SIGN_COOKIEKEY = "Monitor_CurrentUser_Sign";
 
-        //todo 改为动态配置
-        private const string _CURRENTUSER_SIGN_SALT = "Monitor_CurrentUser_Sign";
+        /// <summary>
+        /// CookieSign的加密盐值Key
+        /// </summary>
+        private const string _CONFIGKEY_CURRENTUSER_SIGN_SALT = "CurrentSignSalt";
 
         /// <summary>
         /// 用户Cookie设置
@@ -68,10 +72,10 @@ namespace Monitor.Web.Tool
         {
             if (userInfo == null) return;
             var userBytes = userInfo.AdminId.ToString().ToBytes();
-            var encodeBytes = DESProviderUtil.Encode(userBytes, _CURRENTUSER_PROVIDERKEY);
+            var encodeBytes = DESProviderUtil.Encode(userBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
             var userStr = encodeBytes.ToStr();
             CookieHelper.SetCookie(_CURRENTUSER_COOKIEKEY, userStr);
-            string sign = (userStr + _CURRENTUSER_SIGN_SALT).ToMd5();
+            string sign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
             CookieHelper.SetCookie(_CURRENTUSER_SIGN_COOKIEKEY, sign);
         }
 
@@ -83,11 +87,11 @@ namespace Monitor.Web.Tool
         {
             string sign = CookieHelper.GetCookieValue(_CURRENTUSER_SIGN_COOKIEKEY);
             string userStr = CookieHelper.GetCookieValue(_CURRENTUSER_COOKIEKEY);
-            string checkSign = (userStr + _CURRENTUSER_SIGN_SALT).ToMd5();
+            string checkSign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
             if (sign.Equals(checkSign))
             {
                 var encodeUserBytes = userStr.ToBytes();
-                var userBytes = DESProviderUtil.Decode(encodeUserBytes, _CURRENTUSER_PROVIDERKEY);
+                var userBytes = DESProviderUtil.Decode(encodeUserBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
                 ObjectId userId;
                 if (ObjectId.TryParse(userBytes.ToStr(), out userId))
                 {
@@ -98,5 +102,14 @@ namespace Monitor.Web.Tool
         }
 
         #endregion 用户Cookie设置 todo 将改为设置一个sign在前端，利用sign在缓存获取当前登录用户信息
+
+        /// <summary>
+        /// 创建一个随机Token
+        /// </summary>
+        /// <returns></returns>
+        public static string CreateToken()
+        {
+            return Guid.NewGuid().ToString("N");
+        }
     }
 }

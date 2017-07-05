@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdminRepository.cs" />
+    <Compile Include="IAuthorityRepository.cs" />
     <Compile Include="ILoginRecordRepository.cs" />
     <Compile Include="IRuntimeLogRepository.cs" />
     <Compile Include="IWebSiteRepository.cs" />

@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminRepository.cs" />
+    <Compile Include="AuthorityRepository.cs" />
     <Compile Include="Constants\MonogoDbConfigConstant.cs" />
     <Compile Include="LoginRecordRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,9 +69,17 @@
       <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
       <Name>Monitor.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monitor.ICache\Monitor.ICache.csproj">
+      <Project>{0505b2b7-d498-40d5-a800-18ff6cbcf253}</Project>
+      <Name>Monitor.ICache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
       <Project>{60B04982-CF40-4D1F-AADA-2CB6C11C9896}</Project>
       <Name>Monitor.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.TransDto\Monitor.TransDto.csproj">
+      <Project>{CCDAB82D-E670-4C09-A3DE-E578F5A7B720}</Project>
+      <Name>Monitor.TransDto</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

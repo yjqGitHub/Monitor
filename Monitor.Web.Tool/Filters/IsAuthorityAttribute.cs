@@ -18,7 +18,7 @@ namespace Monitor.Web.Tool.Filters
     /// 类功能描述：
     /// 创建标识：yjq 2017/7/1 15:30:15
     /// </summary>
-    public class LoginAttribute : ActionFilterAttribute
+    public class IsAuthorityAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -31,21 +31,21 @@ namespace Monitor.Web.Tool.Filters
             }
 
             //ajax请求和直接请求需要区分
-            //ajax请求时，如果本地没有Ticket，则反馈客户端未授权。有Ticket则请求授权校验地址
-            //直接请求时，如果没有Ticket则跳转到授权地址，并设置返回地址。有Ticket则请求授权校验地址
+            //ajax请求时，如果本地没有Token，则反馈客户端未授权。有Token则请求授权校验地址
+            //直接请求时，如果没有Token则跳转到授权地址，并设置返回地址。有Token则请求授权校验地址
 
-            string ticket = filterContext.HttpContext.Request["ticket"];
+            string token = filterContext.HttpContext.Request["token"];
 
             if (filterContext.IsAjaxRequest())
             {
-                if (ticket.IsNullOrWhiteSpace() || !CheckTicket(ticket))
+                if (token.IsNullOrWhiteSpace() || !CheckToken(token))
                 {
                     filterContext.Result = JQJsonResult.NoLogin(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_URL));
                 }
             }
             else
             {
-                if (ticket.IsNullOrWhiteSpace() || !CheckTicket(ticket))
+                if (token.IsNullOrWhiteSpace() || !CheckToken(token))
                 {
                     EnhancedUriBuilder uriBuilder = new EnhancedUriBuilder(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_URL));
                     uriBuilder.QueryItems["backUrl"] = filterContext.HttpContext.Request.Url.ToString();
@@ -61,7 +61,7 @@ namespace Monitor.Web.Tool.Filters
         /// </summary>
         /// <param name="ticket"></param>
         /// <returns></returns>
-        private bool CheckTicket(string ticket)
+        private bool CheckToken(string ticket)
         {
             //校验ticke是否可用
             AuthorityCheckModel checkModel = new AuthorityCheckModel()

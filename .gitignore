@@ -48,3 +48,7 @@
 /Monitor.SSO.WebManage/obj
 /Monitor.SSO.WebManage/bin
 /Monitor.SSO.WebManage/App_Data/NLogs
+/Monitor.Cache/obj
+/Monitor.Cache/bin
+/Monitor.ICache/obj
+/Monitor.ICache/bin

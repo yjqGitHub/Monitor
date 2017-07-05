@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Monitor.SSO.WebManage.Controllers
 {
-    [Login]
+    [IsAuthority]
     public class HomeController : Controller
     {
         // GET: Home
@@ -16,7 +16,7 @@ namespace Monitor.SSO.WebManage.Controllers
             return View();
         }
 
-        [Login]
+        [IsAuthority]
         [HttpPost]
         public ActionResult Test()
         {

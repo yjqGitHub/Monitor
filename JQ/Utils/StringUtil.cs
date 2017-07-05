@@ -31,5 +31,15 @@ namespace JQ.Utils
         {
             return strs.Where(m => m.IsNullOrWhiteSpace()).Any();
         }
+
+        /// <summary>
+        /// 将值转为16进制的字符
+        /// </summary>
+        /// <param name="value">0-15之间的数字</param>
+        /// <returns>16进制的字符</returns>
+        public static char ToHexChar(int value)
+        {
+            return (char)(value + (value < 10 ? '0' : 'a' - 10));
+        }
     }
 }

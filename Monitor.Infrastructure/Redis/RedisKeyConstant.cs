@@ -9,6 +9,14 @@
     /// </summary>
     public partial class RedisKeyConstant
     {
+        /// <summary>
+        /// 用户尝试登录次数的Key
+        /// </summary>
         public const string REDIS_KEY_LOGINERROR_COUNT_BASE = "TryLoginCount_{0}";
+
+        /// <summary>
+        /// 授权Token的Key
+        /// </summary>
+        public const string REDIS_KEY_AUTHORITY_TOKEN = "Authority_Token";
     }
 }

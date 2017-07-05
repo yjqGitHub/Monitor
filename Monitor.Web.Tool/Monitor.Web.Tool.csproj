@@ -78,7 +78,8 @@
   <ItemGroup>
     <Compile Include="Authority\AuthorityCheckModel.cs" />
     <Compile Include="FilterContextExtension.cs" />
-    <Compile Include="Filters\LoginAttribute.cs" />
+    <Compile Include="Filters\AuthorityCheckAttribute.cs" />
+    <Compile Include="Filters\IsAuthorityAttribute.cs" />
     <Compile Include="WebConstant\ConfigKeyConstant.cs" />
     <Compile Include="WebStart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
