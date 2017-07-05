@@ -17,6 +17,16 @@ namespace Monitor.Domain.Model
         public AuthorityInfo()
         {
             AuthorityId = ObjectId.GenerateNewId();
+            AuthorityTime = DateTime.Now;
+            IsDeleted = false;
+            CreateTime = DateTime.Now;
+            State = AuthorityState.Authoritied;
+        }
+
+        public AuthorityInfo(ObjectId adminId, string token) : this()
+        {
+            AdminId = adminId;
+            AuthorityToken = token;
         }
 
         /// <summary>

@@ -34,6 +34,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.4.4.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.4.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />

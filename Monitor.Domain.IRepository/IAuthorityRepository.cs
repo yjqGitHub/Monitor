@@ -1,5 +1,7 @@
 ﻿using JQ.MongoDb;
+using MongoDB.Bson;
 using Monitor.Domain.Model;
+using System.Threading.Tasks;
 
 namespace Monitor.Domain.IRepository
 {
@@ -12,5 +14,25 @@ namespace Monitor.Domain.IRepository
     /// </summary>
     public interface IAuthorityRepository : IMongoDbBaseRepository<AuthorityInfo>
     {
+        /// <summary>
+        /// 获取上次授权信息
+        /// </summary>
+        /// <param name="adminId">用户ID</param>
+        /// <returns>上次授权信息</returns>
+        Task<AuthorityInfo> GetLastAuthorityInfoAsync(ObjectId adminId);
+
+        /// <summary>
+        /// 根据用户ID将授权信息设置为失效
+        /// </summary>
+        /// <param name="adminId">用户ID</param>
+        /// <returns>true表示成功</returns>
+        bool UpdateAuthorityInvalid(ObjectId adminId);
+
+        /// <summary>
+        /// 异步根据用户ID将授权信息设置为失效
+        /// </summary>
+        /// <param name="adminId">用户ID</param>
+        /// <returns>true表示成功</returns>
+        Task<bool> UpdateAuthorityInvalidAsync(ObjectId adminId);
     }
 }

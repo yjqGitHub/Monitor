@@ -6,6 +6,7 @@ using Monitor.IUserApplication;
 using Monitor.SSO.WebManage.Models;
 using Monitor.Web.Tool;
 using Monitor.Web.Tool.Authority;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Monitor.SSO.WebManage.Controllers
@@ -13,12 +14,12 @@ namespace Monitor.SSO.WebManage.Controllers
     public class AuthorityController : Controller
     {
         private readonly IWebSiteApplication _webSiteApplication;
-        private readonly IAdminApplication _adminApplication;
+        private readonly IAuthorityApplication _authorityApplication;
 
-        public AuthorityController(IWebSiteApplication webSiteApplication, IAdminApplication adminApplication)
+        public AuthorityController(IWebSiteApplication webSiteApplication, IAuthorityApplication authorityApplication)
         {
             _webSiteApplication = webSiteApplication;
-            _adminApplication = adminApplication;
+            _authorityApplication = authorityApplication;
         }
 
         /// <summary>
@@ -50,22 +51,22 @@ namespace Monitor.SSO.WebManage.Controllers
         /// <returns></returns>
         [HttpPost]
         [Validate]
-        public JQJsonResult Authority(AuthoryModel model)
+        public async Task<JQJsonResult> Authority(AuthoryModel model)
         {
             if (!WebTool.CheckCode(model.Code))
             {
                 return JQJsonResult.ParamError("请输入正确的验证码");
             }
-            var operateResult = _adminApplication.Login(model.UserName, model.Pwd);
-            if (operateResult.IsSuccess)
+            var operateResult = await _authorityApplication.AuthorityAsync(model.AppId, model.UserName, model.Pwd);
+            if (operateResult.SuccessAndValueNotNull)
             {
-                WebTool.SetCurrentLoginUser(operateResult.Value);
+                WebTool.SetCurrentUserToken(operateResult.Value);
+
             }
             else
             {
                 return JQJsonResult.Create(operateResult);
             }
-            string token = WebTool.CreateToken();
 
             return JQJsonResult.Success("登录成功", null);
         }

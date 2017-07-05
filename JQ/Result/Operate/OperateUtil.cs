@@ -19,6 +19,11 @@ namespace JQ.Result
             return new OperateResult(ex);
         }
 
+        public static OperateResult<T> Exception<T>(Exception ex)
+        {
+            return new OperateResult<T>(ex);
+        }
+
         /// <summary>
         /// 参数错误
         /// </summary>
@@ -27,6 +32,17 @@ namespace JQ.Result
         public static OperateResult ParamError(string msg)
         {
             return new OperateResult(OperateState.ParamError, msg);
+        }
+
+        /// <summary>
+        /// 参数错误
+        /// </summary>
+        /// <typeparam name="T">结果类型</typeparam>
+        /// <param name="msg">信息</param>
+        /// <returns>操作结果</returns>
+        public static OperateResult<T> ParamError<T>(string msg)
+        {
+            return new OperateResult<T>(OperateState.ParamError, msg);
         }
 
         /// <summary>

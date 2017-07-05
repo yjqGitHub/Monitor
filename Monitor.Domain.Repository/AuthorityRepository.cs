@@ -1,5 +1,6 @@
 ﻿using JQ.MongoDb;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using Monitor.Domain.IRepository;
 using Monitor.Domain.Model;
 using Monitor.Infrastructure.Mongo;
@@ -19,6 +20,16 @@ namespace Monitor.Domain.Repository
     {
         public AuthorityRepository(IMongoDatabaseProvider databaseProvider) : base(databaseProvider, MonogoDbConfigUtil.GetDefaultConfig())
         {
+        }
+
+        /// <summary>
+        /// 获取上次授权信息
+        /// </summary>
+        /// <param name="adminId">用户ID</param>
+        /// <returns>上次授权信息</returns>
+        public Task<AuthorityInfo> GetLastAuthorityInfoAsync(ObjectId adminId)
+        {
+            return Collection.Find(m => m.AdminId == adminId && m.IsDeleted == false && m.State == Domain.ValueObject.AuthorityState.Authoritied).SortByDescending(m => m.AuthorityTime).FirstOrDefaultAsync();
         }
 
         #region 根据用户ID将授权信息设置为失效

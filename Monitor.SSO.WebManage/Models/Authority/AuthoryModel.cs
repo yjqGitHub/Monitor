@@ -29,5 +29,11 @@ namespace Monitor.SSO.WebManage.Models
         [Required(ErrorMessage = "请输入验证码")]
         [StringLength(6, ErrorMessage = "请输入正确的验证码")]
         public string Code { get; set; }
+
+        /// <summary>
+        /// AppId
+        /// </summary>
+        [Required(ErrorMessage = "站点Id不能为空")]
+        public string AppId { get; set; }
     }
 }

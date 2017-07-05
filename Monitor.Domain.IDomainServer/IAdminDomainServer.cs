@@ -1,4 +1,6 @@
 ﻿using Monitor.Domain.Model;
+using Monitor.Domain.ValueObject;
+using System.Threading.Tasks;
 
 namespace Monitor.Domain.IDomainServer
 {
@@ -11,6 +13,15 @@ namespace Monitor.Domain.IDomainServer
     /// </summary>
     public interface IAdminDomainServer
     {
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="pwd">密码</param>
+        /// <param name="sitePort">登录站点</param>
+        /// <returns>登录成功则返回用户信息</returns>
+        Task<AdminInfo> LoginAsync(string userName, string pwd, SitePort sitePort);
+
         /// <summary>
         /// 登录校验
         /// </summary>

@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdminDomainServer.cs" />
+    <Compile Include="IAuthorityDomainServer.cs" />
     <Compile Include="IRuntimeLogDomainServer.cs" />
+    <Compile Include="IWebSiteDomainServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

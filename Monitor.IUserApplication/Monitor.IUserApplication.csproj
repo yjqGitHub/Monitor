@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdminApplication.cs" />
+    <Compile Include="IAuthorityApplication.cs" />
     <Compile Include="IRuntimeLogApplication.cs" />
     <Compile Include="IWebSiteApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

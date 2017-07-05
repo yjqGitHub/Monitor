@@ -1,15 +1,14 @@
 ﻿using JQ;
 using JQ.Extensions;
 using JQ.ParamterValidate;
-using JQ.Redis;
 using JQ.Utils;
 using Monitor.Domain.IDomainServer;
 using Monitor.Domain.IRepository;
 using Monitor.Domain.Model;
 using Monitor.Domain.ValueObject;
+using Monitor.ICache;
 using Monitor.Infrastructure.FriendlyMessage;
-using Monitor.Infrastructure.Redis;
-using System;
+using System.Threading.Tasks;
 
 namespace Monitor.Domain.DomainServer
 {
@@ -23,10 +22,35 @@ namespace Monitor.Domain.DomainServer
     public sealed class AdminDomainServer : IAdminDomainServer
     {
         private readonly IAdminRepository _adminRepository;
+        private readonly IAuthorityCache _authorityCache;
+        private readonly ILoginRecordRepository _loginRecordRepository;
 
-        public AdminDomainServer(IAdminRepository adminRepository)
+        public AdminDomainServer(IAdminRepository adminRepository, ILoginRecordRepository loginRecordRepository, IAuthorityCache authorityCache)
         {
             _adminRepository = adminRepository;
+            _loginRecordRepository = loginRecordRepository;
+            _authorityCache = authorityCache;
+        }
+
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="userName">用户名</param>
+        /// <param name="pwd">密码</param>
+        /// <param name="sitePort">登录站点</param>
+        /// <returns>登录成功则返回用户信息</returns>
+        public async Task<AdminInfo> LoginAsync(string userName, string pwd, SitePort sitePort)
+        {
+            var adminInfo = await _adminRepository.GetInfoAsync(m => m.IsDeleted == false && m.UserName == userName.Trim());
+            LoginCheck(adminInfo, pwd);
+            adminInfo.ChangeLastLoginInfo(sitePort);
+            _adminRepository.UpdateOne(m => m.AdminId == adminInfo.AdminId, new { LastLoginInfo = adminInfo.LastLoginInfo });
+            await _loginRecordRepository.InsertOneAsync(new LoginRecordInfo()
+            {
+                AdminId = adminInfo.AdminId,
+                LoginLogInfo = adminInfo.LastLoginInfo
+            });
+            return adminInfo;
         }
 
         /// <summary>
@@ -52,7 +76,7 @@ namespace Monitor.Domain.DomainServer
                 default: break;
             }
             //获取尝试登录的失败次数
-            var tryLoginErrorCount = RedisHelper.GetClient().StringGet<long>(string.Format(RedisKeyConstant.REDIS_KEY_LOGINERROR_COUNT_BASE, adminInfo.UserName));
+            var tryLoginErrorCount = _authorityCache.GetLoginFailedCount(adminInfo.UserName);
             if (tryLoginErrorCount >= 5)
             {
                 LogUtil.Info($"{adminInfo.UserName}:{FriendlyMessage.USER_OR_ERROR_OVER_LIMIT}");
@@ -71,10 +95,7 @@ namespace Monitor.Domain.DomainServer
             if (!adminInfo.Pwd.Equals(loginPwd))
             {
                 //设置尝试登录失败次数
-                RedisHelper.GetClient().SetAndSetExpireTime(string.Format(RedisKeyConstant.REDIS_KEY_LOGINERROR_COUNT_BASE, adminInfo.UserName), expireTimeSpan: TimeSpan.FromMinutes(1), setAction: (redisClient, key) =>
-                {
-                    redisClient.StringIncrement(key);
-                });
+                _authorityCache.AddLoginFailedCount(adminInfo.UserName);
                 throw new JQException(FriendlyMessage.USER_OR_PWD_ERROR);
             }
         }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminApplication.cs" />
+    <Compile Include="AuthorityApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RuntimeLogApplication.cs" />
     <Compile Include="WebSiteApplication.cs" />
@@ -86,6 +87,10 @@
     <ProjectReference Include="..\Monitor.Domain\Monitor.Domain.csproj">
       <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
       <Name>Monitor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.ICache\Monitor.ICache.csproj">
+      <Project>{0505B2B7-D498-40D5-A800-18FF6CBCF253}</Project>
+      <Name>Monitor.ICache</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
       <Project>{60B04982-CF40-4D1F-AADA-2CB6C11C9896}</Project>

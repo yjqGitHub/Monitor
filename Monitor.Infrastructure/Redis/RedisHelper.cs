@@ -1,5 +1,4 @@
-﻿using JQ.Configurations;
-using JQ.Extensions;
+﻿using JQ.Extensions;
 using JQ.Redis;
 using JQ.Utils;
 
@@ -27,15 +26,6 @@ namespace Monitor.Infrastructure.Redis
                 DatabaseId = databaseId,
                 Prefix = "Monitor"
             };
-        }
-
-        /// <summary>
-        /// 获取默认客户端
-        /// </summary>
-        /// <returns></returns>
-        public static IRedisClient GetClient()
-        {
-            return JQConfiguration.Resolve<IRedisDatabaseProvider>().CreateClient(GetDefaultOption());
         }
     }
 }

@@ -103,13 +103,41 @@ namespace Monitor.Web.Tool
 
         #endregion 用户Cookie设置 todo 将改为设置一个sign在前端，利用sign在缓存获取当前登录用户信息
 
+        #region token
+
         /// <summary>
-        /// 创建一个随机Token
+        /// 设置当前用户的token值
         /// </summary>
-        /// <returns></returns>
-        public static string CreateToken()
+        /// <param name="token">token值</param>
+        public static void SetCurrentUserToken(string token)
         {
-            return Guid.NewGuid().ToString("N");
+            if (token.IsNullOrWhiteSpace()) return;
+            var userBytes = token.ToBytes();
+            var encodeBytes = DESProviderUtil.Encode(userBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
+            var userStr = encodeBytes.ToStr();
+            CookieHelper.SetCookie(_CURRENTUSER_COOKIEKEY, userStr);
+            string sign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
+            CookieHelper.SetCookie(_CURRENTUSER_SIGN_COOKIEKEY, sign);
         }
+
+        /// <summary>
+        /// 获取当前用户的token值
+        /// </summary>
+        /// <returns>token值</returns>
+        public static string GetCurrentUserToken()
+        {
+            string sign = CookieHelper.GetCookieValue(_CURRENTUSER_SIGN_COOKIEKEY);
+            string userStr = CookieHelper.GetCookieValue(_CURRENTUSER_COOKIEKEY);
+            string checkSign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
+            if (sign.Equals(checkSign))
+            {
+                var encodeUserBytes = userStr.ToBytes();
+                var userBytes = DESProviderUtil.Decode(encodeUserBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
+                return userBytes.ToStr();
+            }
+            return string.Empty;
+        }
+
+        #endregion token
     }
 }
