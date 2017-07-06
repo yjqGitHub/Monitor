@@ -1,5 +1,7 @@
-﻿using Hangfire;
+﻿using Autofac;
+using Hangfire;
 using JQ.Container;
+using JQ.Container.Autofac;
 using System;
 
 namespace JQ.Hangfire
@@ -31,14 +33,14 @@ namespace JQ.Hangfire
 
         public override JobActivatorScope BeginScope(JobActivatorContext context)
         {
-            return new JQIocJobActivatorScope(_iocResolver);
+            return new JQIocJobActivatorScope((_iocResolver as AutofacObjectContainer).Container.BeginLifetimeScope());
         }
 
         private class JQIocJobActivatorScope : JobActivatorScope
         {
-            private readonly IObjectContainer _lifetimeScope;
+            private readonly ILifetimeScope _lifetimeScope;
 
-            public JQIocJobActivatorScope(IObjectContainer lifetimeScope)
+            public JQIocJobActivatorScope(ILifetimeScope lifetimeScope)
             {
                 _lifetimeScope = lifetimeScope;
             }
@@ -50,6 +52,7 @@ namespace JQ.Hangfire
 
             public override void DisposeScope()
             {
+                _lifetimeScope.Dispose();
             }
         }
     }

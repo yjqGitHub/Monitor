@@ -90,7 +90,9 @@
     <Compile Include="Extensions\ObjectConvertExtension.cs" />
     <Compile Include="Extensions\ObjectJudgeExtension.cs" />
     <Compile Include="Intercept\BusinessDealIntercept.cs" />
-    <Compile Include="Intercept\BusinessDealInterceptConfigurationExtension.cs" />
+    <Compile Include="Intercept\InterceptConfigurationExtension.cs" />
+    <Compile Include="Intercept\CacheStatisticIntercept.cs" />
+    <Compile Include="Intercept\NoSqlStatisticIntercept.cs" />
     <Compile Include="JQDisposable.cs" />
     <Compile Include="JQException.cs" />
     <Compile Include="Logger\ILogger.cs" />
@@ -116,6 +118,11 @@
     <Compile Include="Serialization\NewtonsoftJson\NewtonsoftJsonSerializer.cs" />
     <Compile Include="Serialization\Protobuf\ProtobufBinarySerializer.cs" />
     <Compile Include="Serialization\Protobuf\ProtobufBinarySerializerConfigurationExtension.cs" />
+    <Compile Include="Statistics\CacheStatistic.cs" />
+    <Compile Include="Statistics\MethodStatistic.cs" />
+    <Compile Include="Statistics\NoSqlStatistic.cs" />
+    <Compile Include="Statistics\SqlStatistic.cs" />
+    <Compile Include="Statistics\StatisticsConfiguration.cs" />
     <Compile Include="SysConstants\ContentTypeConstant.cs" />
     <Compile Include="Utils\BufferQueue.cs" />
     <Compile Include="Utils\ConfigUtil.cs" />

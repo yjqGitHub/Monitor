@@ -94,7 +94,6 @@ namespace Monitor.Web.Tool.Filters
                 }
                 return false;
             }, defaultValue: false, memberName: "IsAuthorityAttribute-CheckToken");
-
         }
     }
 

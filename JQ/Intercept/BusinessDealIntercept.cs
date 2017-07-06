@@ -1,6 +1,8 @@
 ﻿using Castle.DynamicProxy;
 using JQ.Result;
+using JQ.Statistics;
 using JQ.Utils;
+using JQ.Web;
 using System;
 
 namespace JQ.Intercept
@@ -14,6 +16,15 @@ namespace JQ.Intercept
     /// </summary>
     public class BusinessDealIntercept : IInterceptor
     {
+        private readonly MethodStatistic _methodStatistic;
+        private DateTime _stratTime;
+
+        public BusinessDealIntercept(MethodStatistic methodStatistic)
+        {
+            _methodStatistic = methodStatistic;
+            _stratTime = DateTime.Now;
+        }
+
         public void Intercept(IInvocation invocation)
         {
             try
@@ -33,7 +44,10 @@ namespace JQ.Intercept
             }
             finally
             {
-
+                _methodStatistic.MemberName = $"{invocation.TargetType.FullName}-{invocation.Method.Name}";
+                _methodStatistic.Url = WebUtil.GetHttpRequestUrl();
+                _methodStatistic.Millisecond = (DateTime.Now - _stratTime).TotalMilliseconds;
+                LogUtil.Info(_methodStatistic.ToString());
             }
         }
     }

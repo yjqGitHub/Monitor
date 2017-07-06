@@ -1,11 +1,12 @@
-﻿using JQ.Logger.NLogger;
+﻿using Autofac;
+using JQ.Container.Autofac;
+using JQ.Intercept;
+using JQ.Logger.NLogger;
 using JQ.Serialization.DefaultBinary;
 using JQ.Serialization.NewtonsoftJson;
 using JQ.Serialization.Protobuf;
+using JQ.Statistics;
 using JQ.Utils;
-using JQ.Container.Autofac;
-using JQ.Intercept;
-using Autofac;
 
 namespace JQ.Configurations
 {
@@ -22,6 +23,9 @@ namespace JQ.Configurations
         {
             configuration.UseAutofac(containerBuilder)
                          .UseBusinessDealIntercept()
+                         .UseCacheIntercept()
+                         .UseNoSqlIntercept()
+                         .UseStatistics()
                          .UseJsnoNet()
                          //.UseDefaultBinarySerializer()
                          .UseProtobufBinarySerializer()

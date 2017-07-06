@@ -45,8 +45,8 @@ namespace Monitor.Web.Tool
                             .UseRabbitMQ()
                             .UseStackExchageRedis()
                             .UseMQLogger(() => MQLoggerUtil.GetMQLoggerConfig())
-                            .RegisterAssemblyTypes(cacheAssembly, m => m.Namespace != null && m.Name.EndsWith("Cache"), lifeStyle: LifeStyle.PerLifetimeScope)
-                            .RegisterAssemblyTypes(repositoryAssembly, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
+                            .RegisterAssemblyTypes(cacheAssembly, new Type[] { typeof(CacheStatisticIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Cache"), lifeStyle: LifeStyle.PerLifetimeScope)
+                            .RegisterAssemblyTypes(repositoryAssembly, new Type[] { typeof(NoSqlStatisticIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
                 ;
