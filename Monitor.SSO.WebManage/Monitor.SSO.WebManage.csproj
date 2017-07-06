@@ -437,6 +437,10 @@
       <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
       <Name>JQ</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Monitor.Cache\Monitor.Cache.csproj">
+      <Project>{519df9a2-dc04-45a7-9852-71f6d9d52a88}</Project>
+      <Name>Monitor.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monitor.Domain.DomainServer\Monitor.Domain.DomainServer.csproj">
       <Project>{65b32fef-76bb-4281-b881-05c36c4aff53}</Project>
       <Name>Monitor.Domain.DomainServer</Name>
@@ -456,6 +460,10 @@
     <ProjectReference Include="..\Monitor.Domain\Monitor.Domain.csproj">
       <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
       <Name>Monitor.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.ICache\Monitor.ICache.csproj">
+      <Project>{0505b2b7-d498-40d5-a800-18ff6cbcf253}</Project>
+      <Name>Monitor.ICache</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monitor.Infrastructure\Monitor.Infrastructure.csproj">
       <Project>{60b04982-cf40-4d1f-aada-2cb6c11c9896}</Project>

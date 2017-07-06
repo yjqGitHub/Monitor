@@ -19,6 +19,13 @@ namespace Monitor.IUserApplication
         /// <param name="userName">用户名</param>
         /// <param name="pwd">密码</param>
         /// <returns>成功返回token</returns>
-        Task<OperateResult<string>> AuthorityAsync(string appId,string userName, string pwd);
+        Task<OperateResult<string>> AuthorityAsync(string appId, string userName, string pwd);
+
+        /// <summary>
+        /// 校验token是否有效
+        /// </summary>
+        /// <param name="token">需要校验的token</param>
+        /// <returns>校验结果</returns>
+        OperateResult CheckTokenIsAvailable(string token);
     }
 }

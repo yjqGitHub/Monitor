@@ -1,4 +1,7 @@
-﻿using Monitor.Domain.IDomainServer;
+﻿using JQ.ParamterValidate;
+using Monitor.Domain.IDomainServer;
+using Monitor.Domain.IRepository;
+using Monitor.ICache;
 using System;
 
 namespace Monitor.Domain.DomainServer
@@ -12,6 +15,15 @@ namespace Monitor.Domain.DomainServer
     /// </summary>
     public sealed class AuthorityDomainServer : IAuthorityDomainServer
     {
+        private readonly IAuthorityCache _authorityCache;
+        private readonly IAuthorityRepository _authorityRepository;
+
+        public AuthorityDomainServer(IAuthorityCache authorityCache, IAuthorityRepository authorityRepository)
+        {
+            _authorityCache = authorityCache;
+            _authorityRepository = authorityRepository;
+        }
+
         /// <summary>
         /// 创建一个令牌
         /// </summary>
@@ -19,6 +31,19 @@ namespace Monitor.Domain.DomainServer
         public string CreateToken()
         {
             return Guid.NewGuid().ToString("N");
+        }
+
+        /// <summary>
+        /// 校验token是否生效
+        /// </summary>
+        /// <param name="token">要校验的token</param>
+        public void CheckTokenAvailable(string token)
+        {
+            token.NotNullAndNotEmptyWhiteSpace("token已失效");
+            if (!_authorityCache.IsExistToken(token))
+            {
+                _authorityRepository.GetInfo(m => m.AuthorityToken == token && m.State == ValueObject.AuthorityState.Authoritied && m.IsDeleted == false).NotNull("token已失效");
+            }
         }
     }
 }

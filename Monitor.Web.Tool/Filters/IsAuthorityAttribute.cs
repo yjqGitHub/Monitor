@@ -35,6 +35,14 @@ namespace Monitor.Web.Tool.Filters
             //直接请求时，如果没有Token则跳转到授权地址，并设置返回地址。有Token则请求授权校验地址
 
             string token = filterContext.HttpContext.Request["token"];
+            if (token.IsNullOrWhiteSpace())
+            {
+                token = WebTool.GetSiteLocalToken();
+            }
+            else
+            {
+                WebTool.SetSiteLocalToken(token);
+            }
 
             if (filterContext.IsAjaxRequest())
             {
@@ -59,26 +67,34 @@ namespace Monitor.Web.Tool.Filters
         /// <summary>
         /// 检验门票
         /// </summary>
-        /// <param name="ticket"></param>
+        /// <param name="token"></param>
         /// <returns></returns>
-        private bool CheckToken(string ticket)
+        private bool CheckToken(string token)
         {
-            //校验ticke是否可用
-            AuthorityCheckModel checkModel = new AuthorityCheckModel()
+            return ExceptionUtil.LogException(() =>
             {
-                AppId = ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_APPID),
-                Ticket = ticket,
-                Version = ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_VERSION),
-                TimeTicket = DateTimeUtil.GetTimeSpanNow()
-            };
-            checkModel.SetSign(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_APPSECRET));
-            HttpClient httpClient = new HttpClient(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_CHECK_URL));
-            var ajaxResult = httpClient.Post<AjaxResultInfo>(checkModel.ToDictionary());
-            if (ajaxResult.State == AjaxState.Success)
-            {
-                return true;
-            }
-            return false;
+                //校验ticke是否可用
+                AuthorityCheckModel checkModel = new AuthorityCheckModel()
+                {
+                    AppId = ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_APPID),
+                    Token = token,
+                    Version = ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_VERSION),
+                    TimeTicket = DateTimeUtil.GetTimeSpanNow()
+                };
+                checkModel.SetSign(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_APPSECRET));
+                HttpClient httpClient = new HttpClient(ConfigUtil.GetValue(ConfigKeyConstant.CONFIG_KEY_AUTHORITY_CHECK_URL));
+                var ajaxResult = httpClient.Post<AjaxResultInfo>(checkModel.ToDictionary());
+                if (ajaxResult.State == AjaxState.Success)
+                {
+                    return true;
+                }
+                else
+                {
+                    LogUtil.Info($"校验token失败:{ajaxResult.Message}");
+                }
+                return false;
+            }, defaultValue: false, memberName: "IsAuthorityAttribute-CheckToken");
+
         }
     }
 

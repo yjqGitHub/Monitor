@@ -61,5 +61,16 @@ namespace Monitor.UserApplication
             }
             return OperateUtil.ParamError<string>("授权失败");
         }
+
+        /// <summary>
+        /// 校验token是否有效
+        /// </summary>
+        /// <param name="token">需要校验的token</param>
+        /// <returns>校验结果</returns>
+        public OperateResult CheckTokenIsAvailable(string token)
+        {
+            _authorityDomainServer.CheckTokenAvailable(token);
+            return OperateUtil.Success("token校验成功");
+        }
     }
 }

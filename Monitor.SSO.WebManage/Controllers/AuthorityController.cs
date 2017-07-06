@@ -1,11 +1,13 @@
 ﻿using JQ.Extensions;
 using JQ.ValidateCode;
+using JQ.Web;
 using JQ.Web.Tool.Filters;
 using JQ.Web.Tool.ViewResults;
 using Monitor.IUserApplication;
 using Monitor.SSO.WebManage.Models;
 using Monitor.Web.Tool;
 using Monitor.Web.Tool.Authority;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -35,6 +37,19 @@ namespace Monitor.SSO.WebManage.Controllers
                 var operateResult = _webSiteApplication.GetSite(appId);
                 if (operateResult.SuccessAndValueNotNull)
                 {
+                    var userToken = WebTool.GetCurrentUserToken();
+                    if (userToken.IsNotNullAndNotWhiteSpace())
+                    {
+                        var checkeResult = _authorityApplication.CheckTokenIsAvailable(userToken);
+                        if (checkeResult.IsSuccess)
+                        {
+                            backUrl = WebTool.GetBackUrl(operateResult.Value?.SiteDefaultBackUrl, backUrl, new Dictionary<string, string>
+                            {
+                                ["token"] = userToken
+                            });
+                            return Redirect(backUrl);
+                        }
+                    }
                     ViewBag.SiteInfo = operateResult.Value;
                     //ViewBag.BackUrl = backUrl.IsNullOrWhiteSpace() ? operateResult.Value.SiteDefaultBackUrl : backUrl;
                     ViewBag.BackUrl = operateResult.Value.SiteDefaultBackUrl ?? "/Home/Index";
@@ -61,14 +76,14 @@ namespace Monitor.SSO.WebManage.Controllers
             if (operateResult.SuccessAndValueNotNull)
             {
                 WebTool.SetCurrentUserToken(operateResult.Value);
-
+                EnhancedUriBuilder uriBuilder = new EnhancedUriBuilder(model.BackUrl);
+                uriBuilder.QueryItems["token"] = operateResult.Value;
+                return JQJsonResult.Success("授权成功", new { BackUrl = uriBuilder.ToString() });
             }
             else
             {
                 return JQJsonResult.Create(operateResult);
             }
-
-            return JQJsonResult.Success("登录成功", null);
         }
 
         /// <summary>
@@ -88,10 +103,27 @@ namespace Monitor.SSO.WebManage.Controllers
         /// 授权认证
         /// </summary>
         /// <returns>认证结果</returns>
-        [HttpGet]
+        [HttpPost]
+        [Validate]
         public JQJsonResult Check(AuthorityCheckModel model)
         {
-            return JQJsonResult.Success("签名校验成功", null);
+            var operateResult = _webSiteApplication.GetSite(model.AppId);
+            if (operateResult.SuccessAndValueNotNull)
+            {
+                if (model.CheckSign(operateResult.Value.AppSecret))
+                {
+                    var checkeResult = _authorityApplication.CheckTokenIsAvailable(model.Token);
+                    if (checkeResult.IsSuccess)
+                    {
+                        return JQJsonResult.Success("token校验成功", null);
+                    }
+                    else
+                    {
+                        return JQJsonResult.ParamError("token已过期");
+                    }
+                }
+            }
+            return JQJsonResult.ParamError("签名错误");
         }
     }
 }

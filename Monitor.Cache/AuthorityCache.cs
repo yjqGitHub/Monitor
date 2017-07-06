@@ -149,7 +149,7 @@ namespace Monitor.Cache
         /// <returns>存在返回true</returns>
         public bool IsExistToken(string token)
         {
-            if (token.IsNullOrWhiteSpace())
+            if (token.IsNotNullAndNotWhiteSpace())
             {
                 return RedisClient.HashExists(_REDIS_KEY_AUTHORITY_TOKEN, token);
             }
@@ -163,7 +163,7 @@ namespace Monitor.Cache
         /// <returns>存在返回true</returns>
         public async Task<bool> IsExistTokenAsync(string token)
         {
-            if (token.IsNullOrWhiteSpace())
+            if (token.IsNotNullAndNotWhiteSpace())
             {
                 return await RedisClient.HashExistsAsync(_REDIS_KEY_AUTHORITY_TOKEN, token);
             }

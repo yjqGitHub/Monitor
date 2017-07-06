@@ -1,4 +1,5 @@
 ﻿using JQ.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace Monitor.Web.Tool.Authority
 {
@@ -14,26 +15,31 @@ namespace Monitor.Web.Tool.Authority
         /// <summary>
         /// AppId
         /// </summary>
+        [Required(ErrorMessage = "AppId不能为空")]
         public string AppId { get; set; }
 
         /// <summary>
         /// 签名信息
         /// </summary>
+        [Required(ErrorMessage = "签名信息不能为空")]
         public string Sign { get; set; }
 
         /// <summary>
         /// 授权信息
         /// </summary>
-        public string Ticket { get; set; }
+        [Required(ErrorMessage = "授权信息不能为空")]
+        public string Token { get; set; }
 
         /// <summary>
         /// 请求时间戳
         /// </summary>
+        [Required(ErrorMessage = "时间戳不能为空")]
         public long TimeTicket { get; set; }
 
         /// <summary>
         /// 版本号
         /// </summary>
+        [Required(ErrorMessage = "版本号不能为空")]
         public string Version { get; set; }
 
         /// <summary>

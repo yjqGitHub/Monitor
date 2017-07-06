@@ -13,7 +13,7 @@ $("form").submit(function () {
             data: $(this).serialize()
         }, function (data) {
             ShowSuccessMsg(data.Message);
-            location.href = $("#BackUrl").val();
+            location.href = data.Data.BackUrl;
         }, function (error) {
         });
     }

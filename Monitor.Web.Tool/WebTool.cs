@@ -4,6 +4,7 @@ using JQ.Web;
 using MongoDB.Bson;
 using Monitor.TransDto.Admin;
 using System;
+using System.Collections.Generic;
 
 namespace Monitor.Web.Tool
 {
@@ -52,12 +53,29 @@ namespace Monitor.Web.Tool
         #region 用户Cookie设置 todo 将改为设置一个sign在前端，利用sign在缓存获取当前登录用户信息
 
         /// <summary>
+        /// 本地用户cookieKey
+        /// </summary>
+        private const string _CURRENTUSER_LOCAL_COOKIEKEY = "Monitor_CurrentUser_Local";
+
+        /// <summary>
+        /// 本地当前用户信息签名的CookieKey
+        /// </summary>
+        private const string _CURRENTUSER_SIGN_LOCAL_COOKIEKEY = "Monitor_CurrentUser_Sign_Local";
+
+        /// <summary>
+        /// 当前用户的CookieKey
+        /// </summary>
+        private const string _CURRENTUSER_COOKIEKEY = "Monitor_CurrentUser";
+
+        /// <summary>
+        /// 当前用户信息签名的CookieKey
+        /// </summary>
+        private const string _CURRENTUSER_SIGN_COOKIEKEY = "Monitor_CurrentUser_Sign";
+
+        /// <summary>
         /// 用户信息加密的Key
         /// </summary>
         private const string _CONFIGKEY_CURRENTUSER_PROVIDERKEY = "CurrentUserProviderKey";
-
-        private const string _CURRENTUSER_COOKIEKEY = "Monitor_CurrentUser";
-        private const string _CURRENTUSER_SIGN_COOKIEKEY = "Monitor_CurrentUser_Sign";
 
         /// <summary>
         /// CookieSign的加密盐值Key
@@ -139,5 +157,105 @@ namespace Monitor.Web.Tool
         }
 
         #endregion token
+
+        #region 本地token
+
+        /// <summary>
+        /// 设置本地token的Cookie
+        /// </summary>
+        /// <param name="token">要设置的token</param>
+        public static void SetSiteLocalToken(string token)
+        {
+            if (token.IsNullOrWhiteSpace()) return;
+            var userBytes = token.ToBytes();
+            var encodeBytes = DESProviderUtil.Encode(userBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
+            var userStr = encodeBytes.ToStr();
+            CookieHelper.SetCookie(_CURRENTUSER_LOCAL_COOKIEKEY, userStr);
+            string sign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
+            CookieHelper.SetCookie(_CURRENTUSER_SIGN_LOCAL_COOKIEKEY, sign);
+        }
+
+        /// <summary>
+        /// 获取本地token的Cookie
+        /// </summary>
+        /// <returns>本地token</returns>
+        public static string GetSiteLocalToken()
+        {
+            string sign = CookieHelper.GetCookieValue(_CURRENTUSER_SIGN_LOCAL_COOKIEKEY);
+            string userStr = CookieHelper.GetCookieValue(_CURRENTUSER_LOCAL_COOKIEKEY);
+            string checkSign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
+            if (sign.Equals(checkSign))
+            {
+                var encodeUserBytes = userStr.ToBytes();
+                var userBytes = DESProviderUtil.Decode(encodeUserBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
+                return userBytes.ToStr();
+            }
+            return string.Empty;
+        }
+
+        #endregion 本地token
+
+        #region 获取返回地址
+
+        /// <summary>
+        /// 获取返回地址
+        /// </summary>
+        /// <param name="defaultBackUrl">默认返回地址</param>
+        /// <param name="backUrl">返回地址</param>
+        /// <param name="arguments">参数</param>
+        /// <returns>返回地址</returns>
+        public static string GetBackUrl(string defaultBackUrl, string backUrl, Dictionary<string, string> arguments = null)
+        {
+            string baseUrl = string.Empty;
+            if (backUrl.IsNullOrWhiteSpace() && defaultBackUrl.IsNullOrWhiteSpace())
+            {
+                baseUrl = "/Home/Index";
+            }
+            else if (backUrl.IsNotNullAndNotWhiteSpace())
+            {
+                baseUrl = backUrl;
+            }
+            else
+            {
+                baseUrl = defaultBackUrl;
+            }
+            if (baseUrl.StartsWith("http:") || baseUrl.StartsWith("https:"))
+            {
+                EnhancedUriBuilder uriBuilder = new EnhancedUriBuilder(baseUrl);
+                if (arguments != null)
+                {
+                    foreach (KeyValuePair<string, string> item in arguments)
+                    {
+                        uriBuilder.QueryItems[item.Key] = item.Value;
+                    }
+                }
+                return uriBuilder.ToString();
+            }
+            else
+            {
+                string queryItem = string.Empty;
+                if (arguments != null)
+                {
+                    foreach (KeyValuePair<string, string> item in arguments)
+                    {
+                        queryItem += item.Key + "=" + item.Value.UrlEncode("UTF-8") + "&";
+                    }
+                    if (queryItem.Length > 0)
+                    {
+                        queryItem.Substring(0, queryItem.Length - 1);
+                    }
+                }
+                if (baseUrl.IndexOf('?') > 0)
+                {
+                    return baseUrl + queryItem;
+                }
+                else
+                {
+                    return baseUrl + "?" + queryItem;
+                }
+            }
+        }
+
+        #endregion 获取返回地址
     }
 }

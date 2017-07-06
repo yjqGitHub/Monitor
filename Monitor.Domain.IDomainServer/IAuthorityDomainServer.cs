@@ -14,5 +14,11 @@
         /// </summary>
         /// <returns>令牌</returns>
         string CreateToken();
+
+        /// <summary>
+        /// 校验token是否生效
+        /// </summary>
+        /// <param name="token">要校验的token</param>
+        void CheckTokenAvailable(string token);
     }
 }

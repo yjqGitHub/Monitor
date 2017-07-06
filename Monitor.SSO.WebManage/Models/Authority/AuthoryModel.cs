@@ -35,5 +35,11 @@ namespace Monitor.SSO.WebManage.Models
         /// </summary>
         [Required(ErrorMessage = "站点Id不能为空")]
         public string AppId { get; set; }
+
+        /// <summary>
+        /// 返回地址
+        /// </summary>
+        [Required(ErrorMessage = "返回地址不能为空m ")]
+        public string BackUrl { get; set; }
     }
 }
