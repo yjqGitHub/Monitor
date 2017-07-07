@@ -18,7 +18,7 @@ function tabNavallwidth(){
 		$tabNavmore =hide_nav.find(".Hui-tabNav-more");
 	if (!$tabNav[0]){return}
 	$tabNavitem.each(function(index, element) {
-        taballwidth += Number(parseFloat($(this).width()+60))
+	    taballwidth += Number(parseFloat($(this).width()+60))
     });
 	$tabNav.width(taballwidth+25);
 	var w = $tabNavWp.width();
@@ -35,18 +35,6 @@ function Huiasidedisplay(){
 	if($(window).width()>=768){
 		$(".Hui-aside").show();
 	} 
-}
-/*获取皮肤cookie*/
-function getskincookie(){
-	var v = $.cookie("Huiskin");
-	var hrefStr=$("#skin").attr("href");
-	if(v==null||v==""){
-		v="default";
-	}
-	if(hrefStr!=undefined){
-		var hrefRes=hrefStr.substring(0,hrefStr.lastIndexOf('skin/'))+'skin/'+v+'/skin.css';
-		$("#skin").attr("href",hrefRes);
-	}
 }
 /*菜单导航*/
 function Hui_admin_tab(obj){
@@ -234,7 +222,6 @@ function getHTMLDate(obj) {
 
 $(function(){
 	getHTMLDate($("#top_time"));
-	getskincookie();
 	//layer.config({extend: 'extend/layer.ext.js'});
 	Huiasidedisplay();
 	var resizeID;
