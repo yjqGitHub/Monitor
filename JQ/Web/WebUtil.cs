@@ -111,7 +111,7 @@ namespace JQ.Web
         public static string GetAbsoluteUrl()
         {
             if (IsHaveHttpContext())
-                return System.Web.HttpContext.Current.Request.Url.LocalPath;
+                return System.Web.HttpContext.Current.Request.Url.Authority + System.Web.HttpContext.Current.Request.Url.AbsolutePath;
             return string.Empty;
         }
 

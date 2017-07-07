@@ -130,11 +130,8 @@ namespace Monitor.Web.Tool
         public static void SetCurrentUserToken(string token)
         {
             if (token.IsNullOrWhiteSpace()) return;
-            var userBytes = token.ToBytes();
-            var encodeBytes = DESProviderUtil.Encode(userBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
-            var userStr = encodeBytes.ToStr();
-            CookieHelper.SetCookie(_CURRENTUSER_COOKIEKEY, userStr);
-            string sign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
+            CookieHelper.SetCookie(_CURRENTUSER_COOKIEKEY, token);
+            string sign = (token + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
             CookieHelper.SetCookie(_CURRENTUSER_SIGN_COOKIEKEY, sign);
         }
 
@@ -149,9 +146,7 @@ namespace Monitor.Web.Tool
             string checkSign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
             if (sign.Equals(checkSign))
             {
-                var encodeUserBytes = userStr.ToBytes();
-                var userBytes = DESProviderUtil.Decode(encodeUserBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
-                return userBytes.ToStr();
+                return userStr;
             }
             return string.Empty;
         }
@@ -167,11 +162,8 @@ namespace Monitor.Web.Tool
         public static void SetSiteLocalToken(string token)
         {
             if (token.IsNullOrWhiteSpace()) return;
-            var userBytes = token.ToBytes();
-            var encodeBytes = DESProviderUtil.Encode(userBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
-            var userStr = encodeBytes.ToStr();
-            CookieHelper.SetCookie(_CURRENTUSER_LOCAL_COOKIEKEY, userStr);
-            string sign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
+            CookieHelper.SetCookie(_CURRENTUSER_LOCAL_COOKIEKEY, token);
+            string sign = (token + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
             CookieHelper.SetCookie(_CURRENTUSER_SIGN_LOCAL_COOKIEKEY, sign);
         }
 
@@ -186,9 +178,7 @@ namespace Monitor.Web.Tool
             string checkSign = (userStr + ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_SIGN_SALT)).ToMd5();
             if (sign.Equals(checkSign))
             {
-                var encodeUserBytes = userStr.ToBytes();
-                var userBytes = DESProviderUtil.Decode(encodeUserBytes, ConfigUtil.GetValue(_CONFIGKEY_CURRENTUSER_PROVIDERKEY));
-                return userBytes.ToStr();
+                return userStr;
             }
             return string.Empty;
         }

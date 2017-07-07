@@ -118,11 +118,10 @@
     <Compile Include="Serialization\NewtonsoftJson\NewtonsoftJsonSerializer.cs" />
     <Compile Include="Serialization\Protobuf\ProtobufBinarySerializer.cs" />
     <Compile Include="Serialization\Protobuf\ProtobufBinarySerializerConfigurationExtension.cs" />
-    <Compile Include="Statistics\CacheStatistic.cs" />
-    <Compile Include="Statistics\MethodStatistic.cs" />
-    <Compile Include="Statistics\NoSqlStatistic.cs" />
-    <Compile Include="Statistics\SqlStatistic.cs" />
+    <Compile Include="Statistics\RequestStatistic.cs" />
     <Compile Include="Statistics\StatisticsConfiguration.cs" />
+    <Compile Include="Statistics\TimeConsumerInfo.cs" />
+    <Compile Include="Statistics\TimeConsumerType.cs" />
     <Compile Include="SysConstants\ContentTypeConstant.cs" />
     <Compile Include="Utils\BufferQueue.cs" />
     <Compile Include="Utils\ConfigUtil.cs" />

@@ -1,5 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using JQ.Configurations;
 using JQ.Statistics;
 using System;
 
@@ -14,15 +13,16 @@ namespace JQ.Intercept
     /// </summary>
     public class CacheStatisticIntercept : IInterceptor
     {
-        private readonly MethodStatistic _methodStatistic;
-        public CacheStatisticIntercept(MethodStatistic methodStatistic)
+        private readonly RequestStatistic _methodStatistic;
+
+        public CacheStatisticIntercept(RequestStatistic methodStatistic)
         {
             _methodStatistic = methodStatistic;
         }
 
         public void Intercept(IInvocation invocation)
         {
-            CacheStatistic cacheStatistics = new CacheStatistic();
+            TimeConsumerInfo timeConsumerInfo = new TimeConsumerInfo();
             DateTime startTime = DateTime.Now;
             try
             {
@@ -30,15 +30,16 @@ namespace JQ.Intercept
             }
             catch (Exception ex)
             {
-                cacheStatistics.IsSuccess = false;
-                cacheStatistics.Remark = ex.Message;
+                timeConsumerInfo.IsSuccess = false;
+                timeConsumerInfo.Remark = ex.Message;
                 throw;
             }
             finally
             {
-                cacheStatistics.Millisecond = (DateTime.Now - startTime).TotalMilliseconds;
-                cacheStatistics.MemberName = $"{invocation.TargetType.FullName}-{invocation.Method.Name}";
-                _methodStatistic.AddCacheInfo(cacheStatistics);
+                timeConsumerInfo.Millisecond = (DateTime.Now - startTime).TotalMilliseconds;
+                timeConsumerInfo.MemberName = $"{invocation.TargetType.FullName}-{invocation.Method.Name}";
+                timeConsumerInfo.ComsumerType = TimeConsumerType.Cache;
+                _methodStatistic.AddConsumerInfo(timeConsumerInfo);
             }
         }
     }

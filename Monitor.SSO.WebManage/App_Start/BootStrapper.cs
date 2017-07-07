@@ -19,9 +19,10 @@ namespace Monitor.SSO.WebManage.App_Start
         public static void Install()
         {
             var builder = new ContainerBuilder();
-            WebStart.Install(builder, containerBuilder =>
+            WebStart.Install(builder, (containerBuilder, config) =>
             {
                 containerBuilder.RegisterControllers(typeof(MvcApplication).Assembly);
+                containerBuilder.RegisterFilterProvider();
                 var container = (ContainerManager.Current as AutofacObjectContainer).Container;
                 DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             });

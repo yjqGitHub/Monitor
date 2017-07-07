@@ -26,31 +26,31 @@ namespace Monitor.Web.Tool
         /// <summary>
         /// 启动
         /// </summary>
-        public static void Install(ContainerBuilder builder, Action<ContainerBuilder> selfRegisterAction)
+        public static void Install(ContainerBuilder builder, Action<ContainerBuilder, JQConfiguration> selfRegisterAction)
         {
             var repositoryAssembly = Assembly.Load("Monitor.Domain.Repository");
             var domainServiceAssembly = Assembly.Load("Monitor.Domain.DomainServer");
             var userApplicationAssembly = Assembly.Load("Monitor.UserApplication");
-            var cacheAssembly= Assembly.Load("Monitor.Cache");
+            var cacheAssembly = Assembly.Load("Monitor.Cache");
 
-            JQConfiguration.Install(
+            var config = JQConfiguration.Install(
                                     domainName: "Monitor",
                                     isStartConfigWatch: true,
                                     defaultLoggerName: "Monitor.Public.*"
                                     )
                             .UseDefaultConfig(builder)
-                            .UseMongoDb()
-                            .UseMQProtobufBinarySerializer()
-                            .UseMQJsonBinarySerializer()
                             .UseRabbitMQ()
                             .UseStackExchageRedis()
                             .UseMQLogger(() => MQLoggerUtil.GetMQLoggerConfig())
+                            .UseMongoDb()
+                            .UseMQProtobufBinarySerializer()
+                            .UseMQJsonBinarySerializer()
                             .RegisterAssemblyTypes(cacheAssembly, new Type[] { typeof(CacheStatisticIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Cache"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(repositoryAssembly, new Type[] { typeof(NoSqlStatisticIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Repository"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(domainServiceAssembly, m => m.Namespace != null && m.Name.EndsWith("DomainServer"), lifeStyle: LifeStyle.PerLifetimeScope)
                             .RegisterAssemblyTypes(userApplicationAssembly, new Type[] { typeof(BusinessDealIntercept) }, m => m.Namespace != null && m.Name.EndsWith("Application"), lifeStyle: LifeStyle.PerLifetimeScope)
                 ;
-            selfRegisterAction?.Invoke(builder);
+            selfRegisterAction?.Invoke(builder, config);
             ConfigWacherUtil.Install();
         }
 

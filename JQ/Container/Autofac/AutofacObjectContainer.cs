@@ -84,7 +84,7 @@ namespace JQ.Container.Autofac
             {
                 registrationBuilder.Named(serviceName, implementationType);
             }
-            registrationBuilder.SetLifeStyle(lifeStyle);
+            registrationBuilder.InterceptedBy(interceptTypeList).EnableInterfaceInterceptors().SetLifeStyle(lifeStyle);
             //UpdateContainer(builder);
         }
 

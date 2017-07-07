@@ -7,12 +7,14 @@ using Monitor.IUserApplication;
 using Monitor.SSO.WebManage.Models;
 using Monitor.Web.Tool;
 using Monitor.Web.Tool.Authority;
+using Monitor.Web.Tool.Filters;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Monitor.SSO.WebManage.Controllers
 {
+    [Monitor]
     public class AuthorityController : Controller
     {
         private readonly IWebSiteApplication _webSiteApplication;
@@ -51,8 +53,7 @@ namespace Monitor.SSO.WebManage.Controllers
                         }
                     }
                     ViewBag.SiteInfo = operateResult.Value;
-                    //ViewBag.BackUrl = backUrl.IsNullOrWhiteSpace() ? operateResult.Value.SiteDefaultBackUrl : backUrl;
-                    ViewBag.BackUrl = operateResult.Value.SiteDefaultBackUrl ?? "/Home/Index";
+                    ViewBag.BackUrl = backUrl.IsNullOrWhiteSpace() ? operateResult.Value.SiteDefaultBackUrl : backUrl;
                     return View();
                 }
             }

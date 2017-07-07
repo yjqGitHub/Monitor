@@ -1,12 +1,9 @@
 ﻿using Monitor.Web.Tool.Filters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Monitor.SSO.WebManage.Controllers
 {
+    [Monitor]
     [IsAuthority]
     public class HomeController : Controller
     {
@@ -14,13 +11,6 @@ namespace Monitor.SSO.WebManage.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-
-        [IsAuthority]
-        [HttpPost]
-        public ActionResult Test()
-        {
-            return null;
         }
     }
 }

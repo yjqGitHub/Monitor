@@ -10,11 +10,11 @@ namespace Monitor.SSO.WebManage
     {
         protected void Application_Start()
         {
+            BootStrapper.Install();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            BootStrapper.Install();
         }
 
         protected void Application_End(object sender, EventArgs e)

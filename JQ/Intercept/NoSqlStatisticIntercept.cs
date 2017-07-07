@@ -1,5 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using JQ.Configurations;
 using JQ.Statistics;
 using System;
 
@@ -14,14 +13,16 @@ namespace JQ.Intercept
     /// </summary>
     public sealed class NoSqlStatisticIntercept : IInterceptor
     {
-        private readonly MethodStatistic _methodStatistic;
-        public NoSqlStatisticIntercept(MethodStatistic methodStatistic)
+        private readonly RequestStatistic _methodStatistic;
+
+        public NoSqlStatisticIntercept(RequestStatistic methodStatistic)
         {
             _methodStatistic = methodStatistic;
         }
+
         public void Intercept(IInvocation invocation)
         {
-            NoSqlStatistic noSqlStatistics = new NoSqlStatistic();
+            TimeConsumerInfo timeConsumerInfo = new TimeConsumerInfo();
             DateTime startTime = DateTime.Now;
             try
             {
@@ -29,15 +30,16 @@ namespace JQ.Intercept
             }
             catch (Exception ex)
             {
-                noSqlStatistics.IsSuccess = false;
-                noSqlStatistics.Remark = ex.Message;
+                timeConsumerInfo.IsSuccess = false;
+                timeConsumerInfo.Remark = ex.Message;
                 throw;
             }
             finally
             {
-                noSqlStatistics.Millisecond = (DateTime.Now - startTime).TotalMilliseconds;
-                noSqlStatistics.MemberName = $"{invocation.TargetType.FullName}-{invocation.Method.Name}";
-                _methodStatistic.AddNoSqlInfo(noSqlStatistics);
+                timeConsumerInfo.Millisecond = (DateTime.Now - startTime).TotalMilliseconds;
+                timeConsumerInfo.MemberName = $"{invocation.TargetType.FullName}-{invocation.Method.Name}";
+                timeConsumerInfo.ComsumerType = TimeConsumerType.NoSql;
+                _methodStatistic.AddConsumerInfo(timeConsumerInfo);
             }
         }
     }

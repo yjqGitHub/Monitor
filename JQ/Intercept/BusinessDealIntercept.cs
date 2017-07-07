@@ -16,38 +16,38 @@ namespace JQ.Intercept
     /// </summary>
     public class BusinessDealIntercept : IInterceptor
     {
-        private readonly MethodStatistic _methodStatistic;
-        private DateTime _stratTime;
+        //private readonly RequestStatistic _methodStatistic;
+        //private DateTime _stratTime;
 
-        public BusinessDealIntercept(MethodStatistic methodStatistic)
+        public BusinessDealIntercept()
         {
-            _methodStatistic = methodStatistic;
-            _stratTime = DateTime.Now;
+            //_methodStatistic = methodStatistic;
+            //_stratTime = DateTime.Now;
         }
 
         public void Intercept(IInvocation invocation)
         {
+            string memberName = string.Concat(invocation.TargetType.FullName, "-", invocation.Method.Name);
             try
             {
                 invocation.Proceed();
             }
             catch (JQException ex)
             {
-                invocation.ReturnValue = OperateUtil.EmitCreate(invocation.Method.ReturnType, OperateState.ParamError, ex.Message); //OperateUtil.Exception(ex);
-                string message = $"{invocation.TargetType.FullName}-{invocation.Method.Name}:{ex.Message}";
+                invocation.ReturnValue = OperateUtil.EmitCreate(invocation.Method.ReturnType, OperateState.ParamError, ex.Message); 
+                string message = $"{memberName}:{ex.Message}";
                 LogUtil.Info(message);
             }
             catch (Exception ex)
             {
-                invocation.ReturnValue = OperateUtil.EmitCreate(invocation.Method.ReturnType, OperateState.Failed, "系统错误,请联系管理员"); //OperateUtil.Exception(ex);
-                LogUtil.Error(ex, memberName: $"{invocation.TargetType.FullName}-{invocation.Method.Name}");
+                invocation.ReturnValue = OperateUtil.EmitCreate(invocation.Method.ReturnType, OperateState.Failed, "系统错误,请联系管理员"); 
+                LogUtil.Error(ex, memberName: memberName);
             }
             finally
             {
-                _methodStatistic.MemberName = $"{invocation.TargetType.FullName}-{invocation.Method.Name}";
-                _methodStatistic.Url = WebUtil.GetHttpRequestUrl();
-                _methodStatistic.Millisecond = (DateTime.Now - _stratTime).TotalMilliseconds;
-                LogUtil.Info(_methodStatistic.ToString());
+                //_methodStatistic.RequestUrl = WebUtil.GetHttpRequestUrl();
+                //_methodStatistic.Millisecond = (DateTime.Now - _stratTime).TotalMilliseconds;
+                //LogUtil.Info(_methodStatistic.ToString());
             }
         }
     }

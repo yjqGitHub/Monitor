@@ -13,7 +13,7 @@ namespace Monitor.SSO.WebManage
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces:new string[] { "Monitor.SSO.WebManage.Controllers" }
+                namespaces: new string[] { "Monitor.SSO.WebManage.Controllers" }
             );
         }
     }

@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Authority\AuthorityCheckModel.cs" />
     <Compile Include="FilterContextExtension.cs" />
+    <Compile Include="Filters\MonitorAttribute.cs" />
     <Compile Include="Filters\IsAuthorityAttribute.cs" />
     <Compile Include="WebConstant\ConfigKeyConstant.cs" />
     <Compile Include="WebStart.cs" />

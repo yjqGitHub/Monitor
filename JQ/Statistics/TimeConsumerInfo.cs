@@ -1,13 +1,13 @@
 ﻿namespace JQ.Statistics
 {
     /// <summary>
-    /// Copyright (C) 2017 yjq 版权所有。
-    /// 类名：CacheStatistic.cs
+    /// Copyright (C) 2015 备胎 版权所有。
+    /// 类名：TimeConsumerInfo.cs
     /// 类属性：公共类（非静态）
-    /// 类功能描述：缓存统计
-    /// 创建标识：yjq 2017/7/6 22:33:19
+    /// 类功能描述：
+    /// 创建标识：yjq 2017/7/7 14:26:04
     /// </summary>
-    public class CacheStatistic
+    public class TimeConsumerInfo
     {
         /// <summary>
         /// 调用方法
@@ -18,6 +18,11 @@
         /// 消耗时间
         /// </summary>
         public double Millisecond { get; set; }
+
+        /// <summary>
+        /// 消耗类型
+        /// </summary>
+        public TimeConsumerType ComsumerType { get; set; }
 
         /// <summary>
         /// 是否成功

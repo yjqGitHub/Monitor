@@ -13,7 +13,7 @@ namespace JQ.Statistics
     {
         public static JQConfiguration UseStatistics(this JQConfiguration configuration)
         {
-            configuration.SetDefault(typeof(MethodStatistic), lifeStyle: Container.LifeStyle.PerLifetimeScope);
+            configuration.SetDefault(typeof(RequestStatistic), lifeStyle: Container.LifeStyle.PerLifetimeScope);
             return configuration;
         }
     }
