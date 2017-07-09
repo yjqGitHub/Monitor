@@ -49,7 +49,7 @@ namespace JQ.Web
         /// <param name="cookievalue"></param>
         public static void SetCookie(string cookiename, string cookievalue)
         {
-            SetCookie(cookiename, cookievalue, DateTime.Now.AddDays(1.0));
+            SetCookie(cookiename, cookievalue, expires: null);
         }
 
         /// <summary>
@@ -58,13 +58,16 @@ namespace JQ.Web
         /// <param name="cookiename">cookie名</param>
         /// <param name="cookievalue">cookie值</param>
         /// <param name="expires">过期时间 DateTime</param>
-        public static void SetCookie(string cookiename, string cookievalue, DateTime expires)
+        public static void SetCookie(string cookiename, string cookievalue, DateTime? expires)
         {
             HttpCookie cookie = new HttpCookie(cookiename)
             {
-                Value = cookievalue,
-                Expires = expires
+                Value = cookievalue
             };
+            if (expires != null)
+            {
+                cookie.Expires = expires.Value;
+            }
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
@@ -76,7 +79,7 @@ namespace JQ.Web
         /// <param name="domain">关联域</param>
         public static void SetCookie(string cookiename, string cookievalue, string domain)
         {
-            SetCookie(cookiename, cookievalue, DateTime.Now.AddDays(1.0), domain);
+            SetCookie(cookiename, cookievalue, null, domain);
         }
 
         /// <summary>
@@ -86,14 +89,17 @@ namespace JQ.Web
         /// <param name="cookievalue">cookie值</param>
         /// <param name="expires">过期时间 DateTime</param>
         /// <param name="domain">关联域</param>
-        public static void SetCookie(string cookiename, string cookievalue, DateTime expires, string domain)
+        public static void SetCookie(string cookiename, string cookievalue, DateTime? expires, string domain)
         {
             HttpCookie cookie = new HttpCookie(cookiename)
             {
                 Value = cookievalue,
-                Expires = expires,
                 Domain = domain
             };
+            if (expires != null)
+            {
+                cookie.Expires = expires.Value;
+            }
             HttpContext.Current.Response.Cookies.Add(cookie);
         }
     }

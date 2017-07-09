@@ -46,6 +46,11 @@ namespace Monitor.Domain.Model
         public string SiteTitle { get; set; }
 
         /// <summary>
+        /// 站点基础地址
+        /// </summary>
+        public string SiteHost { get; set; }
+
+        /// <summary>
         /// 站点图片
         /// </summary>
         public string SiteImageUrl { get; set; }

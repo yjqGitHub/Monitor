@@ -18,5 +18,12 @@ namespace Monitor.IUserApplication
         /// <param name="appId">要获取的AppId</param>
         /// <returns>站点信息</returns>
         OperateResult<WebSiteDto> GetSite(string appId);
+
+        /// <summary>
+        /// 获取站点列表
+        /// </summary>
+        /// <param name="queryWhere">查询条件</param>
+        /// <returns>站点列表</returns>
+        OperateResult<IPageResult<WebSiteQueryDto>> LoadWebSiteList(WebSiteQueryWhereDto queryWhere);
     }
 }

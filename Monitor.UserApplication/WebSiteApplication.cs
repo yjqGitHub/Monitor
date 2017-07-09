@@ -3,6 +3,12 @@ using Monitor.Domain.IRepository;
 using Monitor.IUserApplication;
 using Monitor.TransDto.WebSite;
 using JQ.ParamterValidate;
+using Monitor.ICache;
+using JQ.Extensions;
+using System.Linq.Expressions;
+using System;
+using Monitor.Domain.Model;
+using JQ.Utils;
 
 namespace Monitor.UserApplication
 {
@@ -16,10 +22,12 @@ namespace Monitor.UserApplication
     public class WebSiteApplication : IWebSiteApplication
     {
         private readonly IWebSiteRepository _webSiteRepository;
+        private readonly IWebSiteCache _webSiteCache;
 
-        public WebSiteApplication(IWebSiteRepository webSiteRepository)
+        public WebSiteApplication(IWebSiteRepository webSiteRepository, IWebSiteCache webSiteCache)
         {
             _webSiteRepository = webSiteRepository;
+            _webSiteCache = webSiteCache;
         }
 
         /// <summary>
@@ -42,6 +50,26 @@ namespace Monitor.UserApplication
                 WebSiteId = m.WebSiteId
             });
             return OperateUtil.Success(webSiteInfo);
+        }
+
+        public OperateResult<IPageResult<WebSiteQueryDto>> LoadWebSiteList(WebSiteQueryWhereDto queryWhere)
+        {
+            queryWhere.NotNull("查询条件不能为空");
+            Expression<Func<WebSiteQueryDto, bool>> expression = m => 1 == 1;
+            if (queryWhere.AppId.IsNotNullAndNotWhiteSpace())
+            {
+                expression.And(m => m.AppId == queryWhere.AppId);
+            }
+            if (queryWhere.SiteName.IsNotNullAndNotWhiteSpace())
+            {
+                expression.And(m => m.SiteName.Contains(queryWhere.SiteName));
+            }
+            if (queryWhere.State.IsNotNull())
+            {
+                expression.And(m => m.State == queryWhere.State);
+            };
+            var list = _webSiteCache.LoadWebSiteList(expression.Compile(), (m) => m.CreateTime, queryWhere.PageIndex, queryWhere.PageSize, false);
+            return OperateUtil.Success(list);
         }
     }
 }

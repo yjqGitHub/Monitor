@@ -1,9 +1,14 @@
 ﻿@charset "utf-8";
 /* 你自己的样式 */
+.noselect {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 /* 验证样式开始 */
-.tableTip
-{
+.tableTip {
     display: none;
     filter: alpha(opacity=90);
     overflow: hidden;
@@ -12,15 +17,14 @@
     empty-cells: hide;
     opacity: 0.9;
 }
-.leftImage
-{
+
+.leftImage {
     background: url("../images/x1.gif") no-repeat right top;
     width: 14px;
     height: 33px;
 }
 
-.contenImage
-{
+.contenImage {
     padding-right: 10px;
     font-size: 12px;
     background: url("../images/x2.gif") 50% top;
@@ -30,12 +34,13 @@
     font-family: Arial;
     height: 33px;
 }
-.rightImage
-{
+
+.rightImage {
     background: url("../images/x3.gif") no-repeat left top;
     width: 6px;
     height: 33px;
 }
+
 .validateError {
     background: #FFF7E3;
     border: 1px solid #CB8D5C;

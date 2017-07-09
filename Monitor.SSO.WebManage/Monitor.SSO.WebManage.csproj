@@ -125,6 +125,7 @@
     <Content Include="Content\Image\Site\sso_logo.png" />
     <Content Include="Content\jselect-1.0.js" />
     <Content Include="Content\JS\CommonJs\DialogJs.js" />
+    <Content Include="Content\JS\CommonJs\tableHeadFixer.js" />
     <Content Include="Content\JS\CommonJs\ToolJs.js" />
     <Content Include="Content\JS\CommonJs\Validator.js" />
     <Content Include="Content\JS\DomainJs\Account.js" />
@@ -360,6 +361,7 @@
     <Content Include="Content\static\h-ui\js\H-ui.min.js" />
     <Content Include="Content\swfobject.js" />
     <Content Include="Global.asax" />
+    <Content Include="favicon.ico" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -370,6 +372,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\WebSiteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -380,7 +383,7 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout_List.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Content\lib\Hui-iconfont\1.0.8\iconfont.eot" />
@@ -402,6 +405,7 @@
     <Content Include="Views\Authority\Index.cshtml" />
     <Content Include="Views\Shared\404.cshtml" />
     <Content Include="NLog.config" />
+    <Content Include="Views\WebSite\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

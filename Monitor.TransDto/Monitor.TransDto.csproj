@@ -45,8 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminDto.cs" />
+    <Compile Include="BasePageQueryWhereDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebSite\WebSiteDto.cs" />
+    <Compile Include="WebSite\WebSiteQueryDto.cs" />
+    <Compile Include="WebSite\WebSiteQueryWhereDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">

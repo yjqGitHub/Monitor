@@ -83,6 +83,7 @@
     <Compile Include="Extensions\DictionaryExtension.cs" />
     <Compile Include="Extensions\EncryptExtension.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
+    <Compile Include="Extensions\ExpressionExtension.cs" />
     <Compile Include="Extensions\FilePathExtension.cs" />
     <Compile Include="Extensions\IEnumerableExtension.cs" />
     <Compile Include="Extensions\JsonSerializeExtention.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Result\Operate\OperateResult.cs" />
     <Compile Include="Result\Operate\OperateState.cs" />
     <Compile Include="Result\Page\PageResult.cs" />
+    <Compile Include="Result\Page\PageResultExtension.cs" />
     <Compile Include="Serialization\DefaultBinary\DefaultBinarySerializer.cs" />
     <Compile Include="Serialization\DefaultBinary\DefaultBinarySerializerConfigurationExtension.cs" />
     <Compile Include="Serialization\IBinarySerializer.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="Utils\EmailUtil.cs" />
     <Compile Include="Utils\EnsureUtil.cs" />
     <Compile Include="Utils\ExceptionUtil.cs" />
+    <Compile Include="Utils\ExpressionUtil.cs" />
     <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="Utils\FileWatchUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />

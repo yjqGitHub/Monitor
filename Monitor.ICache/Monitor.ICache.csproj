@@ -41,9 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAuthorityCache.cs" />
+    <Compile Include="IWebSiteCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JQ\JQ.csproj">
+      <Project>{4F5AAC66-E256-4D06-8BDF-8782F5FA687A}</Project>
+      <Name>JQ</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Monitor.TransDto\Monitor.TransDto.csproj">
       <Project>{CCDAB82D-E670-4C09-A3DE-E578F5A7B720}</Project>
       <Name>Monitor.TransDto</Name>

@@ -30,6 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,8 +43,13 @@
   <ItemGroup>
     <Compile Include="AuthorityCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebSiteCache.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JQ.MongoDb\JQ.MongoDb.csproj">
+      <Project>{a710b969-f6d3-4c1e-b3f9-5d9c82cc56f0}</Project>
+      <Name>JQ.MongoDb</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JQ.Redis\JQ.Redis.csproj">
       <Project>{02ebe948-6720-4126-81b6-d8b6fa962dd0}</Project>
       <Name>JQ.Redis</Name>
@@ -51,6 +57,10 @@
     <ProjectReference Include="..\JQ\JQ.csproj">
       <Project>{4f5aac66-e256-4d06-8bdf-8782f5fa687a}</Project>
       <Name>JQ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Monitor.Domain.IRepository\Monitor.Domain.IRepository.csproj">
+      <Project>{31E20CB0-218C-4CB2-B6A0-4EC335BD3A28}</Project>
+      <Name>Monitor.Domain.IRepository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Monitor.Domain\Monitor.Domain.csproj">
       <Project>{c4727257-ead3-4725-b43b-0ce9e54da3db}</Project>
