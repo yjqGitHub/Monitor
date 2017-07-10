@@ -1,0 +1,66 @@
+﻿@model WebSiteModel
+
+<form action="" method="post" class="form form-horizontal" id="demoform-1">
+    <div class="row cl">
+        <div class="col-xs-6 col-sm-6">
+            <label class="form-label col-xs-4 col-sm-3">AppId：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                @Html.TextBoxFor(m => m.AppId,new { @class = "input-text", placeholder = "AppId" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <label class="form-label col-xs-4 col-sm-3">密钥：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                @Html.TextBoxFor(m => m.AppSecret, new { @class = "input-text", placeholder = "密钥" })
+            </div>
+        </div>
+    </div>
+    <div class="row cl">
+        <div class="col-xs-6 col-sm-6">
+            <label class="form-label col-xs-4 col-sm-3">名字：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                @Html.TextBoxFor(m => m.SiteName, new { @class = "input-text", placeholder = "名字" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <label class="form-label col-xs-4 col-sm-3">标题：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                @Html.TextBoxFor(m => m.SiteTitle, new { @class = "input-text", placeholder = "标题" })
+            </div>
+        </div>
+    </div>
+    <div class="row cl">
+        <div class="col-xs-6 col-sm-6">
+            <label class="form-label col-xs-4 col-sm-3">基础地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                @Html.TextBoxFor(m => m.SiteHost, new { @class = "input-text", placeholder = "基础地址" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <label class="form-label col-xs-4 col-sm-3">状态：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                @Html.TextBoxFor(m => m.State, new { @class = "input-text", placeholder = "状态" })
+            </div>
+        </div>
+    </div>
+    <div class="row cl">
+        <div class="col-xs-6 col-sm-6">
+            <label class="form-label col-xs-4 col-sm-3">默认返回地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                @Html.TextBoxFor(m => m.SiteDefaultBackUrl, new { @class = "input-text", placeholder = "默认返回地址" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <label class="form-label col-xs-4 col-sm-3">图片：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                @Html.TextBoxFor(m => m.SiteImageUrl, new { @class = "input-text", placeholder = "图片" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row cl">
+        <div class="text-c">
+            <input class="btn btn-primary radius" type="submit" value="提交">
+        </div>
+    </div>
+</form>

@@ -81,6 +81,7 @@
     <Compile Include="FilterContextExtension.cs" />
     <Compile Include="Filters\MonitorAttribute.cs" />
     <Compile Include="Filters\IsAuthorityAttribute.cs" />
+    <Compile Include="SelectItems\PageSizeSelectItem.cs" />
     <Compile Include="WebConstant\ConfigKeyConstant.cs" />
     <Compile Include="WebStart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

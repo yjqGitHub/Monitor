@@ -52,21 +52,26 @@ namespace Monitor.UserApplication
             return OperateUtil.Success(webSiteInfo);
         }
 
+        /// <summary>
+        /// 获取站点列表
+        /// </summary>
+        /// <param name="queryWhere">查询条件</param>
+        /// <returns>站点列表</returns>
         public OperateResult<IPageResult<WebSiteQueryDto>> LoadWebSiteList(WebSiteQueryWhereDto queryWhere)
         {
             queryWhere.NotNull("查询条件不能为空");
             Expression<Func<WebSiteQueryDto, bool>> expression = m => 1 == 1;
             if (queryWhere.AppId.IsNotNullAndNotWhiteSpace())
             {
-                expression.And(m => m.AppId == queryWhere.AppId);
+                expression = expression.And(m => m.AppId == queryWhere.AppId);
             }
             if (queryWhere.SiteName.IsNotNullAndNotWhiteSpace())
             {
-                expression.And(m => m.SiteName.Contains(queryWhere.SiteName));
+                expression = expression.And(m => m.SiteName.Contains(queryWhere.SiteName));
             }
             if (queryWhere.State.IsNotNull())
             {
-                expression.And(m => m.State == queryWhere.State);
+                expression = expression.And(m => m.State == queryWhere.State);
             };
             var list = _webSiteCache.LoadWebSiteList(expression.Compile(), (m) => m.CreateTime, queryWhere.PageIndex, queryWhere.PageSize, false);
             return OperateUtil.Success(list);

@@ -9,7 +9,7 @@ namespace JQ.Result
     /// 类功能描述：IPageResult
     /// 创建标识：yjq 2017/6/18 11:20:28
     /// </summary>
-    public interface IPageResult<T> : IEnumerable<T> where T : new()
+    public interface IPageResult
     {
         /// <summary>
         /// 总数量
@@ -30,5 +30,23 @@ namespace JQ.Result
         /// 页长
         /// </summary>
         int PageSize { get; }
+
+        /// <summary>
+        /// 当前最小位置
+        /// </summary>
+        int CurrentMinPosition { get; }
+
+        /// <summary>
+        /// 当前最大位置
+        /// </summary>
+        int CurrentMaxPosition { get; }
+    }
+
+    /// <summary>
+    /// 分页结果
+    /// </summary>
+    /// <typeparam name="T">数据类型</typeparam>
+    public interface IPageResult<T> : IPageResult, IEnumerable<T> where T : new()
+    {
     }
 }

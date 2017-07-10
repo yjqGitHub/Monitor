@@ -14,9 +14,15 @@
     <![endif]-->
     @Styles.Render("~/ListLayout/css")
     <style type="text/css">
-        html,body{
-            height:100%;
+        html, body {
+            height: 100%;
             /*overflow:hidden;*/
+        }
+
+        .search {
+            background-color: #F3F3F3;
+            line-height: 34px;
+            padding: 5px 5px 5px 5px;
         }
     </style>
     <!--[if IE 6]>
@@ -35,12 +41,21 @@
             ResetPageList();
             InitDailog(".Dialog");
         })
-
+        $('.page-container-footer .dataTables_paginate a:not(:disabled)').on('click', function () {
+            ShowLoading();
+        });
+        $('#SearchForm').submit(function () {
+            ShowLoading();
+        })
+        //分页切换
+        $("#PageSize").change(function () {
+            $("#SearchForm").submit();
+        })
         $(window).resize(function () {
             ResetPageList();
         });
         function ResetPageList() {
-            $('.page-container-list').height($('body').height() - $('.breadcrumb').outerHeight(true) - $('.page-container-footer').outerHeight(true));
+            $('.page-container-list').height($('body').height() - $('.breadcrumb').outerHeight(true) - $('.search').outerHeight(true) - $('.page-container-footer').outerHeight(true));
             if ($("#table-head-fixer")) {
                 $("#table-head-fixer").tableHeadFixer();
             }

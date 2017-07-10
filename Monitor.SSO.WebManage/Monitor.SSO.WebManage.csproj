@@ -362,7 +362,9 @@
     <Content Include="Content\swfobject.js" />
     <Content Include="Global.asax" />
     <Content Include="favicon.ico" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BootStrapper.cs" />
@@ -377,6 +379,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Authority\AuthoryModel.cs" />
+    <Compile Include="Models\WebSite\WebSiteModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +409,11 @@
     <Content Include="Views\Shared\404.cshtml" />
     <Content Include="NLog.config" />
     <Content Include="Views\WebSite\Index.cshtml" />
+    <Content Include="Views\WebSite\_Partial_Search.cshtml" />
+    <Content Include="Views\Shared\_Partial_Pager.cshtml" />
+    <Content Include="Views\WebSite\Add.cshtml" />
+    <Content Include="Views\Shared\_Layout_Edit.cshtml" />
+    <Content Include="Views\WebSite\_Partial_EditInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

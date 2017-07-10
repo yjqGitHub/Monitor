@@ -1,0 +1,13 @@
+﻿@using JQ.Web.Tool
+@using JQ.Result
+@using Monitor.Web.Tool.SelectItems
+@model IPageResult
+<div class="page-container-footer dataTables_wrapper noselect" style="height:45px;">
+    <div class="l dataTables_info ml-20" style="line-height:35px;">
+        <span>
+            @((Model.CurrentMinPosition.ToString()))到@(Model.CurrentMaxPosition.ToString())条，每页
+            @Html.DropDownList("PageSize", SelectItemHelper.GetPageSizeListItem(), new { @style = "width:60px;" })条,共@(Model.TotalCount.ToString())条
+        </span>
+    </div>
+    @Html.SelfPager(Model)
+</div>

@@ -1,4 +1,5 @@
 ﻿using Monitor.IUserApplication;
+using Monitor.SSO.WebManage.Models;
 using Monitor.TransDto.WebSite;
 using Monitor.Web.Tool.Filters;
 using System;
@@ -26,7 +27,13 @@ namespace Monitor.SSO.WebManage.Controllers
             {
                 ModelState.AddModelError("Error", operateResult.Message);
             }
+            ViewBag.SearchInfo = queryWhere;
             return View(operateResult.Value);
+        }
+
+        public ActionResult Add()
+        {
+            return View(new WebSiteModel());
         }
     }
 }

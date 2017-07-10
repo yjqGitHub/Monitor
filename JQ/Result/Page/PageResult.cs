@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JQ.Result
 {
@@ -92,6 +93,28 @@ namespace JQ.Result
             get
             {
                 return _pageSize;
+            }
+        }
+
+        /// <summary>
+        /// 当前最小位置
+        /// </summary>
+        public int CurrentMinPosition
+        {
+            get
+            {
+                return (PageIndex - 1) * PageSize + 1;
+            }
+        }
+
+        /// <summary>
+        /// 当前最大位置
+        /// </summary>
+        public int CurrentMaxPosition
+        {
+            get
+            {
+                return (PageIndex - 1) * PageSize + Data.Count();
             }
         }
 

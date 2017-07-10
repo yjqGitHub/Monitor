@@ -1,0 +1,9 @@
+﻿@using Monitor.TransDto.WebSite
+@model WebSiteQueryWhereDto
+
+<div class="search">
+    <span class="mr-10">AppId:@Html.TextBoxFor(m=>m.AppId,new { @class="input-text" ,@style="width:150px", @placeholder="输入AppId"})</span>
+    <span class="mr-10">站点名字:@Html.TextBoxFor(m => m.SiteName, new { @class = "input-text", @style = "width:150px", @placeholder = "输入站点名字" })</span>
+    <span class="mr-10">站点状态:@Html.TextBoxFor(m => m.State, new { @class = "input-text", @style = "width:150px", @placeholder = "输入站点状态" })</span>
+    <span class="r mr-10"><button type="submit" class="btn btn-success radius"><i class="Hui-iconfont"></i> 搜索</button></span>
+</div>

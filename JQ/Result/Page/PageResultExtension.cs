@@ -26,7 +26,7 @@ namespace JQ.Result
             pageIndex = pageIndex <= 0 ? 1 : pageIndex;
             pageSize = pageSize < 0 ? 1 : pageSize;
             int totalCount = data == null ? 0 : data.Count();
-            return new PageResult<T>(pageIndex, pageSize, totalCount, data?.Skip(pageIndex * pageSize).Take(pageSize), maxPageCount: maxPage);
+            return new PageResult<T>(pageIndex, pageSize, totalCount, data?.Skip((pageIndex - 1) * pageSize).Take(pageSize), maxPageCount: maxPage);
         }
     }
 }
