@@ -36,9 +36,9 @@ namespace JQ.MQ.Logger
         Error = 4,
 
         /// <summary>
-        ///验证错误日志
+        ///严重错误日志
         /// </summary>
-        [Description("验证错误日志")]
+        [Description("严重错误日志")]
         Fatal = 5
     }
 }
